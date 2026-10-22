@@ -1,0 +1,13 @@
+/* BottomAppBar token defaults.
+ *
+ * Generated from bottom-app-bar.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-bottom-app-bar-container-color, var(--md-sys-color-surface-container));
+    --_container-elevation: var(--md-comp-bottom-app-bar-container-elevation, var(--md-sys-elevation-level2));
+    --_container-height: var(--md-comp-bottom-app-bar-container-height, 80px);
+    --_container-shape: var(--md-comp-bottom-app-bar-container-shape, 0px);
+  }
+}

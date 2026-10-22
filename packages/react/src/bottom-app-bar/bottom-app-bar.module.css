@@ -1,0 +1,44 @@
+/*
+ * A bottom app bar: icon actions at the start and an optional FAB at the end, in an 80px bar.
+ * Colours, size and shadow come from bottom-app-bar.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: var(--_container-height);
+    padding-inline: 4px 16px;
+    gap: 8px;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .root[data-sticky] {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 1;
+  }
+
+  .actions {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 0;
+  }
+
+  .fab {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border-block-start: 1px solid CanvasText;
+    }
+  }
+}

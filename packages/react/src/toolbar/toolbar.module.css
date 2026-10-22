@@ -1,0 +1,74 @@
+/*
+ * A toolbar is a row (or, floating, a column) of controls. It gives the IconButtons inside it its
+ * scheme's colours through Material's public override variables, which any ancestor may set, so
+ * they keep their own tokens, states and shapes. Colours, sizes and shapes come from
+ * toolbar.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    /* What the controls inside read: the scheme's icon and state layer colours. */
+    --md-comp-icon-button-standard-icon-color: var(--_icon-color);
+    --md-comp-icon-button-standard-hovered-state-layer-color: var(--_state-layer-color);
+    --md-comp-icon-button-standard-unselected-icon-color: var(--_icon-color);
+    --md-comp-icon-button-standard-unselected-hovered-state-layer-color: var(--_state-layer-color);
+    --md-comp-icon-button-standard-selected-icon-color: var(--_selected-icon-color);
+    --md-comp-icon-button-standard-selected-hovered-state-layer-color: var(
+      --_selected-state-layer-color
+    );
+
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: var(--_container-color);
+    color: var(--_icon-color);
+  }
+
+  /* Docked: a full-width bar. */
+  .root[data-variant='docked'] {
+    justify-content: center;
+    min-block-size: var(--_docked-height);
+    padding-inline: var(--_docked-leading-space) var(--_docked-trailing-space);
+    gap: var(--_docked-min-spacing);
+    border-radius: var(--_docked-shape);
+  }
+
+  /* Floating: a pill with a shadow. */
+  .root[data-variant='floating'] {
+    inline-size: fit-content;
+    min-block-size: var(--_floating-height);
+    padding-inline: var(--_floating-leading-space) var(--_floating-trailing-space);
+    gap: var(--_floating-gap);
+    border-radius: var(--_floating-shape);
+    box-shadow: var(--_floating-elevation);
+  }
+
+  .root[data-variant='floating'][data-orientation='vertical'] {
+    flex-direction: column;
+    min-block-size: 0;
+    min-inline-size: var(--_floating-width);
+    padding-block: var(--_floating-leading-space) var(--_floating-trailing-space);
+    padding-inline: 0;
+  }
+
+  /* A toggled IconButton gets the scheme's selected container, whatever its variant. */
+  .root :is(button, a)[data-selected] {
+    background-color: var(--_selected-container-color);
+  }
+
+  /* A floating toolbar can have a FAB beside it. */
+  .group {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_fab-gap);
+  }
+
+  .group[data-orientation='vertical'] {
+    flex-direction: column;
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+    }
+  }
+}

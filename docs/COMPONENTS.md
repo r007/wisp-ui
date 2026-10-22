@@ -12,6 +12,7 @@ them to components, the Flutter widget to read, and the archetype to copy from
 | Component                 | Tokens (`md.comp.*`)                                                   | Notes                                                                                                                                                 |
 | ------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ✅ **Banner**             | `banner`                                                               | Persistent message, optional icon and two actions; folds away rather than unmounting                                                                  |
+| ✅ **BottomAppBar**       | `bottom-app-bar`                                                       | 80px bar: icon actions at the start, an optional FAB at the end; sticky                                                                               |
 | ✅ **Button**             | `button` (358 tokens)                                                  | Elevated, filled, tonal, outlined, text; 5 sizes; round/square; toggle with shape morph; link; `render`                                               |
 | ✅ **ButtonGroup**        | `button-group`                                                         | Standard (spaced by size) and connected (2px apart, shared corners); sizes its Buttons through a context                                              |
 | ✅ **Card**               | `elevated-card`, `filled-card`, `outlined-card`                        | A container until it has `onClick`/`href`; then hover, focus, press; dragged; disabled                                                                |
@@ -30,12 +31,14 @@ them to components, the Flutter widget to read, and the archetype to copy from
 | ✅ **Progress**           | `progress-indicator`                                                   | `LinearProgress` and `CircularProgress`; determinate/indeterminate; flat and wavy; the Expressive gap and stop dot                                    |
 | ✅ **Radio / RadioGroup** | `radio-button`                                                         | Native input; the group owns the value and a shared `name`                                                                                            |
 | ✅ **SegmentedButton**    | `outlined-segmented-button`                                            | Native radios (single) or checkboxes (multiple); a selected segment folds in a check                                                                  |
+| ✅ **Sheet**              | `sheet`, `drag-handle`                                                 | Modal bottom and side sheets on native `<dialog>` (`useModalDialog`); drag handle; swipe to dismiss                                                   |
 | ✅ **Slider**             | `slider`                                                               | Native range input over the Expressive visuals; 5 sizes; handle pill, stop dot, value bubble, icon. Single value (no range slider yet)                |
 | ✅ **Snackbar**           | `snackbar`                                                             | Top-layer popover; auto-dismiss that pauses on hover/focus; `SnackbarProvider` + `useSnackbar` queue                                                  |
 | ✅ **SplitButton**        | `split-button`                                                         | An action plus a chevron that opens a Menu; built from two Buttons in a connected group                                                               |
 | ✅ **Switch**             | `switch`                                                               | Native `<input role="switch">`; optional icons; spring handle; RTL                                                                                    |
 | ✅ **Tabs**               | `primary-navigation-tab`, `secondary-navigation-tab`                   | `Tabs`, `TabList`, `Tab`, `TabPanel`; sliding measured indicator; roving focus; automatic or manual activation; scrollable                            |
 | ✅ **TextField**          | `filled-text-field`, `outlined-text-field`                             | Native input/textarea; the label floats with CSS alone; outlined notch; supporting/error text, counter, icons, prefix/suffix                          |
+| ✅ **Toolbar**            | `toolbar`                                                              | Docked bar or floating pill (horizontal or vertical), standard and vibrant; WAI-ARIA toolbar pattern (one tab stop, arrow keys); optional FAB         |
 | ✅ **Tooltip**            | `plain-tooltip`, `rich-tooltip`                                        | Popover on CSS anchor positioning; hover delay, keyboard focus, Escape; rich tooltips stay open under the pointer                                     |
 | ✅ **TopAppBar**          | `app-bar`                                                              | Small, medium, large (Expressive flexible heights), subtitle, collapse on scroll, sticky                                                              |
 
@@ -45,10 +48,7 @@ Ordered by how much of the remaining set each unlocks.
 
 | Component              | Tokens                                                   | Flutter widget                     | Archetype           | Unlocks / notes                                           |
 | ---------------------- | -------------------------------------------------------- | ---------------------------------- | ------------------- | --------------------------------------------------------- |
-| ⬜ Sheets              | `sheet`, `drag-handle`                                   | `BottomSheet`                      | overlay (dialog)    | bottom, side and floating; reuse `useModalDialog`         |
 | ⬜ Search              | `search-bar`, `search-view`                              | `SearchBar`, `SearchAnchor`        | composite + overlay | text field + list + popover                               |
-| ⬜ Toolbar             | `toolbar`                                                | none yet                           | composite           | Expressive; floating and docked                           |
-| ⬜ Bottom app bar      | `bottom-app-bar`                                         | `BottomAppBar`                     | layout              |                                                           |
 | ⬜ Carousel            | `carousel-item`                                          | `CarouselView`                     | scroll-snap         | multi-browse, hero, uncontained                           |
 | ⬜ Loading indicator   | `loading-indicator`                                      | `CircularProgressIndicator`        | SVG                 | needs the **Material Shapes** morphing foundation         |
 | ⬜ FAB menu            | `fab-menu`                                               | none yet                           | composite + overlay | a FAB that expands into a menu                            |
@@ -88,7 +88,7 @@ handle pill · flexible app bars · connected button groups · the Standard/Expr
 motion switch.
 
 Not yet used: `MaterialShapes` morphing, emphasised type scale (tokens exist), loading
-indicator, FAB menu, toolbars, grouped menus.
+indicator, FAB menu, grouped menus.
 
 ## Browser support
 

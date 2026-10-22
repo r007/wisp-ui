@@ -1,6 +1,7 @@
 export * from './app-bar/index.js';
 export * from './badge/index.js';
 export * from './banner/index.js';
+export * from './bottom-app-bar/index.js';
 export * from './button/index.js';
 export * from './button-group/index.js';
 export * from './card/index.js';
@@ -25,4 +26,5 @@ export * from './split-button/index.js';
 export * from './switch/index.js';
 export * from './tabs/index.js';
 export * from './text-field/index.js';
+export * from './toolbar/index.js';
 export * from './tooltip/index.js';
