@@ -1,0 +1,42 @@
+/*
+ * A split button is a connected group of two Buttons: the action, and a chevron that opens a
+ * menu. The Buttons draw their own corners from the variables in
+ * split-button.tokens.generated.module.css; this only lays them out, fits their padding to the
+ * split spacing, and turns the chevron while the menu is open.
+ */
+@layer wisp {
+  .root {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_between-space);
+    max-inline-size: 100%;
+    vertical-align: middle;
+  }
+
+  /* The action's padding, and the chevron button's, are narrower than a lone button's. */
+  .root [data-split='action'] {
+    --_leading-space: var(--_action-leading-space);
+    --_trailing-space: var(--_action-trailing-space);
+  }
+
+  .root [data-split='menu'] {
+    --_leading-space: var(--_menu-leading-space);
+    --_trailing-space: var(--_menu-trailing-space);
+    --_icon-size: var(--_menu-icon-size);
+  }
+
+  .chevron {
+    display: inline-flex;
+    transition: rotate var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .root [aria-expanded='true'] .chevron {
+    rotate: 180deg;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chevron {
+      transition: none;
+    }
+  }
+}

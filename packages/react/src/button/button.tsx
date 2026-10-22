@@ -114,7 +114,9 @@ export function Button(props: ButtonProps) {
               {icon}
             </span>
           ) : null}
-          <span>{children}</span>
+          {children !== undefined && children !== null && children !== false ? (
+            <span>{children}</span>
+          ) : null}
           {trailingIcon ? (
             <span className={styles.icon} aria-hidden="true">
               {trailingIcon}

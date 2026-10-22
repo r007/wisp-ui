@@ -48,8 +48,8 @@ export const Playground: Story = {
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Options' }));
     const edit = await within(document.body).findByRole('menuitem', { name: 'Edit' });
-    // It fades in, so wait for it to be seen.
-    await waitFor(() => expect(edit).toBeVisible());
+    // It fades in, which needs painted frames: allow for a busy machine running many pages.
+    await waitFor(() => expect(edit).toBeVisible(), { timeout: 5000 });
   },
 };
 

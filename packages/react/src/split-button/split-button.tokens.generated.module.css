@@ -1,0 +1,76 @@
+/* SplitButton token defaults.
+ *
+ * Generated from split-button.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .size-xsmall {
+    --_height: var(--md-comp-split-button-xsmall-container-height, 32px);
+    --_between-space: var(--md-comp-split-button-xsmall-between-space, 2px);
+    --_inner: var(--md-comp-split-button-xsmall-inner-corner-corner-size, 4px);
+    --_hover-inner: var(--md-comp-split-button-xsmall-inner-corner-hovered-corner-size, 8px);
+    --_pressed-inner: var(--md-comp-split-button-xsmall-inner-corner-pressed-corner-size, 8px);
+    --_outer: var(--md-comp-split-button-xsmall-container-shape, calc(var(--_height) / 2));
+    --_action-leading-space: var(--md-comp-split-button-xsmall-leading-button-leading-space, 12px);
+    --_action-trailing-space: var(--md-comp-split-button-xsmall-leading-button-trailing-space, 10px);
+    --_menu-leading-space: var(--md-comp-split-button-xsmall-trailing-button-leading-space, 13px);
+    --_menu-trailing-space: var(--md-comp-split-button-xsmall-trailing-button-trailing-space, 13px);
+    --_menu-icon-size: var(--md-comp-split-button-xsmall-trailing-button-icon-size, 22px);
+  }
+
+  .size-small {
+    --_height: var(--md-comp-split-button-small-container-height, 40px);
+    --_between-space: var(--md-comp-split-button-small-between-space, 2px);
+    --_inner: var(--md-comp-split-button-small-inner-corner-corner-size, 4px);
+    --_hover-inner: var(--md-comp-split-button-small-inner-corner-hovered-corner-size, 12px);
+    --_pressed-inner: var(--md-comp-split-button-small-inner-corner-pressed-corner-size, 12px);
+    --_outer: var(--md-comp-split-button-small-container-shape, calc(var(--_height) / 2));
+    --_action-leading-space: var(--md-comp-split-button-small-leading-button-leading-space, 16px);
+    --_action-trailing-space: var(--md-comp-split-button-small-leading-button-trailing-space, 12px);
+    --_menu-leading-space: var(--md-comp-split-button-small-trailing-button-leading-space, 13px);
+    --_menu-trailing-space: var(--md-comp-split-button-small-trailing-button-trailing-space, 13px);
+    --_menu-icon-size: var(--md-comp-split-button-small-trailing-button-icon-size, 22px);
+  }
+
+  .size-medium {
+    --_height: var(--md-comp-split-button-medium-container-height, 56px);
+    --_between-space: var(--md-comp-split-button-medium-between-space, 2px);
+    --_inner: var(--md-comp-split-button-medium-inner-corner-corner-size, 4px);
+    --_hover-inner: var(--md-comp-split-button-medium-inner-corner-hovered-corner-size, 12px);
+    --_pressed-inner: var(--md-comp-split-button-medium-inner-corner-pressed-corner-size, 12px);
+    --_outer: var(--md-comp-split-button-medium-container-shape, calc(var(--_height) / 2));
+    --_action-leading-space: var(--md-comp-split-button-medium-leading-button-leading-space, 24px);
+    --_action-trailing-space: var(--md-comp-split-button-medium-leading-button-trailing-space, 24px);
+    --_menu-leading-space: var(--md-comp-split-button-medium-trailing-button-leading-space, 15px);
+    --_menu-trailing-space: var(--md-comp-split-button-medium-trailing-button-trailing-space, 15px);
+    --_menu-icon-size: var(--md-comp-split-button-medium-trailing-button-icon-size, 26px);
+  }
+
+  .size-large {
+    --_height: var(--md-comp-split-button-large-container-height, 96px);
+    --_between-space: var(--md-comp-split-button-large-between-space, 2px);
+    --_inner: var(--md-comp-split-button-large-inner-corner-corner-size, 8px);
+    --_hover-inner: var(--md-comp-split-button-large-inner-corner-hovered-corner-size, 20px);
+    --_pressed-inner: var(--md-comp-split-button-large-inner-corner-pressed-corner-size, 20px);
+    --_outer: var(--md-comp-split-button-large-container-shape, calc(var(--_height) / 2));
+    --_action-leading-space: var(--md-comp-split-button-large-leading-button-leading-space, 48px);
+    --_action-trailing-space: var(--md-comp-split-button-large-leading-button-trailing-space, 48px);
+    --_menu-leading-space: var(--md-comp-split-button-large-trailing-button-leading-space, 29px);
+    --_menu-trailing-space: var(--md-comp-split-button-large-trailing-button-trailing-space, 29px);
+    --_menu-icon-size: var(--md-comp-split-button-large-trailing-button-icon-size, 38px);
+  }
+
+  .size-xlarge {
+    --_height: var(--md-comp-split-button-xlarge-container-height, 136px);
+    --_between-space: var(--md-comp-split-button-xlarge-between-space, 2px);
+    --_inner: var(--md-comp-split-button-xlarge-inner-corner-corner-size, 12px);
+    --_hover-inner: var(--md-comp-split-button-xlarge-inner-corner-hovered-corner-size, 20px);
+    --_pressed-inner: var(--md-comp-split-button-xlarge-inner-corner-pressed-corner-size, 20px);
+    --_outer: var(--md-comp-split-button-xlarge-container-shape, calc(var(--_height) / 2));
+    --_action-leading-space: var(--md-comp-split-button-xlarge-leading-button-leading-space, 64px);
+    --_action-trailing-space: var(--md-comp-split-button-xlarge-leading-button-trailing-space, 64px);
+    --_menu-leading-space: var(--md-comp-split-button-xlarge-trailing-button-leading-space, 43px);
+    --_menu-trailing-space: var(--md-comp-split-button-xlarge-trailing-button-trailing-space, 43px);
+    --_menu-icon-size: var(--md-comp-split-button-xlarge-trailing-button-icon-size, 50px);
+  }
+}

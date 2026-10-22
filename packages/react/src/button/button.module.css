@@ -76,7 +76,8 @@
   /*
    * In a connected button group the corners where buttons touch are small, round further while
    * pressed, and round fully when selected. The ends of the group are fully round. The group
-   * supplies --_inner, --_pressed-inner and --_outer (see button-group.tokens.ts).
+   * supplies --_inner, --_pressed-inner and --_outer (see button-group.tokens.ts). A button followed
+   * by a popover (a menu trigger) is still the last button of its group.
    */
   .root[data-connected] {
     border-radius: var(--_inner);
@@ -87,7 +88,7 @@
     border-end-start-radius: var(--_outer);
   }
 
-  .root[data-connected]:last-child {
+  .root[data-connected]:is(:last-child, :has(+ [popover])) {
     border-start-end-radius: var(--_outer);
     border-end-end-radius: var(--_outer);
   }
@@ -100,12 +101,55 @@
     border-radius: var(--_pressed-inner);
   }
 
+  /* Hover opens the touching corners up (a split button); a selected or open one stays round. */
+  @media (hover: hover) {
+    .root[data-connected]:hover:not(
+        :active,
+        :disabled,
+        [aria-disabled='true'],
+        [data-selected],
+        [aria-expanded='true']
+      ) {
+      border-radius: var(--_hover-inner);
+    }
+
+    .root[data-connected]:first-child:hover:not(
+        :active,
+        :disabled,
+        [aria-disabled='true'],
+        [data-selected],
+        [aria-expanded='true']
+      ) {
+      border-start-start-radius: var(--_outer);
+      border-end-start-radius: var(--_outer);
+    }
+
+    .root[data-connected]:is(:last-child, :has(+ [popover])):hover:not(
+        :active,
+        :disabled,
+        [aria-disabled='true'],
+        [data-selected],
+        [aria-expanded='true']
+      ) {
+      border-start-end-radius: var(--_outer);
+      border-end-end-radius: var(--_outer);
+    }
+  }
+
+  /* A button that opens a menu is round while the menu is open. */
+  .root[data-connected][aria-expanded='true'] {
+    border-radius: var(--_outer);
+  }
+
   .root[data-connected]:first-child:active:not(:disabled, [aria-disabled='true']) {
     border-start-start-radius: var(--_outer);
     border-end-start-radius: var(--_outer);
   }
 
-  .root[data-connected]:last-child:active:not(:disabled, [aria-disabled='true']) {
+  .root[data-connected]:is(:last-child, :has(+ [popover])):active:not(
+    :disabled,
+    [aria-disabled='true']
+  ) {
     border-start-end-radius: var(--_outer);
     border-end-end-radius: var(--_outer);
   }

@@ -30,6 +30,8 @@ const connected = (size: (typeof sizes)[number]): TokenBlock => ({
     height: 'container.height',
     'between-space': 'between-space',
     inner: 'inner-corner.corner-size',
+    // A plain connected group does not change its corners on hover; a split button does.
+    'hover-inner': 'inner-corner.corner-size',
     'pressed-inner': 'pressed.inner-corner.corner-size',
     outer: 'container.shape',
   },

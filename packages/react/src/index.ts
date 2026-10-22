@@ -20,6 +20,7 @@ export * from './radio/index.js';
 export * from './segmented-button/index.js';
 export * from './slider/index.js';
 export * from './snackbar/index.js';
+export * from './split-button/index.js';
 export * from './switch/index.js';
 export * from './tabs/index.js';
 export * from './text-field/index.js';

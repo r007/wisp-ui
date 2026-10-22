@@ -25,6 +25,14 @@ const root = resolve(import.meta.dirname, '..');
 const dist = join(root, 'dist');
 /** Gzipped CSS one component may ship on its own. Raise deliberately, not by accident. */
 const CSS_GZIP_BUDGET_KB = 4;
+/**
+ * Components built from other components, which therefore ship those components' CSS too. Anything
+ * not listed here must ship only its own. Add an entry deliberately: it is the one place a
+ * component is allowed to pull in another's styles.
+ */
+const COMPOSED_OF: Record<string, readonly string[]> = {
+  'split-button': ['button', 'menu'],
+};
 /** Folders in dist that are not components. */
 const NOT_COMPONENTS = new Set(['foundation', 'theme']);
 
@@ -54,7 +62,11 @@ const reactDir = dirname(require.resolve('react/package.json'));
 const reactDomDir = dirname(require.resolve('react-dom/package.json'));
 const tokensDir = dirname(require.resolve('@wisp-ui/tokens/package.json'));
 
-async function bundle(label: string, source: string): Promise<string> {
+async function bundle(
+  label: string,
+  source: string,
+  allowedKb = CSS_GZIP_BUDGET_KB,
+): Promise<string> {
   const dir = mkdtempSync(join(tmpdir(), 'wisp-treeshake-'));
   try {
     // A minimal consumer project: our packages and one copy of React.
@@ -86,9 +98,9 @@ async function bundle(label: string, source: string): Promise<string> {
     const css = read('.css');
     const js = read('.js');
     const gzipKb = gzipSync(css).length / 1024;
-    if (gzipKb > CSS_GZIP_BUDGET_KB) {
+    if (gzipKb > allowedKb) {
       failures.push(
-        `${label}: ${gzipKb.toFixed(1)} kB gzipped CSS exceeds the ${CSS_GZIP_BUDGET_KB} kB budget`,
+        `${label}: ${gzipKb.toFixed(1)} kB gzipped CSS exceeds the ${allowedKb} kB budget`,
       );
     }
     rows.push([
@@ -111,16 +123,23 @@ for (const { name, exportName } of components) {
     ['subpath', `@wisp-ui/react/${name}`],
   ] as const) {
     const label = `${exportName} via ${via}`;
+    const composedOf = COMPOSED_OF[name] ?? [];
+    // A composite has its own budget plus each part's.
     const css = await bundle(
       label,
       `import { ${exportName} } from '${from}';\nconsole.log(${exportName});\n`,
+      CSS_GZIP_BUDGET_KB * (1 + composedOf.length),
     );
 
     if (!classPattern(name).test(css)) failures.push(`${label}: its own CSS is missing`);
     for (const other of components) {
-      if (other.name !== name && classPattern(other.name).test(css)) {
+      if (other.name === name || composedOf.includes(other.name)) continue;
+      if (classPattern(other.name).test(css))
         failures.push(`${label}: pulled in ${other.name} CSS`);
-      }
+    }
+    for (const part of composedOf) {
+      if (!classPattern(part).test(css))
+        failures.push(`${label}: expected ${part} CSS, which it is built from`);
     }
     // Component CSS must never define the global tokens: apps load those once.
     if (/--md-sys-color-primary\s*:/.test(css)) failures.push(`${label}: bundled the global theme`);
