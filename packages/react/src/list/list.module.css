@@ -1,0 +1,300 @@
+/*
+ * Structure and behaviour only. ListItem reads the *list-item contract*: the private
+ * variables defined in list.tokens.generated.module.css, on the list. A container that
+ * defines the same names (a menu, say) gets the same item.
+ *
+ * Markup: ul > li.row > .item, where the item is a div, a button or a link.
+ */
+@layer wisp {
+  .root {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Expressive: items are separate segments. */
+  .root[data-segmented] {
+    gap: var(--_segment-gap);
+  }
+
+  .row {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .item {
+    /* Unselected is the default; each state below only overrides what changes. */
+    --_bg: var(--_container-color);
+    --_radius: var(--_shape);
+    --_label: var(--_label-color);
+    --_supporting: var(--_supporting-color);
+    --_overline: var(--_overline-color);
+    --_trailing-text: var(--_trailing-text-color);
+    --_leading-icon: var(--_leading-icon-color);
+    --_trailing-icon: var(--_trailing-icon-color);
+
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the content. */
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: var(--_one-line-height);
+    margin: 0;
+    padding-block: var(--_top-space) var(--_bottom-space);
+    padding-inline: var(--_leading-space) var(--_trailing-space);
+    gap: var(--_between-space);
+    border: 0;
+    border-radius: var(--_radius);
+    background-color: var(--_bg);
+    color: var(--_label);
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-radius var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .item[data-lines='2'] {
+    min-block-size: var(--_two-line-height);
+  }
+
+  .item[data-lines='3'] {
+    align-items: flex-start;
+    min-block-size: var(--_three-line-height);
+  }
+
+  .root[data-segmented] .item {
+    --_bg: var(--_segmented-container-color);
+    --_radius: var(--_segment-shape);
+  }
+
+  .item[data-selected] {
+    --_bg: var(--_selected-container-color);
+    --_radius: var(--_selected-shape);
+    --_label: var(--_selected-label-color);
+    --_supporting: var(--_selected-supporting-color);
+    --_overline: var(--_selected-overline-color);
+    --_trailing-text: var(--_selected-trailing-text-color);
+    --_leading-icon: var(--_selected-leading-icon-color);
+    --_trailing-icon: var(--_selected-trailing-icon-color);
+  }
+
+  .root[data-segmented] .item[data-selected] {
+    --_radius: var(--_segment-active-shape);
+  }
+
+  /* Interactive: the whole item is the control. */
+  .item[data-interactive] {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* The corners of a segment open up under the pointer, then round off further on focus
+     and press (Expressive). */
+  @media (hover: hover) {
+    .root[data-segmented] .item[data-interactive]:hover {
+      --_radius: var(--_segment-hover-shape);
+    }
+
+    .item[data-selected][data-interactive]:hover {
+      --_leading-icon: var(--_selected-leading-icon-color-active);
+      --_trailing-icon: var(--_selected-trailing-icon-color-active);
+    }
+  }
+
+  .item[data-interactive]:focus-visible {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  .root[data-segmented] .item[data-interactive]:focus-visible,
+  .root[data-segmented] .item[data-interactive]:active {
+    --_radius: var(--_segment-active-shape);
+  }
+
+  .item[data-selected][data-interactive]:focus-visible,
+  .item[data-selected][data-interactive]:active {
+    --_leading-icon: var(--_selected-leading-icon-color-active);
+    --_trailing-icon: var(--_selected-trailing-icon-color-active);
+  }
+
+  /* Slots. */
+  .leading,
+  .trailing {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item[data-lines='3'] .leading,
+  .item[data-lines='3'] .trailing {
+    align-self: flex-start;
+  }
+
+  .leading[data-kind='icon'],
+  .trailing[data-kind='icon'] {
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    font-size: var(--_icon-size);
+  }
+
+  .root[data-segmented] .leading[data-kind='icon'],
+  .root[data-segmented] .trailing[data-kind='icon'] {
+    inline-size: var(--_expressive-icon-size);
+    block-size: var(--_expressive-icon-size);
+    font-size: var(--_expressive-icon-size);
+  }
+
+  .leading[data-kind='icon'] {
+    color: var(--_leading-icon);
+  }
+
+  .trailing[data-kind='icon'] {
+    color: var(--_trailing-icon);
+  }
+
+  .leading > svg,
+  .trailing > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  /* An avatar holds an image, an icon, or initials. */
+  .leading[data-kind='avatar'] {
+    inline-size: var(--_avatar-size);
+    block-size: var(--_avatar-size);
+    overflow: hidden;
+    border-radius: var(--_avatar-shape);
+    background-color: var(--_avatar-color);
+    color: var(--_avatar-label-color);
+    font: var(--_avatar-label-font);
+    letter-spacing: var(--_avatar-label-font-tracking);
+  }
+
+  .leading[data-kind='image'] {
+    inline-size: var(--_image-width);
+    block-size: var(--_image-height);
+    overflow: hidden;
+    border-radius: var(--_image-shape);
+  }
+
+  .leading[data-kind='video'] {
+    inline-size: var(--_video-width);
+    block-size: var(--_video-height);
+    overflow: hidden;
+    border-radius: var(--_video-shape);
+  }
+
+  .leading > img,
+  .leading > video {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .trailing[data-kind='text'] {
+    color: var(--_trailing-text);
+    font: var(--_trailing-text-font);
+    letter-spacing: var(--_trailing-text-font-tracking);
+    white-space: nowrap;
+  }
+
+  .text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-inline-size: 0;
+  }
+
+  .overline {
+    color: var(--_overline);
+    font: var(--_overline-font);
+    letter-spacing: var(--_overline-font-tracking);
+  }
+
+  .headline {
+    color: var(--_label);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+  }
+
+  .supporting {
+    color: var(--_supporting);
+    font: var(--_supporting-font);
+    letter-spacing: var(--_supporting-font-tracking);
+  }
+
+  /* Disabled: Material fades the content to fixed opacities of on-surface. */
+  .item[data-disabled] {
+    --_label: color-mix(
+      in srgb,
+      var(--_disabled-label-color) calc(var(--_disabled-label-opacity) * 100%),
+      transparent
+    );
+    --_supporting: color-mix(
+      in srgb,
+      var(--_disabled-supporting-color) calc(var(--_disabled-supporting-opacity) * 100%),
+      transparent
+    );
+    --_overline: var(--_supporting);
+    --_trailing-text: var(--_supporting);
+    --_leading-icon: color-mix(
+      in srgb,
+      var(--_disabled-icon-color) calc(var(--_disabled-icon-opacity) * 100%),
+      transparent
+    );
+    --_trailing-icon: var(--_leading-icon);
+
+    cursor: default;
+  }
+
+  .item[data-disabled][data-selected] {
+    --_bg: color-mix(
+      in srgb,
+      var(--_disabled-selected-container-color)
+        calc(var(--_disabled-selected-container-opacity) * 100%),
+      transparent
+    );
+  }
+
+  /* A separator between groups of items. */
+  .divider {
+    box-sizing: border-box;
+    margin-block: 0;
+    margin-inline: var(--_divider-leading-space) var(--_divider-trailing-space);
+    padding: 0;
+    border: 0;
+    border-block-start: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .item {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .item[data-selected] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+
+    .item[data-disabled] {
+      color: GrayText;
+    }
+
+    .divider {
+      border-block-start-color: CanvasText;
+    }
+  }
+}

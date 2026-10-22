@@ -6,6 +6,7 @@ export * from './chip/index.js';
 export * from './dialog/index.js';
 export * from './divider/index.js';
 export * from './icon-button/index.js';
+export * from './list/index.js';
 export * from './navigation-bar/index.js';
 export * from './navigation-drawer/index.js';
 export * from './radio/index.js';
