@@ -1,12 +1,17 @@
 name: Release
 
 # Opens (or updates) a "Version packages" pull request from pending changesets.
-# Merging it publishes to npm. Requires an NPM_TOKEN repository secret and the
-# `@wisp-ui` npm scope to exist.
+# Merging it publishes to npm.
+#
+# Manual until releasing is set up (see docs/maintaining.md): it needs the
+# `@wisp-ui` npm scope, an NPM_TOKEN secret, and Settings → Actions → "Allow
+# GitHub Actions to create and approve pull requests". Without them it fails and
+# leaves a `changeset-release/main` branch behind. Once configured, add:
+#   push:
+#     branches: [main]
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
