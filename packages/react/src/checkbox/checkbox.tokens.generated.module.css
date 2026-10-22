@@ -1,0 +1,37 @@
+/* Checkbox token defaults.
+ *
+ * Generated from checkbox.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-size: var(--md-comp-checkbox-container-size, 18px);
+    --_container-shape: var(--md-comp-checkbox-container-shape, 2px);
+    --_icon-size: var(--md-comp-checkbox-icon-size, 18px);
+    --_state-layer-size: var(--md-comp-checkbox-state-layer-size, 40px);
+    --_unselected-outline-width: var(--md-comp-checkbox-unselected-outline-width, 2px);
+    --_unselected-outline-color: var(--md-comp-checkbox-unselected-outline-color, var(--md-sys-color-on-surface-variant));
+    --_unselected-outline-color-active: var(--md-comp-checkbox-unselected-hover-outline-color, var(--md-sys-color-on-surface));
+    --_unselected-state-layer-color: var(--md-comp-checkbox-unselected-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_unselected-pressed-state-layer-color: var(--md-comp-checkbox-unselected-pressed-state-layer-color, var(--md-sys-color-primary));
+    --_selected-container-color: var(--md-comp-checkbox-selected-container-color, var(--md-sys-color-primary));
+    --_selected-icon-color: var(--md-comp-checkbox-selected-icon-color, var(--md-sys-color-on-primary));
+    --_selected-outline-width: var(--md-comp-checkbox-selected-outline-width, 0px);
+    --_selected-state-layer-color: var(--md-comp-checkbox-selected-hover-state-layer-color, var(--md-sys-color-primary));
+    --_selected-pressed-state-layer-color: var(--md-comp-checkbox-selected-pressed-state-layer-color, var(--md-sys-color-on-surface));
+    --_hover-state-layer-opacity: var(--md-comp-checkbox-selected-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-checkbox-selected-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-checkbox-selected-pressed-state-layer-opacity, 0.1);
+    --_error-outline-color: var(--md-comp-checkbox-unselected-error-outline-color, var(--md-sys-color-error));
+    --_error-container-color: var(--md-comp-checkbox-selected-error-container-color, var(--md-sys-color-error));
+    --_error-icon-color: var(--md-comp-checkbox-selected-error-icon-color, var(--md-sys-color-on-error));
+    --_error-state-layer-color: var(--md-comp-checkbox-error-hover-state-layer-color, var(--md-sys-color-error));
+    --_disabled-container-opacity: var(--md-comp-checkbox-selected-disabled-container-opacity, 0.38);
+    --_disabled-unselected-outline-color: var(--md-comp-checkbox-unselected-disabled-outline-color, var(--md-sys-color-on-surface));
+    --_disabled-selected-container-color: var(--md-comp-checkbox-selected-disabled-container-color, var(--md-sys-color-on-surface));
+    --_disabled-selected-icon-color: var(--md-comp-checkbox-selected-disabled-icon-color, var(--md-sys-color-surface));
+    --_focus-indicator-color: var(--md-comp-checkbox-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-checkbox-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-checkbox-focus-indicator-outline-offset, 2px);
+  }
+}

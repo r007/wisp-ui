@@ -1,0 +1,214 @@
+/*
+ * The native <input> is an invisible, full-size sibling of the visual box, so every
+ * state is a CSS sibling selector (`.input:checked ~ .host`). Colours and sizes
+ * come from checkbox.tokens.generated.module.css.
+ *
+ * Material gives an indeterminate box the selected look with a dash for a tick.
+ */
+@layer wisp {
+  .root {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_state-layer-size);
+    block-size: var(--_state-layer-size);
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Centred on the 40px state layer, and filling the 48px touch target. */
+  .input {
+    position: absolute;
+    inset: calc((var(--_state-layer-size) - 48px) / 2);
+    z-index: 1;
+    box-sizing: border-box;
+    inline-size: 48px;
+    block-size: 48px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .input:disabled {
+    cursor: default;
+  }
+
+  /* The circular state-layer host. Unselected is the default; states below only
+     override what changes. */
+  .host {
+    --_outline-width: var(--_unselected-outline-width);
+    --_outline-color: var(--_unselected-outline-color);
+    --_container-color: transparent;
+    --_mark-color: var(--_selected-icon-color);
+    --_state-layer-color: var(--_unselected-state-layer-color);
+    --_pressed-state-layer-color: var(--_unselected-pressed-state-layer-color);
+
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--md-sys-shape-corner-full);
+    isolation: isolate;
+  }
+
+  .container {
+    position: relative;
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    inline-size: var(--_container-size);
+    block-size: var(--_container-size);
+    border: var(--_outline-width) solid var(--_outline-color);
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    color: var(--_mark-color);
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      border-color var(--md-sys-motion-spring-fast-effects),
+      border-width var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .input:checked ~ .host,
+  .input:indeterminate ~ .host {
+    --_outline-width: var(--_selected-outline-width);
+    --_outline-color: transparent;
+    --_container-color: var(--_selected-container-color);
+    --_state-layer-color: var(--_selected-state-layer-color);
+    --_pressed-state-layer-color: var(--_selected-pressed-state-layer-color);
+  }
+
+  /* The pressed state layer is tinted with the opposite colour. */
+  .host [data-wisp-state-layer][data-pressed] {
+    --_state-layer-color: var(--_pressed-state-layer-color);
+  }
+
+  /* Interaction darkens the outline of an empty box (a selected box has no outline
+     width, so the colour never shows). */
+  @media (hover: hover) {
+    .input:enabled:hover ~ .host {
+      --_outline-color: var(--_unselected-outline-color-active);
+    }
+
+    .input:enabled:hover ~ .host [data-wisp-state-layer]::before {
+      opacity: var(--_hover-state-layer-opacity);
+    }
+  }
+
+  .input:enabled:focus-visible ~ .host {
+    --_outline-color: var(--_unselected-outline-color-active);
+  }
+
+  .input:enabled:focus-visible ~ .host [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .input:enabled:active ~ .host {
+    --_outline-color: var(--_unselected-outline-color-active);
+  }
+
+  .input:focus-visible ~ .host .container {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  /* The mark is drawn with a stroke: dashing the path hides it, and the dash
+     retracts to draw it. */
+  .mark {
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2px;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  .check,
+  .dash {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0;
+    transition:
+      stroke-dashoffset var(--md-sys-motion-spring-fast-effects),
+      opacity var(--md-sys-motion-duration-short2) linear;
+  }
+
+  .input:checked ~ .host .check,
+  .input:indeterminate ~ .host .dash {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  /* A mixed box shows only the dash, even if it is also checked. */
+  .input:indeterminate ~ .host .check {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+
+  /* Invalid: error colours in every state. */
+  .root[data-error] .host {
+    --_outline-color: var(--_error-outline-color);
+    --_state-layer-color: var(--_error-state-layer-color);
+    --_pressed-state-layer-color: var(--_error-state-layer-color);
+  }
+
+  .root[data-error] .input:checked ~ .host,
+  .root[data-error] .input:indeterminate ~ .host {
+    --_outline-color: transparent;
+    --_container-color: var(--_error-container-color);
+    --_mark-color: var(--_error-icon-color);
+  }
+
+  .root[data-error] .input:enabled:hover ~ .host,
+  .root[data-error] .input:enabled:focus-visible ~ .host,
+  .root[data-error] .input:enabled:active ~ .host {
+    --_outline-color: var(--_error-outline-color);
+  }
+
+  /* Disabled: Material fades the box to a fixed opacity. */
+  .input:disabled ~ .host {
+    --_outline-color: color-mix(
+      in srgb,
+      var(--_disabled-unselected-outline-color) calc(var(--_disabled-container-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .input:disabled:checked ~ .host,
+  .input:disabled:indeterminate ~ .host {
+    --_outline-color: transparent;
+    --_container-color: color-mix(
+      in srgb,
+      var(--_disabled-selected-container-color) calc(var(--_disabled-container-opacity) * 100%),
+      transparent
+    );
+    --_mark-color: var(--_disabled-selected-icon-color);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .container,
+    .check,
+    .dash {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .container {
+      border-color: CanvasText;
+      border-width: var(--_unselected-outline-width);
+    }
+
+    .input:checked ~ .host .container,
+    .input:indeterminate ~ .host .container {
+      background-color: Highlight;
+      border-color: Highlight;
+      color: HighlightText;
+    }
+
+    .input:disabled ~ .host .container {
+      border-color: GrayText;
+    }
+  }
+}
