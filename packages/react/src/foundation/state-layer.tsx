@@ -13,5 +13,5 @@ import styles from './state-layer.module.css';
  * - `--_pressed-state-layer-opacity`
  */
 export function StateLayer({ ref }: { ref?: Ref<HTMLSpanElement> }) {
-  return <span ref={ref} className={styles.surface} aria-hidden="true" />;
+  return <span ref={ref} className={styles.surface} data-wisp-state-layer="" aria-hidden="true" />;
 }

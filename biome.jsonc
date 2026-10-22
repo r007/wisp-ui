@@ -76,7 +76,19 @@
     },
     {
       "includes": ["**/*.stories.tsx", "**/.storybook/**", "**/*.test.ts", "**/*.test.tsx"],
-      "linter": { "rules": { "style": { "noNonNullAssertion": "off" } } }
+      "linter": {
+        "rules": {
+          "style": { "noNonNullAssertion": "off" },
+          "a11y": {
+            // Our form controls render a native <input>; tell the rule so a wrapping
+            // <label> counts as labelled. Add new input-based components here.
+            "noLabelWithoutControl": {
+              "level": "error",
+              "options": { "inputComponents": ["Switch"] }
+            }
+          }
+        }
+      }
     }
   ]
 }

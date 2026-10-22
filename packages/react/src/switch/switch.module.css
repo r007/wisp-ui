@@ -1,0 +1,244 @@
+/*
+ * The native <input> is an invisible, full-size sibling of the track, so every
+ * visual state is a CSS sibling selector (`.input:checked ~ .track`). Colours
+ * and sizes come from switch.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    --_direction: 1;
+
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_track-width);
+    block-size: var(--_track-height);
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .root:dir(rtl) {
+    --_direction: -1;
+  }
+
+  /* Fills the 48px touch target and receives every pointer and keyboard event. */
+  .input {
+    position: absolute;
+    inset-block: calc((var(--_track-height) - 48px) / 2);
+    inset-inline: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 48px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .input:disabled {
+    cursor: default;
+  }
+
+  /* Unselected is the default; each state below only overrides what changes. */
+  .track {
+    --_handle-size: var(--_unselected-handle-size);
+    --_handle-color: var(--_unselected-handle-color);
+    --_track-color: var(--_unselected-track-color);
+    --_track-outline-color: var(--_unselected-track-outline-color);
+    --_icon-color: var(--_unselected-icon-color);
+    --_state-layer-color: var(--_unselected-state-layer-color);
+    /* Handle centre is half a track-height from the start edge. */
+    --_handle-offset: calc((var(--_track-height) - var(--_state-layer-size)) / 2);
+
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    border: var(--_track-outline-width) solid var(--_track-outline-color);
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_track-color);
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      border-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .root[data-icons] .track {
+    --_handle-size: var(--_with-icon-handle-size);
+  }
+
+  .input:checked ~ .track {
+    --_handle-size: var(--_selected-handle-size);
+    --_handle-color: var(--_selected-handle-color);
+    --_track-color: var(--_selected-track-color);
+    --_icon-color: var(--_selected-icon-color);
+    --_state-layer-color: var(--_selected-state-layer-color);
+    --_handle-offset: calc(
+      var(--_track-width) -
+      var(--_track-height) /
+      2 -
+      var(--_state-layer-size) /
+      2
+    );
+
+    border-color: transparent;
+  }
+
+  /* Interaction recolours the handle; pressing also grows it. */
+  @media (hover: hover) {
+    .input:enabled:hover ~ .track {
+      --_handle-color: var(--_unselected-handle-color-active);
+    }
+
+    .input:enabled:checked:hover ~ .track {
+      --_handle-color: var(--_selected-handle-color-active);
+    }
+
+    .input:enabled:hover ~ .track [data-wisp-state-layer]::before {
+      opacity: var(--_hover-state-layer-opacity);
+    }
+  }
+
+  .input:enabled:focus-visible ~ .track {
+    --_handle-color: var(--_unselected-handle-color-active);
+
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  .input:enabled:checked:focus-visible ~ .track {
+    --_handle-color: var(--_selected-handle-color-active);
+  }
+
+  .input:enabled:focus-visible ~ .track [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .input:enabled:active ~ .track {
+    --_handle-size: var(--_pressed-handle-size);
+    --_handle-color: var(--_unselected-handle-color-active);
+  }
+
+  .input:enabled:checked:active ~ .track {
+    --_handle-color: var(--_selected-handle-color-active);
+  }
+
+  /* The handle slides along the track on a spring and overshoots under Expressive. */
+  .handleContainer {
+    position: absolute;
+    inset-block-start: calc(
+      (var(--_track-height) - var(--_state-layer-size)) /
+      2 -
+      var(--_track-outline-width)
+    );
+    inset-inline-start: calc(0px - var(--_track-outline-width));
+    display: grid;
+    place-items: center;
+    inline-size: var(--_state-layer-size);
+    block-size: var(--_state-layer-size);
+    border-radius: var(--md-sys-shape-corner-full);
+    transform: translateX(calc(var(--_direction) * var(--_handle-offset)));
+    transition: transform var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .handle {
+    display: grid;
+    place-items: center;
+    inline-size: var(--_handle-size);
+    block-size: var(--_handle-size);
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_handle-color);
+    color: var(--_icon-color);
+    transition:
+      inline-size var(--md-sys-motion-spring-fast-spatial),
+      block-size var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* Optional check/close icons crossfade inside the handle. */
+  .icon {
+    grid-area: 1 / 1;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    fill: currentColor;
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .root[data-icons] .iconClose,
+  .root[data-icons] .input:checked ~ .track .iconCheck {
+    opacity: 1;
+  }
+
+  .root[data-icons] .input:checked ~ .track .iconClose {
+    opacity: 0;
+  }
+
+  /* Disabled: Material fades the track and handle to fixed opacities. */
+  .input:disabled ~ .track {
+    --_track-color: color-mix(
+      in srgb,
+      var(--_disabled-unselected-track-color) calc(var(--_disabled-track-opacity) * 100%),
+      transparent
+    );
+    --_track-outline-color: color-mix(
+      in srgb,
+      var(--_disabled-unselected-track-outline-color) calc(var(--_disabled-track-opacity) * 100%),
+      transparent
+    );
+    --_handle-color: color-mix(
+      in srgb,
+      var(--_disabled-unselected-handle-color)
+        calc(var(--_disabled-unselected-handle-opacity) * 100%),
+      transparent
+    );
+    --_icon-color: color-mix(
+      in srgb,
+      var(--_disabled-unselected-icon-color) calc(var(--_disabled-unselected-icon-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .input:disabled:checked ~ .track {
+    --_track-color: color-mix(
+      in srgb,
+      var(--_disabled-selected-track-color) calc(var(--_disabled-track-opacity) * 100%),
+      transparent
+    );
+    --_handle-color: color-mix(
+      in srgb,
+      var(--_disabled-selected-handle-color) calc(var(--_disabled-selected-handle-opacity) * 100%),
+      transparent
+    );
+    --_icon-color: color-mix(
+      in srgb,
+      var(--_disabled-selected-icon-color) calc(var(--_disabled-selected-icon-opacity) * 100%),
+      transparent
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track,
+    .handleContainer,
+    .handle,
+    .icon {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .track {
+      border-color: CanvasText;
+    }
+
+    .input:checked ~ .track {
+      background-color: Highlight;
+    }
+
+    .handle {
+      background-color: CanvasText;
+    }
+
+    .input:checked ~ .track .handle {
+      background-color: HighlightText;
+    }
+  }
+}

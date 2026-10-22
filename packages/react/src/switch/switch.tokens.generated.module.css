@@ -1,0 +1,47 @@
+/* Switch token defaults.
+ *
+ * Generated from switch.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_track-width: var(--md-comp-switch-track-width, 52px);
+    --_track-height: var(--md-comp-switch-track-height, 32px);
+    --_track-outline-width: var(--md-comp-switch-track-outline-width, 2px);
+    --_state-layer-size: var(--md-comp-switch-state-layer-size, 40px);
+    --_unselected-handle-size: var(--md-comp-switch-unselected-handle-width, 16px);
+    --_selected-handle-size: var(--md-comp-switch-selected-handle-width, 24px);
+    --_with-icon-handle-size: var(--md-comp-switch-with-icon-handle-width, 24px);
+    --_pressed-handle-size: var(--md-comp-switch-pressed-handle-width, 28px);
+    --_icon-size: var(--md-comp-switch-unselected-icon-size, 16px);
+    --_unselected-track-color: var(--md-comp-switch-unselected-track-color, var(--md-sys-color-surface-container-highest));
+    --_unselected-track-outline-color: var(--md-comp-switch-unselected-track-outline-color, var(--md-sys-color-outline));
+    --_unselected-handle-color: var(--md-comp-switch-unselected-handle-color, var(--md-sys-color-outline));
+    --_unselected-handle-color-active: var(--md-comp-switch-unselected-hover-handle-color, var(--md-sys-color-on-surface-variant));
+    --_unselected-icon-color: var(--md-comp-switch-unselected-icon-color, var(--md-sys-color-surface-container-highest));
+    --_unselected-state-layer-color: var(--md-comp-switch-unselected-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_selected-track-color: var(--md-comp-switch-selected-track-color, var(--md-sys-color-primary));
+    --_selected-handle-color: var(--md-comp-switch-selected-handle-color, var(--md-sys-color-on-primary));
+    --_selected-handle-color-active: var(--md-comp-switch-selected-hover-handle-color, var(--md-sys-color-primary-container));
+    --_selected-icon-color: var(--md-comp-switch-selected-icon-color, var(--md-sys-color-primary));
+    --_selected-state-layer-color: var(--md-comp-switch-selected-hover-state-layer-color, var(--md-sys-color-primary));
+    --_hover-state-layer-opacity: var(--md-comp-switch-selected-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-switch-selected-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-switch-selected-pressed-state-layer-opacity, 0.1);
+    --_disabled-track-opacity: var(--md-comp-switch-disabled-track-opacity, 0.12);
+    --_disabled-unselected-track-color: var(--md-comp-switch-disabled-unselected-track-color, var(--md-sys-color-surface-container-highest));
+    --_disabled-unselected-track-outline-color: var(--md-comp-switch-disabled-unselected-track-outline-color, var(--md-sys-color-on-surface));
+    --_disabled-unselected-handle-color: var(--md-comp-switch-disabled-unselected-handle-color, var(--md-sys-color-on-surface));
+    --_disabled-unselected-handle-opacity: var(--md-comp-switch-disabled-unselected-handle-opacity, 0.38);
+    --_disabled-unselected-icon-color: var(--md-comp-switch-disabled-unselected-icon-color, var(--md-sys-color-surface-container-highest));
+    --_disabled-unselected-icon-opacity: var(--md-comp-switch-disabled-unselected-icon-opacity, 0.38);
+    --_disabled-selected-track-color: var(--md-comp-switch-disabled-selected-track-color, var(--md-sys-color-on-surface));
+    --_disabled-selected-handle-color: var(--md-comp-switch-disabled-selected-handle-color, var(--md-sys-color-surface));
+    --_disabled-selected-handle-opacity: var(--md-comp-switch-disabled-selected-handle-opacity, 1);
+    --_disabled-selected-icon-color: var(--md-comp-switch-disabled-selected-icon-color, var(--md-sys-color-on-surface));
+    --_disabled-selected-icon-opacity: var(--md-comp-switch-disabled-selected-icon-opacity, 0.38);
+    --_focus-indicator-color: var(--md-comp-switch-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-switch-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-switch-focus-indicator-offset, 2px);
+  }
+}
