@@ -13,6 +13,7 @@ export * from './navigation-bar/index.js';
 export * from './navigation-drawer/index.js';
 export * from './progress/index.js';
 export * from './radio/index.js';
+export * from './segmented-button/index.js';
 export * from './snackbar/index.js';
 export * from './switch/index.js';
 export * from './tabs/index.js';

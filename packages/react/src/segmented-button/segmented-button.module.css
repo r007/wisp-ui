@@ -1,0 +1,221 @@
+/*
+ * Each segment is a <label> around a native radio or checkbox that fills it (invisible, on top),
+ * so selection, keyboard and forms are the platform's, and every visual state is read from the
+ * input with `:has()` and sibling selectors. Neighbouring segments share a border: the later one
+ * leaves its start border off. Colours, sizes and shapes come from
+ * segmented-button.tokens.generated.module.css.
+ */
+@layer wisp {
+  /* Equal-width segments, none narrower than its content. Make the group fill its container
+     with `display: grid; inline-size: 100%` from a class. */
+  .root {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    max-inline-size: 100%;
+    vertical-align: middle;
+  }
+
+  .segment {
+    /* Unselected is the default; a selected segment overrides what changes. */
+    --_label: var(--_unselected-label-color);
+    --_icon: var(--_unselected-icon-color);
+    --_state-layer-color: var(--_unselected-state-layer-color);
+
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the content. */
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    block-size: var(--_container-height);
+    padding-inline: 12px;
+    gap: 8px;
+    border: var(--_outline-width) solid var(--_outline-color);
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--_label);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* The shared border: a segment draws its end border, and its neighbour leaves its start one off. */
+  .segment + .segment {
+    border-inline-start-width: 0;
+  }
+
+  .segment:first-child {
+    border-start-start-radius: var(--_shape);
+    border-end-start-radius: var(--_shape);
+  }
+
+  .segment:last-child {
+    border-start-end-radius: var(--_shape);
+    border-end-end-radius: var(--_shape);
+  }
+
+  .segment:has(.input:checked) {
+    --_label: var(--_selected-label-color);
+    --_icon: var(--_selected-icon-color);
+    --_state-layer-color: var(--_selected-state-layer-color);
+
+    background-color: var(--_selected-container-color);
+  }
+
+  /* The input covers the segment, so every pointer and keyboard event lands on it. */
+  .input {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  .input:enabled:focus-visible ~ [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .segment:has(.input:focus-visible) {
+    z-index: 1;
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  /* The leading slot holds the segment's icon, or a check that appears when it is selected. */
+  .leading {
+    display: grid;
+    flex: none;
+    place-items: center;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    color: var(--_icon);
+    transition:
+      inline-size var(--md-sys-motion-spring-fast-spatial),
+      margin-inline-end var(--md-sys-motion-spring-fast-spatial),
+      opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .segment:not([data-icon]) .leading {
+    inline-size: 0;
+    margin-inline-end: -8px;
+    opacity: 0;
+  }
+
+  .segment:not([data-icon]):has(.input:checked) .leading {
+    inline-size: var(--_icon-size);
+    margin-inline-end: 0;
+    opacity: 1;
+  }
+
+  .icon,
+  .tick {
+    grid-area: 1 / 1;
+    inline-size: 100%;
+    block-size: 100%;
+    transition:
+      opacity var(--md-sys-motion-spring-fast-effects),
+      stroke-dashoffset var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+  }
+
+  .icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  .tick {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2px;
+    stroke-linecap: square;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+
+  .segment:has(.input:checked) .tick {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  /* A selected segment shows its check in place of its own icon. */
+  .segment:has(.input:checked) .icon {
+    opacity: 0;
+  }
+
+  .label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Disabled: Material fades the outline, label and icon to fixed opacities. */
+  .segment[data-disabled] {
+    --_label: color-mix(
+      in srgb,
+      var(--_disabled-label-color) calc(var(--_disabled-label-opacity) * 100%),
+      transparent
+    );
+    --_icon: color-mix(
+      in srgb,
+      var(--_disabled-icon-color) calc(var(--_disabled-icon-opacity) * 100%),
+      transparent
+    );
+
+    border-color: color-mix(
+      in srgb,
+      var(--_disabled-outline-color) calc(var(--_disabled-outline-opacity) * 100%),
+      transparent
+    );
+    cursor: default;
+  }
+
+  .segment[data-disabled] [data-wisp-state-layer] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .segment,
+    .leading,
+    .icon,
+    .tick {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .segment {
+      border-color: ButtonBorder;
+    }
+
+    .segment:has(.input:checked) {
+      border-color: Highlight;
+      background-color: Highlight;
+      color: HighlightText;
+    }
+
+    .segment[data-disabled] {
+      border-color: GrayText;
+      color: GrayText;
+    }
+  }
+}

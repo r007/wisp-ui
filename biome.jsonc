@@ -87,7 +87,15 @@
             // <label> counts as labelled. Add new input-based components here.
             "noLabelWithoutControl": {
               "level": "error",
-              "options": { "inputComponents": ["Switch", "Checkbox", "Radio", "TextField"] }
+              "options": {
+                "inputComponents": [
+                  "Switch",
+                  "Checkbox",
+                  "Radio",
+                  "TextField",
+                  "SegmentedButtonItem"
+                ]
+              }
             }
           }
         }
