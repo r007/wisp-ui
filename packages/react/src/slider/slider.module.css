@@ -1,0 +1,242 @@
+/*
+ * A native <input type="range"> lies over the visuals, invisible, and receives every pointer and
+ * keyboard event; the visuals only draw what it reports. The value is a fraction (`--_fraction`,
+ * 0 to 1) set inline, and the handle sits at `fraction * (width - handle)`, which is exactly where
+ * the input's own thumb is (it is given the handle's width), so dragging and drawing agree.
+ * Colours, sizes and shapes come from slider.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    --_fraction: 0;
+    --_direction: 1;
+    /* Where the handle's start edge is, along the track. */
+    --_pos: calc(var(--_fraction) * (100% - var(--_handle-width)));
+    /* The bar inside the handle narrows while it is held or focused. */
+    --_bar: var(--_handle-width);
+    /* The corners where the active track meets the handle. */
+    --_inner: 2px;
+
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: var(--_handle-height);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .root:dir(rtl) {
+    --_direction: -1;
+  }
+
+  .root:has(.input:active),
+  .root:has(.input:focus-visible) {
+    --_bar: var(--_handle-pressed-width);
+  }
+
+  .input {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0;
+    appearance: none;
+  }
+
+  .input:disabled {
+    cursor: default;
+  }
+
+  /* The input's thumb is the handle's size, so its travel matches the drawn handle's. */
+  .input::-webkit-slider-thumb {
+    inline-size: var(--_handle-width);
+    block-size: var(--_handle-height);
+    appearance: none;
+  }
+
+  .input::-moz-range-thumb {
+    inline-size: var(--_handle-width);
+    block-size: var(--_handle-height);
+    border: 0;
+    appearance: none;
+  }
+
+  .track {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .active,
+  .inactive,
+  .stop,
+  .handle {
+    position: absolute;
+  }
+
+  .active,
+  .inactive {
+    inset-block: calc((100% - var(--_active-height)) / 2);
+    block-size: var(--_active-height);
+  }
+
+  .active {
+    inset-inline-start: 0;
+    inline-size: max(0px, calc(var(--_pos) - var(--_handle-gap)));
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: var(--_leading-shape) var(--_inner) var(--_inner) var(--_leading-shape);
+    background-color: var(--_active-track-color);
+  }
+
+  .inactive {
+    inset-block: calc((100% - var(--_inactive-height)) / 2);
+    inset-inline: calc(var(--_pos) + var(--_handle-width) + var(--_handle-gap)) 0;
+    block-size: var(--_inactive-height);
+    border-radius: var(--_inner) var(--_trailing-shape) var(--_trailing-shape) var(--_inner);
+    background-color: var(--_inactive-track-color);
+  }
+
+  .active:dir(rtl) {
+    border-radius: var(--_inner) var(--_leading-shape) var(--_leading-shape) var(--_inner);
+  }
+
+  .inactive:dir(rtl) {
+    border-radius: var(--_trailing-shape) var(--_inner) var(--_inner) var(--_trailing-shape);
+  }
+
+  /* An icon at the start of the active track, in the colour that sits on it. */
+  .icon {
+    display: flex;
+    flex: none;
+    margin-inline-start: var(--_icon-padding);
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    color: var(--md-sys-color-on-primary);
+    font-size: var(--_icon-size);
+  }
+
+  .icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  .stop {
+    inset-block: calc((100% - var(--_stop-size)) / 2);
+    inset-inline-end: var(--_stop-trailing-space);
+    inline-size: var(--_stop-size);
+    block-size: var(--_stop-size);
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_stop-color);
+    transition: opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* The dot has nothing to mark once the handle is at the end. */
+  .root[data-end] .stop {
+    opacity: 0;
+  }
+
+  .handle {
+    inset-block: 0;
+    inset-inline-start: var(--_pos);
+    display: grid;
+    place-items: center;
+    inline-size: var(--_handle-width);
+  }
+
+  .handle::before {
+    content: '';
+    inline-size: var(--_bar);
+    block-size: 100%;
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_handle-color);
+    transition: inline-size var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  /* The value bubble above the handle, shown while it is held or focused. */
+  .value {
+    position: absolute;
+    inset-block-end: calc(100% + var(--_value-bottom-space));
+    inset-inline-start: calc(var(--_pos) + var(--_handle-width) / 2);
+    box-sizing: border-box;
+    min-inline-size: 48px;
+    padding: 12px 16px;
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_value-container-color);
+    color: var(--_value-label-color);
+    font: var(--md-sys-typescale-label-large);
+    letter-spacing: var(--md-sys-typescale-label-large-tracking);
+    text-align: center;
+    translate: calc(var(--_direction) * -50%) 0;
+    scale: 0.8;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity var(--md-sys-motion-spring-fast-effects),
+      scale var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .root:has(.input:active) .value,
+  .root:has(.input:focus-visible) .value {
+    scale: 1;
+    opacity: 1;
+  }
+
+  /* Disabled: Material fades the handle and tracks to fixed opacities of on-surface. */
+  .root[data-disabled] .handle::before {
+    background-color: color-mix(
+      in srgb,
+      var(--_disabled-handle-color) calc(var(--_disabled-handle-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-disabled] .active {
+    background-color: color-mix(
+      in srgb,
+      var(--_disabled-active-track-color) calc(var(--_disabled-active-track-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-disabled] .inactive {
+    background-color: color-mix(
+      in srgb,
+      var(--_disabled-inactive-track-color) calc(var(--_disabled-inactive-track-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-disabled] .stop {
+    background-color: var(--_disabled-stop-color);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .handle::before,
+    .stop,
+    .value {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .active {
+      background-color: Highlight;
+    }
+
+    .inactive {
+      background-color: GrayText;
+    }
+
+    .handle::before {
+      background-color: CanvasText;
+    }
+  }
+}

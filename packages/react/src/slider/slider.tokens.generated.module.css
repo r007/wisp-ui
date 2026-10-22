@@ -1,0 +1,74 @@
+/* Slider token defaults.
+ *
+ * Generated from slider.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_handle-width: var(--md-comp-slider-handle-width, 4px);
+    --_handle-pressed-width: var(--md-comp-slider-focus-handle-width, 2px);
+    --_handle-color: var(--md-comp-slider-handle-color, var(--md-sys-color-primary));
+    --_handle-gap: var(--md-comp-slider-active-handle-leading-space, 6px);
+    --_active-track-color: var(--md-comp-slider-active-track-color, var(--md-sys-color-primary));
+    --_inactive-track-color: var(--md-comp-slider-inactive-track-color, var(--md-sys-color-secondary-container));
+    --_stop-color: var(--md-comp-slider-inactive-stop-indicator-container-color, var(--md-sys-color-on-secondary-container));
+    --_stop-size: var(--md-comp-slider-stop-indicator-size, 4px);
+    --_stop-trailing-space: var(--md-comp-slider-stop-indicator-trailing-space, 4px);
+    --_value-container-color: var(--md-comp-slider-value-indicator-container-color, var(--md-sys-color-inverse-surface));
+    --_value-label-color: var(--md-comp-slider-value-indicator-label-label-text-color, var(--md-sys-color-inverse-on-surface));
+    --_value-bottom-space: var(--md-comp-slider-value-indicator-active-bottom-space, 12px);
+    --_disabled-handle-color: var(--md-comp-slider-disabled-handle-color, var(--md-sys-color-on-surface));
+    --_disabled-handle-opacity: var(--md-comp-slider-disabled-handle-opacity, 0.38);
+    --_disabled-active-track-color: var(--md-comp-slider-disabled-active-track-color, var(--md-sys-color-on-surface));
+    --_disabled-active-track-opacity: var(--md-comp-slider-disabled-active-track-opacity, 0.38);
+    --_disabled-inactive-track-color: var(--md-comp-slider-disabled-inactive-track-color, var(--md-sys-color-on-surface));
+    --_disabled-inactive-track-opacity: var(--md-comp-slider-disabled-inactive-track-opacity, 0.12);
+    --_disabled-stop-color: var(--md-comp-slider-disabled-inactive-stop-indicator-container-color, var(--md-sys-color-on-surface));
+  }
+
+  .size-xsmall {
+    --_active-height: var(--md-comp-slider-xsmall-active-track-height, 16px);
+    --_inactive-height: var(--md-comp-slider-xsmall-inactive-track-height, 16px);
+    --_leading-shape: var(--md-comp-slider-xsmall-active-track-shape-leading, 8px);
+    --_trailing-shape: var(--md-comp-slider-xsmall-inactive-track-shape-trailing, 8px);
+    --_handle-height: var(--md-comp-slider-xsmall-active-handle-height, 44px);
+  }
+
+  .size-small {
+    --_active-height: var(--md-comp-slider-small-active-track-height, 24px);
+    --_inactive-height: var(--md-comp-slider-small-inactive-track-height, 24px);
+    --_leading-shape: var(--md-comp-slider-small-active-track-shape-leading, 8px);
+    --_trailing-shape: var(--md-comp-slider-small-inactive-track-shape-trailing, 8px);
+    --_handle-height: var(--md-comp-slider-small-active-handle-height, 44px);
+  }
+
+  .size-medium {
+    --_active-height: var(--md-comp-slider-medium-active-track-height, 40px);
+    --_inactive-height: var(--md-comp-slider-medium-inactive-track-height, 40px);
+    --_leading-shape: var(--md-comp-slider-medium-active-track-shape-leading, 12px);
+    --_trailing-shape: var(--md-comp-slider-medium-inactive-track-shape-trailing, 12px);
+    --_handle-height: var(--md-comp-slider-medium-active-handle-height, 44px);
+    --_icon-size: var(--md-comp-slider-medium-icon-size, 24px);
+    --_icon-padding: var(--md-comp-slider-medium-icon-padding, 6px);
+  }
+
+  .size-large {
+    --_active-height: var(--md-comp-slider-large-active-track-height, 56px);
+    --_inactive-height: var(--md-comp-slider-large-inactive-track-height, 56px);
+    --_leading-shape: var(--md-comp-slider-large-active-track-shape-leading, 16px);
+    --_trailing-shape: var(--md-comp-slider-large-inactive-track-shape-trailing, 16px);
+    --_handle-height: var(--md-comp-slider-large-active-handle-height, 68px);
+    --_icon-size: var(--md-comp-slider-large-icon-size, 24px);
+    --_icon-padding: var(--md-comp-slider-large-icon-padding, 6px);
+  }
+
+  .size-xlarge {
+    --_active-height: var(--md-comp-slider-xlarge-active-track-height, 96px);
+    --_inactive-height: var(--md-comp-slider-xlarge-inactive-track-height, 96px);
+    --_leading-shape: var(--md-comp-slider-xlarge-active-track-shape-leading, 28px);
+    --_trailing-shape: var(--md-comp-slider-xlarge-inactive-track-shape-trailing, 28px);
+    --_handle-height: var(--md-comp-slider-xlarge-active-handle-height, 108px);
+    --_icon-size: var(--md-comp-slider-xlarge-icon-size, 32px);
+    --_icon-padding: var(--md-comp-slider-xlarge-icon-padding, 8px);
+  }
+}
