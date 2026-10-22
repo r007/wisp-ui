@@ -1,0 +1,17 @@
+node_modules/
+.pnpm-store/
+dist/
+storybook-static/
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

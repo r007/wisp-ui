@@ -1,0 +1,15 @@
+{
+  "name": "@wisp-ui/codegen",
+  "private": true,
+  "description": "Build-time token importer and CSS emitters. Never published.",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

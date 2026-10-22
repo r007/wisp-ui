@@ -1,0 +1,47 @@
+{
+  "name": "@wisp-ui/tokens",
+  "version": "0.0.0",
+  "description": "Material 3 Expressive design tokens as CSS custom properties, plus a dynamic-colour theme generator.",
+  "keywords": [
+    "material-design",
+    "material-3",
+    "design-tokens",
+    "css-variables",
+    "dynamic-color"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r007/wisp-ui.git",
+    "directory": "packages/tokens"
+  },
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./theme.css": "./dist/theme.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node scripts/build-css.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@material/material-color-utilities": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "lightningcss": "^1.33.0",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

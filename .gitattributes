@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.generated.* linguist-generated=true -diff
+packages/tokens/data/*.json linguist-generated=true
+pnpm-lock.yaml -diff

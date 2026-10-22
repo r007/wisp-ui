@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // Keeps source valid for transpile-only tools (Vite, Node type stripping).
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "erasableSyntaxOnly": true,
+
+    // Published packages import siblings as `./thing.js` (the TypeScript ESM
+    // convention) so emitted JS *and* .d.ts resolve for node16/nodenext
+    // consumers. Vite, Vitest and tsc all map `.js` back to the `.ts` source.
+    // Only Node-run tooling (tools/*) imports `.ts` directly.
+
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  }
+}
