@@ -3,10 +3,12 @@ packages:
   - apps/*
   - tools/*
 
-# Single source of truth for dependency versions shared across workspace packages.
+# Dependency install scripts are blocked unless listed. esbuild's postinstall
+# verifies its native binary, which Storybook's manager build needs.
 allowBuilds:
   esbuild: true
 
+# Single source of truth for dependency versions shared across workspace packages.
 catalog:
   "@biomejs/biome": ^2.6.2
   "@changesets/cli": ^3.0.3
