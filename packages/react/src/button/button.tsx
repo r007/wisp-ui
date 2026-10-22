@@ -1,6 +1,7 @@
 'use client';
 
-import type { ComponentPropsWithRef, ReactNode, Ref } from 'react';
+import { type ComponentPropsWithRef, type ReactNode, type Ref, use } from 'react';
+import { ButtonGroupContext } from '../foundation/button-group-context.js';
 import { cx } from '../foundation/cx.js';
 import focusRing from '../foundation/focus-ring.module.css';
 import { type RenderProp, renderElement } from '../foundation/merge-props.js';
@@ -51,7 +52,7 @@ export type ButtonProps = ButtonOwnProps & (ButtonElementProps | AnchorElementPr
 export function Button(props: ButtonProps) {
   const {
     variant = 'filled',
-    size = 'small',
+    size: sizeProp,
     shape = 'round',
     selected: selectedProp,
     defaultSelected,
@@ -68,6 +69,10 @@ export function Button(props: ButtonProps) {
     type,
     ...rest
   } = props as ButtonOwnProps & AnchorElementProps & ComponentPropsWithRef<'button'>;
+
+  // Inside a ButtonGroup the group sizes its buttons, and a connected one shapes their corners.
+  const group = use(ButtonGroupContext);
+  const size = sizeProp ?? group?.size ?? 'small';
 
   const pressable = usePressable({
     href,
@@ -99,6 +104,7 @@ export function Button(props: ButtonProps) {
       'data-variant': variant,
       'data-size': size,
       'data-shape': shape,
+      'data-connected': group?.connected ? '' : undefined,
       'data-selected': isToggle && selected ? '' : undefined,
       children: (
         <>

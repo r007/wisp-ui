@@ -1,0 +1,18 @@
+/*
+ * A row of buttons. Standard groups space them by size; connected groups put them 2px apart and
+ * let the buttons shape the corners where they touch (see button.module.css). Spacing comes from
+ * button-group.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_between-space);
+    max-inline-size: 100%;
+    vertical-align: middle;
+  }
+
+  .root[data-connected] {
+    flex-wrap: nowrap;
+  }
+}

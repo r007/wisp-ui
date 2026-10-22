@@ -1,0 +1,66 @@
+/* ButtonGroup token defaults.
+ *
+ * Generated from button-group.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .standard-xsmall {
+    --_between-space: var(--md-comp-button-group-standard-xsmall-between-space, 18px);
+  }
+
+  .standard-small {
+    --_between-space: var(--md-comp-button-group-standard-small-between-space, 12px);
+  }
+
+  .standard-medium {
+    --_between-space: var(--md-comp-button-group-standard-medium-between-space, 8px);
+  }
+
+  .standard-large {
+    --_between-space: var(--md-comp-button-group-standard-large-between-space, 8px);
+  }
+
+  .standard-xlarge {
+    --_between-space: var(--md-comp-button-group-standard-xlarge-between-space, 8px);
+  }
+
+  .connected-xsmall {
+    --_height: var(--md-comp-button-group-connected-xsmall-container-height, 32px);
+    --_between-space: var(--md-comp-button-group-connected-xsmall-between-space, 2px);
+    --_inner: var(--md-comp-button-group-connected-xsmall-inner-corner-corner-size, 8px);
+    --_pressed-inner: var(--md-comp-button-group-connected-xsmall-pressed-inner-corner-corner-size, 4px);
+    --_outer: var(--md-comp-button-group-connected-xsmall-container-shape, calc(var(--_height) / 2));
+  }
+
+  .connected-small {
+    --_height: var(--md-comp-button-group-connected-small-container-height, 40px);
+    --_between-space: var(--md-comp-button-group-connected-small-between-space, 2px);
+    --_inner: var(--md-comp-button-group-connected-small-inner-corner-corner-size, 8px);
+    --_pressed-inner: var(--md-comp-button-group-connected-small-pressed-inner-corner-corner-size, 4px);
+    --_outer: var(--md-comp-button-group-connected-small-container-shape, calc(var(--_height) / 2));
+  }
+
+  .connected-medium {
+    --_height: var(--md-comp-button-group-connected-medium-container-height, 56px);
+    --_between-space: var(--md-comp-button-group-connected-medium-between-space, 2px);
+    --_inner: var(--md-comp-button-group-connected-medium-inner-corner-corner-size, 8px);
+    --_pressed-inner: var(--md-comp-button-group-connected-medium-pressed-inner-corner-corner-size, 4px);
+    --_outer: var(--md-comp-button-group-connected-medium-container-shape, calc(var(--_height) / 2));
+  }
+
+  .connected-large {
+    --_height: var(--md-comp-button-group-connected-large-container-height, 96px);
+    --_between-space: var(--md-comp-button-group-connected-large-between-space, 2px);
+    --_inner: var(--md-comp-button-group-connected-large-inner-corner-corner-size, 16px);
+    --_pressed-inner: var(--md-comp-button-group-connected-large-pressed-inner-corner-corner-size, 12px);
+    --_outer: var(--md-comp-button-group-connected-large-container-shape, calc(var(--_height) / 2));
+  }
+
+  .connected-xlarge {
+    --_height: var(--md-comp-button-group-connected-xlarge-container-height, 136px);
+    --_between-space: var(--md-comp-button-group-connected-xlarge-between-space, 2px);
+    --_inner: var(--md-comp-button-group-connected-xlarge-inner-corner-corner-size, 20px);
+    --_pressed-inner: var(--md-comp-button-group-connected-xlarge-pressed-inner-corner-corner-size, 16px);
+    --_outer: var(--md-comp-button-group-connected-xlarge-container-shape, calc(var(--_height) / 2));
+  }
+}

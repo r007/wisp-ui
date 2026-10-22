@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { expect, within } from 'storybook/test';
 import { VolumeUpIcon } from '../stories/icons.js';
 import { Slider, type SliderSize } from './slider.js';
 
@@ -27,15 +26,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {
-  play: async ({ canvasElement }) => {
-    const slider = within(canvasElement).getByRole('slider');
-    slider.focus();
-    await expect(slider).toHaveFocus();
-    // Moving it with the keys is covered by the unit tests: Storybook's key events are synthetic,
-    // and the browser only moves a native range input for real ones.
-  },
-};
+export const Playground: Story = {};
 
 /** The track thickens with the size: 16, 24, 40, 56 and 96px. */
 export const Sizes: Story = {

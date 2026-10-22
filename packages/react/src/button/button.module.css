@@ -73,6 +73,43 @@
     border-radius: var(--_pressed-shape);
   }
 
+  /*
+   * In a connected button group the corners where buttons touch are small, round further while
+   * pressed, and round fully when selected. The ends of the group are fully round. The group
+   * supplies --_inner, --_pressed-inner and --_outer (see button-group.tokens.ts).
+   */
+  .root[data-connected] {
+    border-radius: var(--_inner);
+  }
+
+  .root[data-connected]:first-child {
+    border-start-start-radius: var(--_outer);
+    border-end-start-radius: var(--_outer);
+  }
+
+  .root[data-connected]:last-child {
+    border-start-end-radius: var(--_outer);
+    border-end-end-radius: var(--_outer);
+  }
+
+  .root[data-connected][data-selected] {
+    border-radius: var(--_outer);
+  }
+
+  .root[data-connected]:active:not(:disabled, [aria-disabled='true']) {
+    border-radius: var(--_pressed-inner);
+  }
+
+  .root[data-connected]:first-child:active:not(:disabled, [aria-disabled='true']) {
+    border-start-start-radius: var(--_outer);
+    border-end-start-radius: var(--_outer);
+  }
+
+  .root[data-connected]:last-child:active:not(:disabled, [aria-disabled='true']) {
+    border-start-end-radius: var(--_outer);
+    border-end-end-radius: var(--_outer);
+  }
+
   /* The outline sits inside the container so it does not change the layout. */
   .root[data-variant='outlined']:not([data-selected]) {
     box-shadow: inset 0 0 0 var(--_outline-width) var(--_outline-color);
