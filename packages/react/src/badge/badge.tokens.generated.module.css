@@ -1,0 +1,16 @@
+/* Badge token defaults.
+ *
+ * Generated from badge.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_small-size: var(--md-comp-badge-size, 6px);
+    --_small-color: var(--md-comp-badge-color, var(--md-sys-color-error));
+    --_large-size: var(--md-comp-badge-large-size, 16px);
+    --_large-color: var(--md-comp-badge-large-color, var(--md-sys-color-error));
+    --_large-label-color: var(--md-comp-badge-large-label-text-color, var(--md-sys-color-on-error));
+    --_large-label-font: var(--md-comp-badge-large-label-text-type, var(--md-sys-typescale-label-small));
+    --_large-label-font-tracking: var(--md-comp-badge-large-label-text-type-tracking, var(--md-sys-typescale-label-small-tracking));
+  }
+}

@@ -1,0 +1,212 @@
+/*
+ * Structure and behaviour only; sizes, colours and fonts come from
+ * navigation-bar.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    box-sizing: border-box;
+    min-inline-size: 0;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .list {
+    display: flex;
+    gap: var(--_item-between-space);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .listItem {
+    display: flex;
+    flex: 1 1 0;
+    min-inline-size: 0;
+  }
+
+  .item {
+    /* Unselected is the default; a selected item overrides what changes. */
+    --_icon-color: var(--_inactive-icon-color);
+    --_label-color: var(--_inactive-label-color);
+    --_state-layer-color: var(--_inactive-state-layer-color);
+
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-block-size: var(--_container-height);
+    margin: 0;
+    padding: var(--_vertical-padding-block) 0;
+    border: 0;
+    background: none;
+    color: var(--_label-color);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .item[data-selected] {
+    --_icon-color: var(--_active-icon-color);
+    --_label-color: var(--_active-label-color);
+    --_state-layer-color: var(--_active-state-layer-color);
+  }
+
+  /* Keyboard focus is drawn inside the item, so neighbouring items do not clip it. */
+  .item:focus-visible {
+    outline: var(--md-sys-state-focus-indicator-thickness) solid var(--md-sys-color-secondary);
+    outline-offset: var(--md-sys-state-focus-indicator-inner-offset);
+  }
+
+  /* The pill: draws the active indicator and the state layer. */
+  .indicator {
+    position: relative;
+    /* Contains the fill (z-index: -2) and state layer (z-index: -1). */
+    isolation: isolate;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: var(--md-sys-shape-corner-full);
+  }
+
+  .item[data-layout='vertical'] .indicator {
+    inline-size: var(--_vertical-indicator-width);
+    block-size: var(--_vertical-indicator-height);
+  }
+
+  .item[data-layout='horizontal'] .indicator {
+    gap: var(--_horizontal-icon-label-space);
+    block-size: var(--_horizontal-indicator-height);
+    padding-inline: var(--_horizontal-leading-space) var(--_horizontal-trailing-space);
+  }
+
+  /* The active indicator grows out of the centre on a spring. */
+  .indicator::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    border-radius: inherit;
+    background-color: var(--_indicator-color);
+    opacity: 0;
+    transform: scaleX(0);
+    transition:
+      transform var(--md-sys-motion-spring-fast-spatial),
+      opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .item[data-selected] .indicator::before {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  @media (hover: hover) {
+    .item:hover [data-wisp-state-layer]::before {
+      opacity: var(--_hover-state-layer-opacity);
+    }
+  }
+
+  .item:focus-visible [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  /* Icon, with an optional alternate icon for the selected state. */
+  .iconSlot {
+    position: relative;
+    flex: none;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    color: var(--_icon-color);
+    font-size: var(--_icon-size);
+    transition: color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .icon {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transition: opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentColor;
+  }
+
+  .item[data-selected] .iconInactive,
+  .item:not([data-selected]) .iconActive {
+    opacity: 0;
+  }
+
+  /* Badge, anchored to the icon's top-end corner. */
+  .badge {
+    position: absolute;
+    inset-block-start: -2px;
+    inset-inline-start: calc(50% + 2px);
+    pointer-events: none;
+  }
+
+  .badge[data-badge='dot'] {
+    inset-block-start: 1px;
+    inset-inline-start: calc(100% - 7px);
+  }
+
+  /* The label. Collapses (rows 1fr -> 0fr) so the icon can re-centre when it is hidden. */
+  .label {
+    display: grid;
+    grid-template-rows: 1fr;
+    color: var(--_label-color);
+    opacity: 1;
+    transition:
+      grid-template-rows var(--md-sys-motion-spring-fast-spatial),
+      opacity var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .labelClip {
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .labelText {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .item[data-layout='vertical'] .labelText {
+    padding-block-start: var(--_vertical-icon-label-space);
+  }
+
+  /* Only the selected item keeps its label. */
+  .item[data-label-behavior='selected']:not([data-selected]) .label {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .indicator::before,
+    .iconSlot,
+    .icon,
+    .label {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .item[data-selected] .indicator {
+      border: 2px solid Highlight;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@layer wisp {
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_small-color);
+    vertical-align: middle;
+  }
+
+  /* No label: a dot. */
+  .small {
+    inline-size: var(--_small-size);
+    block-size: var(--_small-size);
+  }
+
+  /* With a label: a pill at least as wide as it is tall. */
+  .large {
+    min-inline-size: var(--_large-size);
+    block-size: var(--_large-size);
+    padding-inline: var(--md-comp-badge-large-padding-inline, 4px);
+    background-color: var(--_large-color);
+    color: var(--_large-label-color);
+    font: var(--_large-label-font);
+    letter-spacing: var(--_large-label-font-tracking);
+    white-space: nowrap;
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+    }
+  }
+}

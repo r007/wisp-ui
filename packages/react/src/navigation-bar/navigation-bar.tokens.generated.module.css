@@ -1,0 +1,37 @@
+/* NavigationBar token defaults.
+ *
+ * Generated from navigation-bar.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-nav-bar-container-color, var(--md-sys-color-surface-container));
+    --_container-height: var(--md-comp-nav-bar-container-height, 64px);
+    --_container-shape: var(--md-comp-nav-bar-container-shape, 0px);
+    --_item-between-space: var(--md-comp-nav-bar-item-between-space, 0px);
+  }
+
+  .item {
+    --_icon-size: var(--md-comp-nav-bar-item-icon-size, 24px);
+    --_label-font: var(--md-comp-nav-bar-item-vertical-label-text-font, var(--md-sys-typescale-label-medium));
+    --_label-font-tracking: var(--md-comp-nav-bar-item-vertical-label-text-font-tracking, var(--md-sys-typescale-label-medium-tracking));
+    --_indicator-color: var(--md-comp-nav-bar-item-active-indicator-color, var(--md-sys-color-secondary-container));
+    --_active-icon-color: var(--md-comp-nav-bar-item-active-icon-color, var(--md-sys-color-on-secondary-container));
+    --_inactive-icon-color: var(--md-comp-nav-bar-item-inactive-icon-color, var(--md-sys-color-on-surface-variant));
+    --_active-label-color: var(--md-comp-nav-bar-item-active-label-text-color, var(--md-sys-color-secondary));
+    --_inactive-label-color: var(--md-comp-nav-bar-item-inactive-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_active-state-layer-color: var(--md-comp-nav-bar-item-active-hovered-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_inactive-state-layer-color: var(--md-comp-nav-bar-item-inactive-hovered-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_hover-state-layer-opacity: var(--md-comp-nav-bar-item-active-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-nav-bar-item-active-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-nav-bar-item-active-pressed-state-layer-opacity, 0.1);
+    --_vertical-indicator-width: var(--md-comp-nav-bar-item-vertical-active-indicator-width, 56px);
+    --_vertical-indicator-height: var(--md-comp-nav-bar-item-vertical-active-indicator-height, 32px);
+    --_vertical-icon-label-space: var(--md-comp-nav-bar-item-vertical-active-indicator-icon-label-space, 4px);
+    --_vertical-padding-block: var(--md-comp-nav-bar-item-vertical-container-between-space, 6px);
+    --_horizontal-indicator-height: var(--md-comp-nav-bar-item-horizontal-active-indicator-height, 40px);
+    --_horizontal-leading-space: var(--md-comp-nav-bar-item-horizontal-active-indicator-leading-space, 16px);
+    --_horizontal-trailing-space: var(--md-comp-nav-bar-item-horizontal-active-indicator-trailing-space, 16px);
+    --_horizontal-icon-label-space: var(--md-comp-nav-bar-item-horizontal-active-indicator-icon-label-space, 4px);
+  }
+}
