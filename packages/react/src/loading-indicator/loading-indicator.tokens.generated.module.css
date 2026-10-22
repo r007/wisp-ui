@@ -1,0 +1,19 @@
+/* LoadingIndicator token defaults.
+ *
+ * Generated from loading-indicator.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_indicator-color: var(--md-comp-loading-indicator-active-indicator-color, var(--md-sys-color-primary));
+    --_indicator-size: var(--md-comp-loading-indicator-active-indicator-size, 38px);
+    --_container-width: var(--md-comp-loading-indicator-container-width, 48px);
+    --_container-height: var(--md-comp-loading-indicator-container-height, 48px);
+    --_container-shape: var(--md-comp-loading-indicator-container-shape, 9999px);
+  }
+
+  .contained {
+    --_indicator-color: var(--md-comp-loading-indicator-contained-active-indicator-color, var(--md-sys-color-on-primary-container));
+    --_container-color: var(--md-comp-loading-indicator-contained-container-color, var(--md-sys-color-primary-container));
+  }
+}

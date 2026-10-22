@@ -1,0 +1,36 @@
+/*
+ * A square holding an SVG whose outline script morphs (see shapes.ts) and turns. Colours and
+ * sizes come from loading-indicator.tokens.generated.module.css. `--_scale` sizes the whole
+ * thing from the 48px the tokens specify.
+ */
+@layer wisp {
+  .root {
+    --_scale: 1;
+
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: calc(var(--_container-width) * var(--_scale));
+    block-size: calc(var(--_container-height) * var(--_scale));
+    border-radius: var(--_container-shape);
+    vertical-align: middle;
+  }
+
+  .root.contained {
+    background-color: var(--_container-color);
+  }
+
+  .shape {
+    inline-size: calc(var(--_indicator-size) * var(--_scale));
+    block-size: calc(var(--_indicator-size) * var(--_scale));
+    overflow: visible;
+    fill: var(--_indicator-color);
+  }
+
+  @media (forced-colors: active) {
+    .shape {
+      fill: CanvasText;
+    }
+  }
+}

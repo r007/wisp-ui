@@ -20,10 +20,11 @@ Import a component and you get **only that component's CSS**. Everything lives i
 ## Components
 
 `Badge`, `Banner`, `BottomAppBar`, `Button`, `ButtonGroup`, `Card`, `Checkbox`, `Chip`,
-`Dialog`, `Divider`, `Fab`, `FabMenu`, `IconButton`, `List`, `Menu`, `NavigationBar`,
-`NavigationDrawer`, `NavigationRail`, `Progress` (linear and circular), `Radio`, `Search`,
-`SearchBar`, `SegmentedButton`, `Sheet`, `Slider` (and `RangeSlider`), `Snackbar`,
-`SplitButton`, `Switch`, `Tabs`, `TextField`, `Toolbar`, `Tooltip` and `TopAppBar`.
+`Dialog`, `Divider`, `Fab`, `FabMenu`, `IconButton`, `List`, `LoadingIndicator`, `Menu`,
+`NavigationBar`, `NavigationDrawer`, `NavigationRail`, `Progress` (linear and circular),
+`Radio`, `Search`, `SearchBar`, `SegmentedButton`, `Sheet`, `Slider` (and `RangeSlider`),
+`Snackbar`, `SplitButton`, `Switch`, `Tabs`, `TextField`, `Toolbar`, `Tooltip` and
+`TopAppBar`.
 More are being ported; see the [status](https://github.com/r007/wisp-ui/blob/main/docs/COMPONENTS.md).
 
 ## Theming

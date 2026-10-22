@@ -13,6 +13,7 @@ export * from './fab/index.js';
 export * from './fab-menu/index.js';
 export * from './icon-button/index.js';
 export * from './list/index.js';
+export * from './loading-indicator/index.js';
 export * from './menu/index.js';
 export * from './navigation-bar/index.js';
 export * from './navigation-drawer/index.js';
