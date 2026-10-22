@@ -49,8 +49,11 @@ describe('component stylesheets', () => {
 
     it.skipIf(generated)('takes every timing from a motion token, not a literal', () => {
       const body = code(css);
-      // `transition: opacity 375ms linear` would not follow the Standard/Expressive switch.
-      const literal = [...body.matchAll(/transition[^;]*?\b\d+(?:\.\d+)?m?s\b/g)].map((m) => m[0]);
+      // `transition: opacity 375ms linear` would not follow the Standard/Expressive switch. A
+      // duration of zero (`visibility 0s`, which flips at once) has no speed to follow.
+      const literal = [...body.matchAll(/transition[^;]*?\b(?!0m?s\b)\d+(?:\.\d+)?m?s\b/g)].map(
+        (m) => m[0],
+      );
       // The press ripple's own durations are Material constants ported from material-web.
       const allowed = (match: string) => match.includes('375ms') || match.includes('105ms');
       expect(literal.filter((m) => !allowed(m))).toEqual([]);
