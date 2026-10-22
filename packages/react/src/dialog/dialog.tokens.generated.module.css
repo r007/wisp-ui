@@ -1,0 +1,36 @@
+/* Dialog token defaults.
+ *
+ * Generated from dialog.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .basic {
+    --_container-color: var(--md-comp-dialog-container-color, var(--md-sys-color-surface-container-high));
+    --_container-elevation: var(--md-comp-dialog-container-elevation, var(--md-sys-elevation-level3));
+    --_container-shape: var(--md-comp-dialog-container-shape, 28px);
+    --_headline-color: var(--md-comp-dialog-headline-color, var(--md-sys-color-on-surface));
+    --_headline-font: var(--md-comp-dialog-headline-type, var(--md-sys-typescale-headline-small));
+    --_headline-font-tracking: var(--md-comp-dialog-headline-type-tracking, var(--md-sys-typescale-headline-small-tracking));
+    --_supporting-text-color: var(--md-comp-dialog-supporting-text-color, var(--md-sys-color-on-surface-variant));
+    --_supporting-text-font: var(--md-comp-dialog-supporting-text-type, var(--md-sys-typescale-body-medium));
+    --_supporting-text-font-tracking: var(--md-comp-dialog-supporting-text-type-tracking, var(--md-sys-typescale-body-medium-tracking));
+    --_icon-color: var(--md-comp-dialog-with-icon-icon-color, var(--md-sys-color-secondary));
+    --_icon-size: var(--md-comp-dialog-with-icon-icon-size, 24px);
+  }
+
+  .fullscreen {
+    --_container-color: var(--md-comp-full-screen-dialog-container-color, var(--md-sys-color-surface));
+    --_container-elevation: var(--md-comp-full-screen-dialog-container-elevation, var(--md-sys-elevation-level0));
+    --_container-shape: var(--md-comp-full-screen-dialog-container-shape, 0px);
+    --_header-color: var(--md-comp-full-screen-dialog-header-container-color, var(--md-sys-color-surface));
+    --_header-elevation: var(--md-comp-full-screen-dialog-header-container-elevation, var(--md-sys-elevation-level0));
+    --_header-height: var(--md-comp-full-screen-dialog-header-container-height, 56px);
+    --_header-scrolled-color: var(--md-comp-full-screen-dialog-header-on-scroll-container-color, var(--md-sys-color-surface-container));
+    --_header-scrolled-elevation: var(--md-comp-full-screen-dialog-header-on-scroll-container-elevation, var(--md-sys-elevation-level2));
+    --_headline-color: var(--md-comp-full-screen-dialog-header-headline-color, var(--md-sys-color-on-surface));
+    --_headline-font: var(--md-comp-full-screen-dialog-header-headline-type, var(--md-sys-typescale-title-large));
+    --_headline-font-tracking: var(--md-comp-full-screen-dialog-header-headline-type-tracking, var(--md-sys-typescale-title-large-tracking));
+    --_icon-color: var(--md-comp-full-screen-dialog-header-icon-color, var(--md-sys-color-on-surface));
+    --_icon-size: var(--md-comp-full-screen-dialog-header-icon-size, 24px);
+  }
+}

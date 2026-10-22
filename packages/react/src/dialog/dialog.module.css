@@ -1,0 +1,218 @@
+/*
+ * The <dialog> is a transparent, padding-free box that centres its one child, the
+ * surface. Because the surface fills it, a click that targets the <dialog> itself
+ * can only have landed on the scrim (see useModalDialog).
+ *
+ * Closing is driven from script: the dialog stays [open] with `data-closing`
+ * while it animates out. Colours, sizes and shapes come from the private
+ * variables in dialog.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    --_scrim-opacity: var(--md-comp-dialog-scrim-opacity, 0.32);
+
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+    max-inline-size: calc(100% - 48px);
+    max-block-size: calc(100dvh - 48px);
+    margin: auto;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    opacity: 0;
+    scale: 0.92;
+    transition:
+      opacity var(--md-sys-motion-spring-default-effects),
+      scale var(--md-sys-motion-spring-default-spatial);
+  }
+
+  .root[open]:not([data-closing]) {
+    opacity: 1;
+    scale: 1;
+  }
+
+  @starting-style {
+    .root[open] {
+      opacity: 0;
+      scale: 0.92;
+    }
+  }
+
+  .root::backdrop {
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-scrim) calc(var(--_scrim-opacity) * 100%),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-spring-default-effects);
+  }
+
+  .root[open]:not([data-closing])::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .root[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  /* The page behind a modal must not scroll. */
+  :global(html):has(.root[open]) {
+    overflow: hidden;
+  }
+
+  .surface {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    inline-size: 100%;
+    min-inline-size: 280px;
+    max-inline-size: 560px;
+    max-block-size: calc(100dvh - 48px);
+    padding: 24px;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--_supporting-text-color);
+  }
+
+  .headline {
+    margin: 0;
+    color: var(--_headline-color);
+    font: var(--_headline-font);
+    letter-spacing: var(--_headline-font-tracking);
+  }
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    margin-block-end: 16px;
+    color: var(--_icon-color);
+    font-size: var(--_icon-size);
+  }
+
+  .icon > svg {
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    fill: currentColor;
+  }
+
+  .root[data-has-icon] .headline {
+    text-align: center;
+  }
+
+  .body {
+    min-block-size: 0;
+    overflow-y: auto;
+    font: var(--_supporting-text-font);
+    letter-spacing: var(--_supporting-text-font-tracking);
+  }
+
+  .headline ~ .body {
+    margin-block-start: 16px;
+  }
+
+  .actions {
+    display: flex;
+    flex: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-block-start: 24px;
+  }
+
+  /* Full-screen: fills the window, with a header that lifts when content scrolls under it. */
+  .root[data-variant='fullscreen'] {
+    inline-size: 100%;
+    block-size: 100%;
+    max-inline-size: none;
+    max-block-size: none;
+    margin: 0;
+    scale: 1;
+    translate: 0 48px;
+  }
+
+  .root[data-variant='fullscreen'][open]:not([data-closing]) {
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .root[data-variant='fullscreen'][open] {
+      scale: 1;
+      translate: 0 48px;
+    }
+  }
+
+  .root[data-variant='fullscreen'] .surface {
+    min-inline-size: 0;
+    max-inline-size: none;
+    block-size: 100%;
+    max-block-size: none;
+    padding: 0;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .header {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    min-block-size: var(--_header-height);
+    padding-inline: 4px 16px;
+    background-color: var(--_header-color);
+    box-shadow: var(--_header-elevation);
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      box-shadow var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .surface[data-scrolled] .header {
+    background-color: var(--_header-scrolled-color);
+    box-shadow: var(--_header-scrolled-elevation);
+  }
+
+  .root[data-variant='fullscreen'] .headline {
+    flex: 1;
+    min-inline-size: 0;
+    padding-inline-start: 8px;
+  }
+
+  .navigation {
+    display: flex;
+    flex: none;
+    color: var(--_icon-color);
+    font-size: var(--_icon-size);
+  }
+
+  .headerActions {
+    display: flex;
+    flex: none;
+    gap: 8px;
+    margin-inline-start: auto;
+  }
+
+  .root[data-variant='fullscreen'] .body {
+    flex: 1;
+    padding: 24px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root,
+    .root::backdrop,
+    .header {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .surface {
+      border: 1px solid CanvasText;
+    }
+  }
+}
