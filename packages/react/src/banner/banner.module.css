@@ -1,0 +1,103 @@
+/*
+ * A banner is a persistent message across the top of the content. It folds away (a grid row
+ * from 1fr to 0fr) rather than being removed, so it can animate out. Actions sit at the end, or
+ * wrap onto their own line below the text when there is no room. Colours, sizes and type come
+ * from banner.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    display: grid;
+    grid-template-rows: 1fr;
+    box-sizing: border-box;
+    inline-size: 100%;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--_text-color);
+    font: var(--_text-font);
+    letter-spacing: var(--_text-font-tracking);
+    transition:
+      grid-template-rows var(--md-sys-motion-spring-default-spatial),
+      opacity var(--md-sys-motion-spring-default-effects);
+  }
+
+  .root[data-closed] {
+    grid-template-rows: 0fr;
+    /* A banner that is closed casts no shadow over the content below. */
+    box-shadow: none;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--md-sys-motion-spring-default-spatial),
+      opacity var(--md-sys-motion-spring-default-effects),
+      visibility 0s var(--md-sys-motion-duration-medium2);
+  }
+
+  .clip {
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    box-sizing: border-box;
+    min-block-size: var(--_min-height);
+    padding-block: 8px;
+    padding-inline: 16px 8px;
+    gap: 8px 16px;
+  }
+
+  .image {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--_image-size);
+    block-size: var(--_image-size);
+    overflow: hidden;
+    border-radius: var(--_image-shape);
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+  }
+
+  .image > svg {
+    inline-size: 24px;
+    block-size: 24px;
+    fill: currentcolor;
+  }
+
+  .image > img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .text {
+    flex: 1 1 16rem;
+    min-inline-size: 0;
+    margin: 0;
+    padding-block: 6px;
+  }
+
+  .actions {
+    display: flex;
+    flex: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-inline-start: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border-block-end: 1px solid CanvasText;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+/* Banner token defaults.
+ *
+ * Generated from banner.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-banner-container-color, var(--md-sys-color-surface-container-low));
+    --_container-elevation: var(--md-comp-banner-container-elevation, var(--md-sys-elevation-level1));
+    --_container-shape: var(--md-comp-banner-container-shape, 0px);
+    --_text-color: var(--md-comp-banner-supporting-text-color, var(--md-sys-color-on-surface-variant));
+    --_text-font: var(--md-comp-banner-supporting-text-type, var(--md-sys-typescale-body-medium));
+    --_text-font-tracking: var(--md-comp-banner-supporting-text-type-tracking, var(--md-sys-typescale-body-medium-tracking));
+    --_min-height: var(--md-comp-banner-desktop-with-single-line-container-height, 52px);
+    --_image-size: var(--md-comp-banner-with-image-image-size, 40px);
+    --_image-shape: var(--md-comp-banner-with-image-image-shape, 9999px);
+  }
+}

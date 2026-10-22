@@ -1,5 +1,6 @@
 export * from './app-bar/index.js';
 export * from './badge/index.js';
+export * from './banner/index.js';
 export * from './button/index.js';
 export * from './card/index.js';
 export * from './checkbox/index.js';
