@@ -93,6 +93,12 @@ neighbours, or the two tokens that disagreed. Fix the spec until it passes.
   colours (Stylelint rejects them), no `ms` literals in `transition`.
 - Compose state from the DOM (`:disabled`, `[aria-current]`, `:checked`,
   `:focus-visible`) and from `data-*` attributes the component sets.
+- **Private variables inherit.** A Button inside a Card or Dialog sees the parent's
+  `--_container-color` and `--_container-elevation` unless it defines them itself.
+  Define every variable you read on every code path. For one a variant legitimately
+  leaves unset, give it a neutral default at zero specificity, e.g.
+  `:where(.root) { --_container-color: transparent; }`, so the generated token
+  classes still win. Never write `var(--_x, fallback)` for a private variable.
 - Animate with the spring variables: spatial for position/size/shape, effects for
   colour/opacity. Avoid _overshooting_ springs on anything anchored to a screen edge.
 - Add `prefers-reduced-motion` (drop transitions) and `forced-colors` (restore a
@@ -132,7 +138,12 @@ test with an **axe accessibility check set to fail**.
 - RTL, focus ring, hover state layer, press ripple, hit target
 
 Pitfalls found the hard way:
-- A hashed class name is not a selector; add a `data-slot` instead.
+- A hashed class name is not a selector; add a `data-slot` instead. Structural
+  selectors such as `span > span > span` match the state layer first.
+- Springs animate colour too: a computed colour read right after a re-render is
+  still the old one. Use `expect.poll`.
+- A real `<a href>` navigates the test page when clicked; `preventDefault()` in the
+  handler under test.
 - Storybook's `userEvent` fires _synthetic_ events: they do not trigger native
   behaviours such as a `<dialog>`'s Escape. Test those with Vitest's `userEvent`.
 - `getComputedStyle` may serialise `color-mix()` as `color(srgb …)`; match values,

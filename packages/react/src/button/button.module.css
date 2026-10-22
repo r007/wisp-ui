@@ -3,6 +3,17 @@
  * from a private `--_*` variable defined in button.tokens.generated.module.css.
  */
 @layer wisp {
+  /*
+   * Custom properties inherit, so a variable a variant leaves unset would pick up
+   * the surrounding card's or dialog's. Neutral defaults at zero specificity: the
+   * generated token classes still win, and nothing leaks in from a parent.
+   */
+  :where(.root) {
+    --_container-color: transparent;
+    --_container-elevation: none;
+    --_disabled-container-color: transparent;
+  }
+
   .root {
     position: relative;
     /* Contains the state layer (z-index: -1) behind the label and icons. */
@@ -18,8 +29,8 @@
     gap: var(--_icon-label-space);
     border: 0;
     border-radius: var(--_shape-round);
-    background-color: var(--_container-color, transparent);
-    box-shadow: var(--_container-elevation, none);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
     color: var(--_label-color);
     font: var(--_label-font);
     letter-spacing: var(--_label-font-tracking);
@@ -90,7 +101,7 @@
     cursor: default;
     background-color: color-mix(
       in srgb,
-      var(--_disabled-container-color, transparent) calc(var(--_disabled-container-opacity) * 100%),
+      var(--_disabled-container-color) calc(var(--_disabled-container-opacity) * 100%),
       transparent
     );
     box-shadow: none;

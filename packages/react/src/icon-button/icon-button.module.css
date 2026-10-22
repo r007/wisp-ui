@@ -3,6 +3,16 @@
  * for where every colour, size, shape and timing comes from.
  */
 @layer wisp {
+  /*
+   * Custom properties inherit, so a variable a variant leaves unset would pick up
+   * the surrounding card's or dialog's. Neutral defaults at zero specificity: the
+   * generated token classes still win, and nothing leaks in from a parent.
+   */
+  :where(.root) {
+    --_container-color: transparent;
+    --_disabled-container-color: transparent;
+  }
+
   .root {
     /* The three widths only change horizontal padding; the icon stays centred. */
     --_leading-space: var(--_default-leading-space);
@@ -22,7 +32,7 @@
     padding-inline: var(--_leading-space) var(--_trailing-space);
     border: 0;
     border-radius: var(--_shape-round);
-    background-color: var(--_container-color, transparent);
+    background-color: var(--_container-color);
     color: var(--_icon-color);
     font-size: var(--_icon-size);
     line-height: 0;
@@ -98,7 +108,7 @@
     cursor: default;
     background-color: color-mix(
       in srgb,
-      var(--_disabled-container-color, transparent) calc(var(--_disabled-container-opacity) * 100%),
+      var(--_disabled-container-color) calc(var(--_disabled-container-opacity) * 100%),
       transparent
     );
     color: color-mix(

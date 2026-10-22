@@ -2,6 +2,8 @@ import { createRef } from 'react';
 import { expect, test, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { Button } from '../button/button.js';
+import { IconButton } from '../icon-button/icon-button.js';
 import { Card } from './card.js';
 
 const px = (value: string) => Number.parseFloat(value);
@@ -35,6 +37,22 @@ test('paints the Material container for each variant', async () => {
   await expect.poll(() => getComputedStyle(el).backgroundColor).toBe('rgb(254, 247, 255)');
   expect(px(getComputedStyle(el).borderTopWidth)).toBe(1);
   await expect.poll(() => getComputedStyle(el).borderTopColor).toBe('rgb(202, 196, 208)');
+});
+
+test('does not leak its container into nested buttons', async () => {
+  await render(
+    <Card variant="elevated">
+      <Button variant="text">Share</Button>
+      <IconButton aria-label="Favourite">
+        <svg />
+      </IconButton>
+    </Card>,
+  );
+  const share = getComputedStyle(page.getByRole('button', { name: 'Share' }).element());
+  expect(share.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+  expect(share.boxShadow).toBe('none');
+  const icon = getComputedStyle(page.getByRole('button', { name: 'Favourite' }).element());
+  expect(icon.backgroundColor).toBe('rgba(0, 0, 0, 0)');
 });
 
 test('elevated is the default variant', async () => {
