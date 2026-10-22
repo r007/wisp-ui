@@ -10,6 +10,7 @@
     "dynamic-color"
   ],
   "license": "Apache-2.0",
+  "author": "Sergey Monin <moninsergei@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/r007/wisp-ui.git",

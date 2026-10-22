@@ -9,65 +9,90 @@ them to components, the Flutter widget to read, and the archetype to copy from
 
 ## Ported
 
-| Component               | Tokens (`md.comp.*`)  | Notes                                                                                                                                       |
-| ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| ✅ **Button**           | `button` (358 tokens) | Elevated, filled, tonal, outlined, text; 5 sizes; round/square; toggle with shape morph; link; `render`                                     |
-| ✅ **IconButton**       | `icon-button`         | 4 variants; 5 sizes; narrow/default/wide; toggle with `selectedIcon`; requires `aria-label`                                                 |
-| ✅ **Switch**           | `switch`              | Native `<input role="switch">`; optional icons; spring handle; RTL                                                                          |
-| ✅ **NavigationBar**    | `nav-bar`             | Expressive 64px bar; vertical and horizontal items; label behaviours; badges. Uses the new `nav-bar` tokens, not the older `navigation-bar` |
-| ✅ **NavigationDrawer** | `navigation-drawer`   | Standard and modal (native `<dialog>`); sections, dividers, trailing counts                                                                 |
-| ✅ **Badge**            | `badge`               | Dot or labelled pill                                                                                                                        |
+| Component                 | Tokens (`md.comp.*`)                                                   | Notes                                                                                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ✅ **Banner**             | `banner`                                                               | Persistent message, optional icon and two actions; folds away rather than unmounting                                                                  |
+| ✅ **Button**             | `button` (358 tokens)                                                  | Elevated, filled, tonal, outlined, text; 5 sizes; round/square; toggle with shape morph; link; `render`                                               |
+| ✅ **ButtonGroup**        | `button-group`                                                         | Standard (spaced by size) and connected (2px apart, shared corners); sizes its Buttons through a context                                              |
+| ✅ **Card**               | `elevated-card`, `filled-card`, `outlined-card`                        | A container until it has `onClick`/`href`; then hover, focus, press; dragged; disabled                                                                |
+| ✅ **Checkbox**           | `checkbox`                                                             | Native input; indeterminate (controlled), error, drawn tick                                                                                           |
+| ✅ **Chip / ChipGroup**   | `chips`, `assist-chip`, `filter-chip`, `input-chip`, `suggestion-chip` | One component, four variants; the shared `chips` tokens carry the Expressive shape morph; input chips get a sibling remove button                     |
+| ✅ **Dialog**             | `dialog`, `full-screen-dialog`                                         | Native `<dialog>` modal; basic and full-screen; exit animation in every browser (`useModalDialog`)                                                    |
+| ✅ **Divider**            | `divider`                                                              | Horizontal or vertical `<hr>`, optional inset                                                                                                         |
+| ✅ **Fab**                | `fab`, `extended-fab`                                                  | 7 colour sets, 4 sizes, extended with a label that can collapse into a square                                                                         |
+| ✅ **IconButton**         | `icon-button`                                                          | 4 variants; 5 sizes; narrow/default/wide; toggle with `selectedIcon`; requires `aria-label`                                                           |
+| ✅ **List**               | `list`                                                                 | `List`, `ListItem`, `ListDivider`; 1 to 3 lines, leading icon/avatar/image/video; the **list-item contract** that Menu reuses; segmented (Expressive) |
+| ✅ **Menu**               | `menus` (standard and vibrant)                                         | Popover on CSS anchor positioning; WAI-ARIA menu button pattern (arrows, typeahead, Escape returns focus); checkbox and radio items                   |
+| ✅ **NavigationBar**      | `nav-bar`                                                              | Expressive 64px bar; vertical and horizontal items; label behaviours; badges. Uses the new `nav-bar` tokens, not the older `navigation-bar`           |
+| ✅ **NavigationDrawer**   | `navigation-drawer`                                                    | Standard and modal (native `<dialog>`); sections, dividers, trailing counts                                                                           |
+| ✅ **NavigationRail**     | `nav-rail`                                                             | Collapsed (96/80px, vertical items) and expanded (220 to 360px, horizontal items); header slot                                                        |
+| ✅ **Badge**              | `badge`                                                                | Dot or labelled pill                                                                                                                                  |
+| ✅ **Progress**           | `progress-indicator`                                                   | `LinearProgress` and `CircularProgress`; determinate/indeterminate; flat and wavy; the Expressive gap and stop dot                                    |
+| ✅ **Radio / RadioGroup** | `radio-button`                                                         | Native input; the group owns the value and a shared `name`                                                                                            |
+| ✅ **SegmentedButton**    | `outlined-segmented-button`                                            | Native radios (single) or checkboxes (multiple); a selected segment folds in a check                                                                  |
+| ✅ **Slider**             | `slider`                                                               | Native range input over the Expressive visuals; 5 sizes; handle pill, stop dot, value bubble, icon. Single value (no range slider yet)                |
+| ✅ **Snackbar**           | `snackbar`                                                             | Top-layer popover; auto-dismiss that pauses on hover/focus; `SnackbarProvider` + `useSnackbar` queue                                                  |
+| ✅ **SplitButton**        | `split-button`                                                         | An action plus a chevron that opens a Menu; built from two Buttons in a connected group                                                               |
+| ✅ **Switch**             | `switch`                                                               | Native `<input role="switch">`; optional icons; spring handle; RTL                                                                                    |
+| ✅ **Tabs**               | `primary-navigation-tab`, `secondary-navigation-tab`                   | `Tabs`, `TabList`, `Tab`, `TabPanel`; sliding measured indicator; roving focus; automatic or manual activation; scrollable                            |
+| ✅ **TextField**          | `filled-text-field`, `outlined-text-field`                             | Native input/textarea; the label floats with CSS alone; outlined notch; supporting/error text, counter, icons, prefix/suffix                          |
+| ✅ **Tooltip**            | `plain-tooltip`, `rich-tooltip`                                        | Popover on CSS anchor positioning; hover delay, keyboard focus, Escape; rich tooltips stay open under the pointer                                     |
+| ✅ **TopAppBar**          | `app-bar`                                                              | Small, medium, large (Expressive flexible heights), subtitle, collapse on scroll, sticky                                                              |
 
 ## Next up (suggested order)
 
 Ordered by how much of the remaining set each unlocks.
 
-| Component                        | Tokens                                                                 | Flutter widget                                         | Archetype                 | Unlocks / notes                                                           |
-| -------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------- | ------------------------------------------------------------------------- |
-| ⬜ Checkbox                      | `checkbox`                                                             | `Checkbox`                                             | native input (Switch)     | forms; Radio and list items reuse it                                      |
-| ⬜ Radio                         | `radio-button`                                                         | `Radio`                                                | native input (Switch)     |                                                                           |
-| ⬜ Text field                    | `filled-text-field`, `outlined-text-field`                             | `TextField`                                            | native input              | label animation, supporting text, error state                             |
-| ⬜ Card                          | `elevated-card`, `filled-card`, `outlined-card`                        | `Card`                                                 | pressable                 | simple, high value                                                        |
-| ⬜ Chips                         | `assist-chip`, `filter-chip`, `input-chip`, `suggestion-chip`, `chips` | `ActionChip`, `FilterChip`, `InputChip`                | pressable                 | selection patterns                                                        |
-| ⬜ Dialog                        | `dialog`, `full-screen-dialog`                                         | `Dialog`                                               | overlay (drawer)          | native `<dialog>`; mostly done by the drawer                              |
-| ⬜ Snackbar                      | `snackbar`                                                             | `SnackBar`                                             | overlay                   | needs a toast/queue primitive                                             |
-| ⬜ Tooltip                       | `plain-tooltip`, `rich-tooltip`                                        | `Tooltip`                                              | overlay                   | needs the **popover/anchor** primitive                                    |
-| ⬜ Menu                          | `menu`, `menus`                                                        | `MenuAnchor`, `PopupMenuButton`                        | overlay                   | popover primitive + list item primitive                                   |
-| ⬜ Tabs                          | `primary-navigation-tab`, `secondary-navigation-tab`                   | `TabBar`                                               | composite (NavigationBar) | indicator animation, roving focus                                         |
-| ⬜ Navigation rail               | `nav-rail` (and older `navigation-rail`)                               | `NavigationRail`                                       | composite                 | expanded/collapsed; reuse NavigationBar items                             |
-| ⬜ Top app bar                   | `app-bar`                                                              | `AppBar`                                               | layout                    | small/medium/large, scroll behaviour                                      |
-| ⬜ List                          | `list`                                                                 | `ListTile`                                             | composite                 | the shared list-item primitive for menus, drawer                          |
-| ⬜ Divider                       | `divider`                                                              | `Divider`                                              | trivial                   | already styled inside the drawer                                          |
-| ⬜ FAB / Extended FAB / FAB menu | `fab`, `extended-fab`, `fab-menu`                                      | `FloatingActionButton`                                 | pressable                 | 140 + 180 + 117 tokens                                                    |
-| ⬜ Button group / Split button   | `button-group`, `split-button`                                         | none yet                                               | composite                 | Expressive: neighbours react to a press (`pressed.item.width.multiplier`) |
-| ⬜ Segmented button              | `outlined-segmented-button`                                            | `SegmentedButton`                                      | composite                 |                                                                           |
-| ⬜ Slider                        | `slider`                                                               | `Slider`, `RangeSlider`                                | native input              | 5 sizes in Expressive                                                     |
-| ⬜ Progress indicators           | `progress-indicator`, `loading-indicator`                              | `LinearProgressIndicator`, `CircularProgressIndicator` | SVG/CSS                   | wavy variants; loading indicator uses shape morphing                      |
-| ⬜ Search                        | `search-bar`, `search-view`                                            | `SearchBar`, `SearchAnchor`                            | composite + overlay       |                                                                           |
-| ⬜ Sheets                        | `sheet`, `drag-handle`                                                 | `BottomSheet`                                          | overlay                   | bottom, side and floating                                                 |
-| ⬜ Banner                        | `banner`                                                               | `MaterialBanner`                                       | simple                    |                                                                           |
-| ⬜ Carousel                      | `carousel-item`                                                        | `CarouselView`                                         | scroll-snap               |                                                                           |
-| ⬜ Toolbar                       | `toolbar`                                                              | none yet                                               | composite                 | Expressive                                                                |
-| ⬜ Bottom app bar                | `bottom-app-bar`                                                       | `BottomAppBar`                                         | layout                    |                                                                           |
-| ⬜ Date / time pickers           | `date-picker`, `date-input`, `time-picker`, `time-input`               | `showDatePicker`, `showTimePicker`                     | complex                   | 147 + 71 tokens; consider a headless base                                 |
+| Component              | Tokens                                                   | Flutter widget                     | Archetype           | Unlocks / notes                                           |
+| ---------------------- | -------------------------------------------------------- | ---------------------------------- | ------------------- | --------------------------------------------------------- |
+| ⬜ Sheets              | `sheet`, `drag-handle`                                   | `BottomSheet`                      | overlay (dialog)    | bottom, side and floating; reuse `useModalDialog`         |
+| ⬜ Search              | `search-bar`, `search-view`                              | `SearchBar`, `SearchAnchor`        | composite + overlay | text field + list + popover                               |
+| ⬜ Toolbar             | `toolbar`                                                | none yet                           | composite           | Expressive; floating and docked                           |
+| ⬜ Bottom app bar      | `bottom-app-bar`                                         | `BottomAppBar`                     | layout              |                                                           |
+| ⬜ Carousel            | `carousel-item`                                          | `CarouselView`                     | scroll-snap         | multi-browse, hero, uncontained                           |
+| ⬜ Loading indicator   | `loading-indicator`                                      | `CircularProgressIndicator`        | SVG                 | needs the **Material Shapes** morphing foundation         |
+| ⬜ FAB menu            | `fab-menu`                                               | none yet                           | composite + overlay | a FAB that expands into a menu                            |
+| ⬜ Range slider        | `slider`                                                 | `RangeSlider`                      | native input        | two thumbs                                                |
+| ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex             | 147 + 71 tokens; consider a headless base                 |
+| ⬜ Menu groups         | `menus`                                                  | `MenuAnchor`                       | composite           | the Expressive grouped, segmented menu (`group.*` tokens) |
 
-## Foundation still to build
+## Foundation
+
+Built and reused:
+
+| Piece                               | Used by                  | Notes                                                                                                 |
+| ----------------------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `usePressable`, state layer, ripple | every pressable control  | Button-or-link semantics, disabled handling, toggle state, press ripple                               |
+| `useModalDialog`                    | Dialog, NavigationDrawer | Native `<dialog>` with an exit animation in every browser (`data-closing`), scrim and Escape handling |
+| `usePopover`                        | Menu, Tooltip, Snackbar  | Native manual popover placed by CSS anchor positioning; script-driven dismissal and exit animation    |
+| The list-item contract              | List, Menu               | One set of private variables an item reads; a container supplies them from its own tokens             |
+| `ButtonGroupContext`                | ButtonGroup, SplitButton | Sizes the Buttons inside and tells a connected group's buttons to draw shared corners                 |
+| Snackbar queue                      | Snackbar                 | `SnackbarProvider` and `useSnackbar`                                                                  |
+
+Still to build:
 
 | Piece                                           | Needed by                                 | Notes                                                                               |
 | ----------------------------------------------- | ----------------------------------------- | ----------------------------------------------------------------------------------- |
-| **Popover / anchor positioning primitive**      | Menu, Tooltip, Select, Search             | Native `popover` + CSS anchor positioning, with a JS fallback only if needed        |
-| **List item primitive**                         | List, Menu, Drawer, Select                | Shared leading/trailing/overline/supporting-text layout                             |
 | **Material Shapes** (`RoundedPolygon` morphing) | Loading indicator, FAB, expressive shapes | Flutter 1.8.0 ships `MaterialShapes`; CSS `shape()` / `clip-path` or SVG path morph |
 | **Typography** component / utility classes      | everything                                | The `--md-sys-typescale-*` tokens exist; no component yet                           |
 | **`prefers-contrast` mapping**                  | accessibility                             | `data-wisp-contrast` exists; map the media query to it                              |
-| **Toast / queue**                               | Snackbar                                  |                                                                                     |
 | **Docs site**                                   | adoption                                  | Storybook is the component explorer; a marketing/docs site is planned               |
 
 ## Expressive features used so far
 
 Springs (fast spatial for shape morphing, fast effects for colour) · shape morph on
-press and toggle · five button/icon-button sizes · Expressive nav bar tokens · the
-Standard/Expressive motion switch.
+press and toggle (buttons, chips, list segments, connected button groups, split
+buttons) · five button/icon-button/slider sizes · the Expressive `nav-bar`, `nav-rail`,
+`menus` and `chips` tokens · wavy progress indicators · the Expressive slider with its
+handle pill · flexible app bars · connected button groups · the Standard/Expressive
+motion switch.
 
-Not yet used: `MaterialShapes` morphing, emphasised type scale (tokens exist), wavy
-progress, loading indicator, button groups, split buttons, FAB menu, toolbars.
+Not yet used: `MaterialShapes` morphing, emphasised type scale (tokens exist), loading
+indicator, FAB menu, toolbars, grouped menus.
+
+## Browser support
+
+The components rely on modern CSS (`@layer`, `:has()`, `color-mix()`, `@starting-style`,
+anchor positioning, `popover`). The suite runs in Chromium in CI, and in **Firefox** on
+request (`WISP_BROWSERS=chromium,firefox pnpm test`). See "Cross-browser testing" in the
+[porting guide](porting-guide.md).

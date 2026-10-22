@@ -12,7 +12,10 @@ component of the same _archetype_ first:
 | A pressable control         | `button/`, `icon-button/`               | `usePressable`, state layer, shape morph                  |
 | A native form control       | `switch/`                               | a real `<input>` driving everything via sibling selectors |
 | A composite of destinations | `navigation-bar/`, `navigation-drawer/` | context, `aria-current`, indicator                        |
-| An overlay                  | `navigation-drawer/` (modal)            | native `<dialog>`, `@starting-style`                      |
+| A modal overlay             | `dialog/`, `navigation-drawer/` (modal) | native `<dialog>` driven by `useModalDialog`              |
+| An anchored overlay         | `menu/`, `tooltip/`                     | native popover placed by CSS anchor positioning           |
+| A list-like item            | `list/`, `menu/`                        | the shared list-item contract of private variables        |
+| A group of buttons          | `button-group/`, `split-button/`        | `ButtonGroupContext`: the group sizes and shapes Buttons  |
 
 ## 1. Study the source
 
@@ -166,11 +169,42 @@ Then **look at it**: run `pnpm storybook`, check light/dark, a non-baseline seed
 colour, Standard vs Expressive motion, and higher contrast. Compare against the
 Material spec and Flutter's rendering.
 
+## Cross-browser testing
+
+The suite runs in Chromium by default. Run it on more engines by naming them:
+
+```bash
+pnpm --filter @wisp-ui/react exec playwright install firefox webkit   # once
+WISP_BROWSERS=chromium,firefox pnpm test
+WISP_BROWSERS=firefox pnpm --filter @wisp-ui/react exec vitest run src/menu
+```
+
+`WISP_BROWSERS` takes `chromium`, `firefox` and `webkit`, comma separated, and applies to
+both the unit and the Storybook (axe) projects. WebKit on Linux also needs system
+libraries (`sudo pnpm --filter @wisp-ui/react exec playwright install-deps webkit`).
+
+Things Firefox taught us, which apply to every component:
+- **Overlays must not rely on `transition-behavior: allow-discrete` for their exit.** Firefox
+  hides a closing `<dialog>` or popover at once. Keep the element open with `data-closing`
+  and let `useModalDialog` / `usePopover` close it when its animations finish.
+- Firefox supports popover, CSS anchor positioning, `@starting-style`, `:has()` and
+  `color-mix()`, but not `interpolate-size`, `corner-shape`, scroll-driven animations or
+  interest invokers. Use those only as enhancements.
+- Under a parallel run Firefox may not paint frames for a background page, so a fade-in
+  can still be at opacity 0 when a one-second wait expires. Give `waitFor` in stories a
+  generous timeout, and never assert in a story's `play` function on something that is
+  still animating when axe runs.
+- The pointer stays where the last test left it. `test-setup.ts` parks it in a corner after
+  any test that moved it; a test that needs hover does it itself.
+
 ## 7. Record it
 
 - Update the status in [COMPONENTS.md](COMPONENTS.md).
 - Add a changeset: `pnpm changeset`.
 - If you made a decision a future reader would question, add an ADR in `docs/adr/`.
+- A component built from others (SplitButton from Button and Menu) must be listed in
+  `COMPOSED_OF` in `packages/react/scripts/check-treeshake.ts`, or the tree-shaking check
+  fails because it ships their CSS.
 
 ## Updating tokens from upstream
 
