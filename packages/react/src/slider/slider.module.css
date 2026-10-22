@@ -189,6 +189,121 @@
     opacity: 1;
   }
 
+  /*
+   * The range slider: two inputs over one track. Neither input takes presses itself, except on
+   * its thumb, so the one underneath is not shadowed; a press on the track is handled in script.
+   * Each handle is placed from its own fraction, `--_lo` and `--_hi`.
+   */
+  .range {
+    --_pos-lo: calc(var(--_lo) * (100% - var(--_handle-width)));
+    --_pos-hi: calc(var(--_hi) * (100% - var(--_handle-width)));
+
+    cursor: pointer;
+  }
+
+  .range[data-disabled] {
+    cursor: default;
+  }
+
+  /* The bar narrows only in the handle that is held or focused. */
+  .range:has(.input:active),
+  .range:has(.input:focus-visible) {
+    --_bar: var(--_handle-width);
+  }
+
+  .rangeInput {
+    pointer-events: none;
+  }
+
+  .rangeInput::-webkit-slider-thumb {
+    pointer-events: auto;
+  }
+
+  .rangeInput::-moz-range-thumb {
+    pointer-events: auto;
+  }
+
+  .rangeInput[data-front] {
+    z-index: 2;
+  }
+
+  .handleLow {
+    --_pos: var(--_pos-lo);
+  }
+
+  .handleHigh {
+    --_pos: var(--_pos-hi);
+  }
+
+  .range:has(.rangeInput:first-of-type:active) .handleLow,
+  .range:has(.rangeInput:first-of-type:focus-visible) .handleLow,
+  .range:has(.rangeInput:last-of-type:active) .handleHigh,
+  .range:has(.rangeInput:last-of-type:focus-visible) .handleHigh {
+    --_bar: var(--_handle-pressed-width);
+  }
+
+  /* Left of the low handle: the inactive track, its outer end rounded. */
+  .rangeStart {
+    inset-inline: 0 auto;
+    inline-size: max(0px, calc(var(--_pos-lo) - var(--_handle-gap)));
+    border-radius: var(--_trailing-shape) var(--_inner) var(--_inner) var(--_trailing-shape);
+  }
+
+  .rangeStart:dir(rtl) {
+    border-radius: var(--_inner) var(--_trailing-shape) var(--_trailing-shape) var(--_inner);
+  }
+
+  /* Between the handles: the active track, square-ish at both ends. */
+  .rangeMiddle {
+    inset-inline-start: calc(var(--_pos-lo) + var(--_handle-width) + var(--_handle-gap));
+    inline-size: max(
+      0px,
+      calc(var(--_pos-hi) - var(--_pos-lo) - var(--_handle-width) - 2 * var(--_handle-gap))
+    );
+    border-radius: var(--_inner);
+  }
+
+  .rangeMiddle:dir(rtl) {
+    border-radius: var(--_inner);
+  }
+
+  /* Right of the high handle. */
+  .rangeEnd {
+    inset-inline: calc(var(--_pos-hi) + var(--_handle-width) + var(--_handle-gap)) 0;
+  }
+
+  .stopStart {
+    inset-inline: var(--_stop-trailing-space) auto;
+  }
+
+  .range[data-lo-start] .stopStart,
+  .range[data-hi-end] .stop:not(.stopStart) {
+    opacity: 0;
+  }
+
+  .valueLow {
+    --_pos: var(--_pos-lo);
+  }
+
+  .valueHigh {
+    --_pos: var(--_pos-hi);
+  }
+
+  .range:has(.rangeInput:first-of-type:active) .valueLow,
+  .range:has(.rangeInput:first-of-type:focus-visible) .valueLow,
+  .range:has(.rangeInput:last-of-type:active) .valueHigh,
+  .range:has(.rangeInput:last-of-type:focus-visible) .valueHigh {
+    scale: 1;
+    opacity: 1;
+  }
+
+  /* Only the bubble of the handle in use shows, not both. */
+  .range:has(.input:active) .value,
+  .range:has(.input:focus-visible) .value {
+    scale: 0.8;
+    opacity: 0;
+  }
+
   /* Disabled: Material fades the handle and tracks to fixed opacities of on-surface. */
   .root[data-disabled] .handle::before {
     background-color: color-mix(

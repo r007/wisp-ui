@@ -49,13 +49,12 @@ them to components, the Flutter widget to read, and the archetype to copy from
 
 Ordered by how much of the remaining set each unlocks.
 
-| Component              | Tokens                                                   | Flutter widget                     | Archetype    | Unlocks / notes                                           |
-| ---------------------- | -------------------------------------------------------- | ---------------------------------- | ------------ | --------------------------------------------------------- |
-| ⬜ Carousel            | `carousel-item`                                          | `CarouselView`                     | scroll-snap  | multi-browse, hero, uncontained                           |
-| ⬜ Loading indicator   | `loading-indicator`                                      | `CircularProgressIndicator`        | SVG          | needs the **Material Shapes** morphing foundation         |
-| ⬜ Range slider        | `slider`                                                 | `RangeSlider`                      | native input | two thumbs                                                |
-| ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex      | 147 + 71 tokens; consider a headless base                 |
-| ⬜ Menu groups         | `menus`                                                  | `MenuAnchor`                       | composite    | the Expressive grouped, segmented menu (`group.*` tokens) |
+| Component              | Tokens                                                   | Flutter widget                     | Archetype   | Unlocks / notes                                           |
+| ---------------------- | -------------------------------------------------------- | ---------------------------------- | ----------- | --------------------------------------------------------- |
+| ⬜ Carousel            | `carousel-item`                                          | `CarouselView`                     | scroll-snap | multi-browse, hero, uncontained                           |
+| ⬜ Loading indicator   | `loading-indicator`                                      | `CircularProgressIndicator`        | SVG         | needs the **Material Shapes** morphing foundation         |
+| ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex     | 147 + 71 tokens; consider a headless base                 |
+| ⬜ Menu groups         | `menus`                                                  | `MenuAnchor`                       | composite   | the Expressive grouped, segmented menu (`group.*` tokens) |
 
 ## Foundation
 
