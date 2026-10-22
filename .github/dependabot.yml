@@ -9,6 +9,12 @@ updates:
       minor-and-patch:
         update-types: [minor, patch]
     open-pull-requests-limit: 5
+    ignore:
+      # Type against the Node that CI runs (24, the active LTS), not the newest:
+      # newer typings would let code call APIs the runtime lacks. Raise the major
+      # in pnpm-workspace.yaml together with the Node version in CI.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
