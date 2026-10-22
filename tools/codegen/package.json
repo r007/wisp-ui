@@ -11,5 +11,8 @@
     "@types/node": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "exports": {
+    "./spec": "./src/spec.ts"
   }
 }

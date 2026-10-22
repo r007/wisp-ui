@@ -1,0 +1,65 @@
+@layer wisp {
+  .surface {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    /* Behind the control's content, in front of its background; the control must
+       create a stacking context (`isolation: isolate`). */
+    z-index: -1;
+    pointer-events: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .surface::before,
+  .surface::after {
+    content: '';
+    position: absolute;
+    opacity: 0;
+  }
+
+  /* Hover and focus tint. */
+  .surface::before {
+    inset: 0;
+    background-color: var(--_state-layer-color);
+    transition: opacity var(--md-sys-motion-duration-short1) linear;
+  }
+
+  /* The press ripple; `RippleController` animates its size and position. */
+  .surface::after {
+    background: radial-gradient(
+      closest-side,
+      var(--_state-layer-color) max(calc(100% - 70px), 65%),
+      transparent 100%
+    );
+    transform-origin: center;
+    transition: opacity 375ms linear;
+  }
+
+  /* Gated so touch devices do not keep a "stuck" hover after a tap. */
+  @media (hover: hover) {
+    :hover > .surface::before {
+      opacity: var(--_hover-state-layer-opacity);
+    }
+  }
+
+  :focus-visible > .surface::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .surface[data-pressed]::after {
+    opacity: var(--_pressed-state-layer-opacity);
+    transition-duration: 105ms;
+  }
+
+  :disabled > .surface,
+  [aria-disabled='true'] > .surface {
+    display: none;
+  }
+
+  @media (forced-colors: active) {
+    .surface {
+      display: none;
+    }
+  }
+}

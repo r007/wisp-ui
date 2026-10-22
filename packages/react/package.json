@@ -1,0 +1,83 @@
+{
+  "name": "@wisp-ui/react",
+  "version": "0.0.0",
+  "description": "Material 3 Expressive components for React. Zero-runtime CSS, tree-shakeable, no shadow DOM.",
+  "keywords": [
+    "react",
+    "react-components",
+    "material-design",
+    "material-3",
+    "material-3-expressive",
+    "design-system",
+    "ui-kit",
+    "css-modules"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r007/wisp-ui.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/r007/wisp-ui#readme",
+  "bugs": "https://github.com/r007/wisp-ui/issues",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./theme.css": "./dist/theme.css",
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "default": "./dist/theme/index.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "default": "./dist/*/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "storybook": "storybook dev --port 6006 --no-open",
+    "build-storybook": "storybook build",
+    "build": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json && node scripts/copy-theme.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@wisp-ui/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@fontsource/roboto": "^5.3.0",
+    "@material-symbols/svg-400": "^0.48.1",
+    "@storybook/addon-a11y": "^10.6.3",
+    "@storybook/addon-docs": "^10.6.3",
+    "@storybook/addon-vitest": "^10.6.3",
+    "@storybook/react-vite": "^10.6.3",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "@vitest/browser-playwright": "^5.0.5",
+    "@wisp-ui/codegen": "workspace:*",
+    "playwright": "^1.64.1",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "storybook": "^10.6.3",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-lib-inject-css": "^2.2.2",
+    "vitest": "catalog:",
+    "vitest-browser-react": "^2.3.0"
+  }
+}

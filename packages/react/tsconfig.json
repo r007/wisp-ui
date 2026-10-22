@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["vite/client", "node"]
+  },
+  "include": [
+    "src",
+    ".storybook",
+    "scripts",
+    "vite.config.ts",
+    "vite.lib.config.ts",
+    "vitest.config.ts"
+  ]
+}

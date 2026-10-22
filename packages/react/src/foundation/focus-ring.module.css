@@ -1,0 +1,14 @@
+/*
+ * Material focus indicator: a 3px outline offset by 2px, shown for keyboard
+ * focus only. Components may override the `--_focus-indicator-*` variables.
+ */
+@layer wisp {
+  .focusRing:focus-visible {
+    outline: var(--_focus-indicator-thickness, var(--md-sys-state-focus-indicator-thickness)) solid
+      var(--_focus-indicator-color, var(--md-sys-color-secondary));
+    outline-offset: var(
+      --_focus-indicator-outline-offset,
+      var(--md-sys-state-focus-indicator-outer-offset)
+    );
+  }
+}

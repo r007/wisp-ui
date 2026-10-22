@@ -1,0 +1,134 @@
+/*
+ * Structure and behaviour only. Every colour, size, shape and timing comes
+ * from a private `--_*` variable defined in button.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the label and icons. */
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-block-size: var(--_container-height);
+    margin: 0;
+    padding-block: 0;
+    padding-inline: var(--_leading-space) var(--_trailing-space);
+    gap: var(--_icon-label-space);
+    border: 0;
+    border-radius: var(--_shape-round);
+    background-color: var(--_container-color, transparent);
+    box-shadow: var(--_container-elevation, none);
+    color: var(--_label-color);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-radius var(--_shape-spring),
+      background-color var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects),
+      box-shadow var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* Extends the hit area to the 48px minimum touch target. */
+  .root::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    inset-block: min(0px, calc((var(--_container-height) - 48px) / 2));
+  }
+
+  /* Shape. A toggle flips round <-> square when selected; a press squares the corners. */
+  .root[data-shape='square'] {
+    border-radius: var(--_shape-square);
+  }
+
+  .root[data-selected] {
+    border-radius: var(--_selected-shape-round);
+  }
+
+  .root[data-selected][data-shape='square'] {
+    border-radius: var(--_selected-shape-square);
+  }
+
+  .root:active:not(:disabled, [aria-disabled='true']) {
+    border-radius: var(--_pressed-shape);
+  }
+
+  /* The outline sits inside the container so it does not change the layout. */
+  .root[data-variant='outlined']:not([data-selected]) {
+    box-shadow: inset 0 0 0 var(--_outline-width) var(--_outline-color);
+  }
+
+  /* Slots. */
+  .icon {
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    color: var(--_icon-color);
+    font-size: var(--_icon-size);
+    transition: color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentColor;
+  }
+
+  /* Disabled: Material fades the container and content to a fixed opacity of on-surface. */
+  .root:disabled,
+  .root[aria-disabled='true'] {
+    cursor: default;
+    background-color: color-mix(
+      in srgb,
+      var(--_disabled-container-color, transparent) calc(var(--_disabled-container-opacity) * 100%),
+      transparent
+    );
+    box-shadow: none;
+    color: color-mix(
+      in srgb,
+      var(--_disabled-label-color) calc(var(--_disabled-label-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-variant='outlined']:is(:disabled, [aria-disabled='true']):not([data-selected]) {
+    box-shadow: inset 0 0 0 var(--_outline-width)
+      color-mix(
+        in srgb,
+        var(--_disabled-outline-color) calc(var(--_disabled-label-opacity) * 100%),
+        transparent
+      );
+  }
+
+  .root:is(:disabled, [aria-disabled='true']) .icon {
+    color: color-mix(
+      in srgb,
+      var(--_disabled-icon-color) calc(var(--_disabled-icon-opacity) * 100%),
+      transparent
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root,
+    .icon {
+      transition: none;
+    }
+  }
+
+  /* Forced colours drop backgrounds and shadows, so draw the boundary. */
+  @media (forced-colors: active) {
+    .root:not([data-variant='text']) {
+      border: 1px solid ButtonBorder;
+    }
+  }
+}
