@@ -1,0 +1,140 @@
+/*
+ * Structure and behaviour only. Every colour, size, shape and elevation comes from a
+ * private `--_*` variable defined in fab.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the icon and label. */
+    isolation: isolate;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    inline-size: var(--_container-width);
+    block-size: var(--_container-height);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_elevation);
+    color: var(--_icon-color);
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      box-shadow var(--md-sys-motion-spring-fast-effects),
+      background-color var(--md-sys-motion-spring-fast-effects),
+      padding var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  /* Extends the hit area to the 48px minimum touch target. */
+  .root::after {
+    content: '';
+    position: absolute;
+    inset-inline: min(0px, calc((var(--_container-width) - 48px) / 2));
+    inset-block: min(0px, calc((var(--_container-height) - 48px) / 2));
+  }
+
+  .root[data-extended]::after {
+    inset: 0;
+  }
+
+  /* Extended: an icon and a label, sized by their content. */
+  .root[data-extended] {
+    inline-size: auto;
+    min-inline-size: var(--_extended-height);
+    block-size: var(--_extended-height);
+    padding-inline: var(--_leading-space) var(--_trailing-space);
+    border-radius: var(--_extended-shape);
+    color: var(--_label-color);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+  }
+
+  .icon {
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    color: var(--_icon-color);
+    font-size: var(--_icon-size);
+  }
+
+  .root[data-extended] .icon {
+    inline-size: var(--_extended-icon-size);
+    block-size: var(--_extended-icon-size);
+    font-size: var(--_extended-icon-size);
+  }
+
+  .icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  /*
+   * The label folds away (collapsed): a grid track from 1fr to 0fr, so its natural width
+   * is animated without measuring it. The icon then sits alone in a square.
+   */
+  .label {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-inline-start: var(--_icon-label-space);
+    transition:
+      grid-template-columns var(--md-sys-motion-spring-fast-spatial),
+      margin-inline-start var(--md-sys-motion-spring-fast-spatial),
+      opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .label > span {
+    min-inline-size: 0;
+    overflow: hidden;
+  }
+
+  .root[data-collapsed] {
+    padding-inline: var(--_leading-space);
+  }
+
+  .root[data-collapsed] .label {
+    grid-template-columns: 0fr;
+    margin-inline-start: 0;
+    opacity: 0;
+  }
+
+  /* States. Press and hover are behind a media query so touch devices do not keep a
+     "stuck" hover. */
+  @media (hover: hover) {
+    .root:hover {
+      box-shadow: var(--_hover-elevation);
+    }
+  }
+
+  .root:focus-visible {
+    box-shadow: var(--_focus-elevation);
+  }
+
+  .root:active {
+    box-shadow: var(--_pressed-elevation);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root,
+    .label {
+      transition: none;
+    }
+  }
+
+  /* Forced colours drop backgrounds and shadows, so draw the boundary. */
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid ButtonBorder;
+    }
+  }
+}

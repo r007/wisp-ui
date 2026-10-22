@@ -5,6 +5,7 @@ export * from './checkbox/index.js';
 export * from './chip/index.js';
 export * from './dialog/index.js';
 export * from './divider/index.js';
+export * from './fab/index.js';
 export * from './icon-button/index.js';
 export * from './list/index.js';
 export * from './navigation-bar/index.js';

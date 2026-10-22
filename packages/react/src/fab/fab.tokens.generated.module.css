@@ -1,0 +1,200 @@
+/* Fab token defaults.
+ *
+ * Generated from fab.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_focus-indicator-color: var(--md-comp-fab-surface-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-fab-surface-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-fab-surface-focus-indicator-outline-offset, 2px);
+  }
+
+  .primary-container {
+    --_container-color: var(--md-comp-fab-primary-container-container-color, var(--md-sys-color-primary-container));
+    --_elevation: var(--md-comp-fab-primary-container-container-elevation, var(--md-sys-elevation-level3));
+    --_hover-elevation: var(--md-comp-fab-primary-container-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_focus-elevation: var(--md-comp-fab-primary-container-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_pressed-elevation: var(--md-comp-fab-primary-container-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_icon-color: var(--md-comp-fab-primary-container-icon-color, var(--md-sys-color-on-primary-container));
+    --_state-layer-color: var(--md-comp-fab-primary-container-hovered-state-layer-color, var(--md-sys-color-on-primary-container));
+    --_hover-state-layer-opacity: var(--md-comp-fab-primary-container-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-fab-primary-container-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-fab-primary-container-pressed-state-layer-opacity, 0.1);
+  }
+
+  .primary-container {
+    --_label-color: var(--md-comp-extended-fab-primary-container-label-text-color, var(--md-sys-color-on-primary-container));
+  }
+
+  .secondary-container {
+    --_container-color: var(--md-comp-fab-secondary-container-container-color, var(--md-sys-color-secondary-container));
+    --_elevation: var(--md-comp-fab-secondary-container-container-elevation, var(--md-sys-elevation-level3));
+    --_hover-elevation: var(--md-comp-fab-secondary-container-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_focus-elevation: var(--md-comp-fab-secondary-container-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_pressed-elevation: var(--md-comp-fab-secondary-container-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_icon-color: var(--md-comp-fab-secondary-container-icon-color, var(--md-sys-color-on-secondary-container));
+    --_state-layer-color: var(--md-comp-fab-secondary-container-hovered-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_hover-state-layer-opacity: var(--md-comp-fab-secondary-container-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-fab-secondary-container-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-fab-secondary-container-pressed-state-layer-opacity, 0.1);
+  }
+
+  .secondary-container {
+    --_label-color: var(--md-comp-extended-fab-secondary-container-label-text-color, var(--md-sys-color-on-secondary-container));
+  }
+
+  .tertiary-container {
+    --_container-color: var(--md-comp-fab-tertiary-container-container-color, var(--md-sys-color-tertiary-container));
+    --_elevation: var(--md-comp-fab-tertiary-container-container-elevation, var(--md-sys-elevation-level3));
+    --_hover-elevation: var(--md-comp-fab-tertiary-container-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_focus-elevation: var(--md-comp-fab-tertiary-container-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_pressed-elevation: var(--md-comp-fab-tertiary-container-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_icon-color: var(--md-comp-fab-tertiary-container-icon-color, var(--md-sys-color-on-tertiary-container));
+    --_state-layer-color: var(--md-comp-fab-tertiary-container-hovered-state-layer-color, var(--md-sys-color-on-tertiary-container));
+    --_hover-state-layer-opacity: var(--md-comp-fab-tertiary-container-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-fab-tertiary-container-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-fab-tertiary-container-pressed-state-layer-opacity, 0.1);
+  }
+
+  .tertiary-container {
+    --_label-color: var(--md-comp-extended-fab-tertiary-container-label-text-color, var(--md-sys-color-on-tertiary-container));
+  }
+
+  .primary {
+    --_container-color: var(--md-comp-fab-primary-container-color, var(--md-sys-color-primary));
+    --_elevation: var(--md-comp-fab-primary-container-elevation, var(--md-sys-elevation-level3));
+    --_hover-elevation: var(--md-comp-fab-primary-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_focus-elevation: var(--md-comp-fab-primary-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_pressed-elevation: var(--md-comp-fab-primary-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_icon-color: var(--md-comp-fab-primary-icon-color, var(--md-sys-color-on-primary));
+    --_state-layer-color: var(--md-comp-fab-primary-hovered-state-layer-color, var(--md-sys-color-on-primary));
+    --_hover-state-layer-opacity: var(--md-comp-fab-primary-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-fab-primary-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-fab-primary-pressed-state-layer-opacity, 0.1);
+  }
+
+  .primary {
+    --_label-color: var(--md-comp-extended-fab-primary-label-text-color, var(--md-sys-color-on-primary));
+  }
+
+  .secondary {
+    --_container-color: var(--md-comp-fab-secondary-container-color, var(--md-sys-color-secondary));
+    --_elevation: var(--md-comp-fab-secondary-container-elevation, var(--md-sys-elevation-level3));
+    --_hover-elevation: var(--md-comp-fab-secondary-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_focus-elevation: var(--md-comp-fab-secondary-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_pressed-elevation: var(--md-comp-fab-secondary-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_icon-color: var(--md-comp-fab-secondary-icon-color, var(--md-sys-color-on-secondary));
+    --_state-layer-color: var(--md-comp-fab-secondary-hovered-state-layer-color, var(--md-sys-color-on-secondary));
+    --_hover-state-layer-opacity: var(--md-comp-fab-secondary-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-fab-secondary-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-fab-secondary-pressed-state-layer-opacity, 0.1);
+  }
+
+  .secondary {
+    --_label-color: var(--md-comp-extended-fab-secondary-label-text-color, var(--md-sys-color-on-secondary));
+  }
+
+  .tertiary {
+    --_container-color: var(--md-comp-fab-tertiary-container-color, var(--md-sys-color-tertiary));
+    --_elevation: var(--md-comp-fab-tertiary-container-elevation, var(--md-sys-elevation-level3));
+    --_hover-elevation: var(--md-comp-fab-tertiary-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_focus-elevation: var(--md-comp-fab-tertiary-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_pressed-elevation: var(--md-comp-fab-tertiary-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_icon-color: var(--md-comp-fab-tertiary-icon-color, var(--md-sys-color-on-tertiary));
+    --_state-layer-color: var(--md-comp-fab-tertiary-hovered-state-layer-color, var(--md-sys-color-on-tertiary));
+    --_hover-state-layer-opacity: var(--md-comp-fab-tertiary-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-fab-tertiary-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-fab-tertiary-pressed-state-layer-opacity, 0.1);
+  }
+
+  .tertiary {
+    --_label-color: var(--md-comp-extended-fab-tertiary-label-text-color, var(--md-sys-color-on-tertiary));
+  }
+
+  .surface {
+    --_container-color: var(--md-comp-fab-surface-container-color, var(--md-sys-color-surface-container-high));
+    --_elevation: var(--md-comp-fab-surface-container-elevation, var(--md-sys-elevation-level3));
+    --_hover-elevation: var(--md-comp-fab-surface-hover-container-elevation, var(--md-sys-elevation-level4));
+    --_focus-elevation: var(--md-comp-fab-surface-focus-container-elevation, var(--md-sys-elevation-level3));
+    --_pressed-elevation: var(--md-comp-fab-surface-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_icon-color: var(--md-comp-fab-surface-icon-color, var(--md-sys-color-primary));
+    --_state-layer-color: var(--md-comp-fab-surface-hover-state-layer-color, var(--md-sys-color-primary));
+    --_hover-state-layer-opacity: var(--md-comp-fab-surface-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-fab-surface-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-fab-surface-pressed-state-layer-opacity, 0.1);
+  }
+
+  .surface {
+    --_label-color: var(--md-comp-extended-fab-surface-label-text-color, var(--md-sys-color-primary));
+  }
+
+  .lowered {
+    --_container-color: var(--md-comp-fab-surface-lowered-container-color, var(--md-sys-color-surface-container-low));
+    --_elevation: var(--md-comp-fab-surface-lowered-container-elevation, var(--md-sys-elevation-level1));
+    --_hover-elevation: var(--md-comp-fab-surface-lowered-hover-container-elevation, var(--md-sys-elevation-level2));
+    --_focus-elevation: var(--md-comp-fab-surface-lowered-focus-container-elevation, var(--md-sys-elevation-level1));
+    --_pressed-elevation: var(--md-comp-fab-surface-lowered-pressed-container-elevation, var(--md-sys-elevation-level1));
+  }
+
+  .size-small {
+    --_container-height: var(--md-comp-fab-small-container-height, 40px);
+    --_container-width: var(--md-comp-fab-small-container-width, 40px);
+    --_container-shape: var(--md-comp-fab-small-container-shape, 12px);
+    --_icon-size: var(--md-comp-fab-small-icon-size, 24px);
+  }
+
+  .size-default {
+    --_container-height: var(--md-comp-fab-container-height, 56px);
+    --_container-width: var(--md-comp-fab-container-width, 56px);
+    --_container-shape: var(--md-comp-fab-container-shape, 16px);
+    --_icon-size: var(--md-comp-fab-icon-size, 24px);
+  }
+
+  .extended-default {
+    --_extended-height: var(--md-comp-extended-fab-container-height, 56px);
+    --_extended-shape: var(--md-comp-extended-fab-container-shape, 16px);
+    --_extended-icon-size: var(--md-comp-extended-fab-icon-size, 24px);
+    --_icon-label-space: var(--md-comp-extended-fab-icon-label-space, 12px);
+    --_leading-space: var(--md-comp-extended-fab-leading-space, 16px);
+    --_trailing-space: var(--md-comp-extended-fab-trailing-space, 20px);
+    --_label-font: var(--md-comp-extended-fab-label-text, var(--md-sys-typescale-label-large));
+    --_label-font-tracking: var(--md-comp-extended-fab-label-text-tracking, var(--md-sys-typescale-label-large-tracking));
+  }
+
+  .size-medium {
+    --_container-height: var(--md-comp-fab-medium-container-height, 80px);
+    --_container-width: var(--md-comp-fab-medium-container-width, 80px);
+    --_container-shape: var(--md-comp-fab-medium-container-shape, 20px);
+    --_icon-size: var(--md-comp-fab-medium-icon-size, 28px);
+  }
+
+  .extended-medium {
+    --_extended-height: var(--md-comp-extended-fab-medium-container-height, 80px);
+    --_extended-shape: var(--md-comp-extended-fab-medium-container-shape, 20px);
+    --_extended-icon-size: var(--md-comp-extended-fab-medium-icon-size, 28px);
+    --_icon-label-space: var(--md-comp-extended-fab-medium-icon-label-space, 12px);
+    --_leading-space: var(--md-comp-extended-fab-medium-leading-space, 26px);
+    --_trailing-space: var(--md-comp-extended-fab-medium-trailing-space, 26px);
+    --_label-font: var(--md-comp-extended-fab-medium-label-text, var(--md-sys-typescale-title-large));
+    --_label-font-tracking: var(--md-comp-extended-fab-medium-label-text-tracking, var(--md-sys-typescale-title-large-tracking));
+  }
+
+  .size-large {
+    --_container-height: var(--md-comp-fab-large-container-height, 96px);
+    --_container-width: var(--md-comp-fab-large-container-width, 96px);
+    --_container-shape: var(--md-comp-fab-large-container-shape, 28px);
+    --_icon-size: var(--md-comp-fab-large-icon-size, 36px);
+  }
+
+  .extended-large {
+    --_extended-height: var(--md-comp-extended-fab-large-container-height, 96px);
+    --_extended-shape: var(--md-comp-extended-fab-large-container-shape, 28px);
+    --_extended-icon-size: var(--md-comp-extended-fab-large-icon-size, 36px);
+    --_icon-label-space: var(--md-comp-extended-fab-large-icon-label-space, 16px);
+    --_leading-space: var(--md-comp-extended-fab-large-leading-space, 28px);
+    --_trailing-space: var(--md-comp-extended-fab-large-trailing-space, 28px);
+    --_label-font: var(--md-comp-extended-fab-large-label-text, var(--md-sys-typescale-headline-small));
+    --_label-font-tracking: var(--md-comp-extended-fab-large-label-text-tracking, var(--md-sys-typescale-headline-small-tracking));
+  }
+}
