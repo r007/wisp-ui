@@ -1,0 +1,450 @@
+/*
+ * A text field is a <div> around a native <input> or <textarea>. State is read from the
+ * DOM, never from React: `:focus-within`, `:placeholder-shown` (the input has a space
+ * placeholder, so "empty" is a CSS state), `:hover`, and `data-*` for error and disabled.
+ * Colours, sizes and shapes come from text-field.tokens.generated.module.css.
+ *
+ * The per-state colours (`--_c-*`) live on `.field`, so the cascade can pick them by
+ * specificity in this order: rest < hover < focus, then the same for errors, then disabled.
+ */
+@layer wisp {
+  .root {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    color: var(--_input-color);
+    font: var(--_input-font);
+    letter-spacing: var(--_input-font-tracking);
+  }
+
+  .field {
+    --_c-label: var(--_label-color);
+    --_c-trailing: var(--_trailing-icon-color);
+    --_c-line: var(--_line-color);
+    --_c-line-width: var(--_line-width);
+    --_c-caret: var(--_caret-color);
+    --_pad: 16px;
+
+    position: relative;
+    /* Contains the hover layer (z-index: -1) behind the content. */
+    isolation: isolate;
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    min-block-size: 56px;
+    border-radius: var(--_container-shape);
+    cursor: text;
+  }
+
+  .root[data-variant='filled'] .field {
+    background-color: var(--_container-color);
+  }
+
+  /* The hover layer of a filled field. */
+  .root[data-variant='filled'] .field::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: var(--_hover-state-layer-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* Slots. Icons sit at the top of a tall (multiline) field, 16px down. */
+  .leading,
+  .trailing {
+    display: flex;
+    flex: none;
+    align-self: flex-start;
+    margin-block-start: 16px;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    font-size: var(--_icon-size);
+  }
+
+  .leading {
+    margin-inline-start: 12px;
+    color: var(--_leading-icon-color);
+  }
+
+  .trailing {
+    margin-inline-end: 12px;
+    color: var(--_c-trailing);
+  }
+
+  .leading > svg,
+  .trailing > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  /* Controls inside the trailing slot (a clear button) need room and a pointer. */
+  .trailing:has(button, a) {
+    inline-size: auto;
+    margin-block-start: 4px;
+    margin-inline-end: 4px;
+    cursor: default;
+  }
+
+  .control {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    padding-block: 16px;
+    padding-inline: var(--_pad);
+  }
+
+  /* A filled field with a label leaves room above the text for the floated label. */
+  .root[data-variant='filled'][data-label] .control {
+    padding-block: 24px 8px;
+  }
+
+  .inputRow {
+    display: flex;
+    align-items: baseline;
+    min-inline-size: 0;
+  }
+
+  .input {
+    flex: 1;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    background: transparent;
+    caret-color: var(--_c-caret);
+    color: var(--_input-color);
+    font: inherit;
+    letter-spacing: inherit;
+    text-overflow: ellipsis;
+    appearance: none;
+  }
+
+  textarea.input {
+    display: block;
+    resize: vertical;
+    /* Where supported the box grows with its content, but never below `rows` lines. */
+    field-sizing: content;
+    min-block-size: calc(var(--_rows) * 1lh);
+  }
+
+  .input::placeholder {
+    color: var(--_placeholder-color);
+    opacity: 1;
+  }
+
+  /* With a label, the placeholder waits for the label to float out of the way. */
+  .root[data-label] .input::placeholder {
+    color: transparent;
+  }
+
+  .root[data-label]:focus-within .input::placeholder {
+    color: var(--_placeholder-color);
+  }
+
+  .prefix,
+  .suffix {
+    flex: none;
+    color: var(--_prefix-color);
+    white-space: nowrap;
+    transition: opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .prefix {
+    margin-inline-end: 2px;
+  }
+
+  .suffix {
+    margin-inline-start: 2px;
+    color: var(--_suffix-color);
+  }
+
+  /* Prefix and suffix would collide with a resting label, so they wait for it to float. */
+  .root[data-label]:not([data-float], :focus-within):has(.input:placeholder-shown)
+    :is(.prefix, .suffix) {
+    opacity: 0;
+  }
+
+  /* The label rests in the text position and floats up when the field is focused or filled. */
+  .label {
+    position: absolute;
+    inset-block-start: 16px;
+    inset-inline: var(--_pad);
+    max-inline-size: calc(100% - 2 * var(--_pad));
+    overflow: hidden;
+    color: var(--_c-label);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transform-origin: top left;
+    translate: 0 0;
+    scale: 1;
+    pointer-events: none;
+    transition:
+      translate var(--md-sys-motion-spring-fast-effects),
+      scale var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .label:dir(rtl) {
+    transform-origin: top right;
+  }
+
+  .root[data-variant='filled']:focus-within .label,
+  .root[data-variant='filled'][data-float] .label,
+  .root[data-variant='filled']:has(.input:not(:placeholder-shown)) .label {
+    translate: 0 -8px;
+    scale: 0.75;
+  }
+
+  /* Centres the scaled label (24px * 0.75 = 18px tall) on the top edge: from 16px down to -9px. */
+  .root[data-variant='outlined']:focus-within .label,
+  .root[data-variant='outlined'][data-float] .label,
+  .root[data-variant='outlined']:has(.input:not(:placeholder-shown)) .label {
+    translate: 0 -25px;
+    scale: 0.75;
+  }
+
+  /* Filled: the active indicator under the field; it thickens and recolours with state. */
+  .indicator {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    block-size: var(--_c-line-width);
+    background-color: var(--_c-line);
+    pointer-events: none;
+    transition:
+      block-size var(--md-sys-motion-spring-fast-effects),
+      background-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /*
+   * Outlined: the outline is three boxes in a row. The middle one is as wide as the
+   * floated label and has no top border while the label is up, which cuts the notch.
+   */
+  .outline {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    min-inline-size: 0;
+    pointer-events: none;
+  }
+
+  .outlineStart,
+  .outlineEnd,
+  .outlineNotch {
+    box-sizing: border-box;
+    border: var(--_c-line-width) solid var(--_c-line);
+    transition:
+      border-color var(--md-sys-motion-spring-fast-effects),
+      border-width var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .outlineStart {
+    inline-size: calc(var(--_pad) - 4px);
+    border-inline-end: 0;
+    border-start-start-radius: var(--_container-shape);
+    border-end-start-radius: var(--_container-shape);
+  }
+
+  .outlineEnd {
+    flex: 1;
+    border-inline-start: 0;
+    border-start-end-radius: var(--_container-shape);
+    border-end-end-radius: var(--_container-shape);
+  }
+
+  .outlineNotch {
+    flex: none;
+    max-inline-size: calc(100% - 2 * var(--_pad));
+    border-inline: 0;
+  }
+
+  /* The label's twin: it only gives the notch its width (the label floats at 75%). */
+  .notchLabel {
+    display: block;
+    padding-inline: calc(4px / 0.75);
+    overflow: hidden;
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    text-overflow: ellipsis;
+    visibility: hidden;
+    white-space: nowrap;
+    zoom: 0.75;
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .root[data-variant='outlined']:focus-within .outlineNotch,
+  .root[data-variant='outlined'][data-float] .outlineNotch,
+  .root[data-variant='outlined']:has(.input:not(:placeholder-shown)) .outlineNotch {
+    border-block-start-color: transparent;
+  }
+
+  .root:not([data-label]) .notchLabel {
+    display: none;
+  }
+
+  /* Supporting text and the character counter. */
+  .support {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block-start: 4px;
+    padding-inline: var(--_pad);
+    color: var(--_supporting-color);
+    font: var(--_supporting-font);
+    letter-spacing: var(--_supporting-font-tracking);
+  }
+
+  .counter {
+    flex: none;
+    margin-inline-start: auto;
+  }
+
+  /* Hover (the field only, not its supporting text). */
+  @media (hover: hover) {
+    .field:hover {
+      --_c-label: var(--_hover-label-color);
+      --_c-line: var(--_hover-line-color);
+      --_c-line-width: var(--_hover-line-width);
+      --_c-trailing: var(--_trailing-icon-color);
+    }
+
+    .root[data-variant='filled'] .field:hover::before {
+      opacity: var(--_hover-state-layer-opacity);
+    }
+  }
+
+  /* Focus: the line thickens and the label turns to the focus colour. */
+  .root:focus-within .field {
+    --_c-label: var(--_focus-label-color);
+    --_c-line: var(--_focus-line-color);
+    --_c-line-width: var(--_focus-line-width);
+  }
+
+  /* Error: every state has its own red. */
+  .root[data-error] .field {
+    --_c-label: var(--_error-label-color);
+    --_c-trailing: var(--_error-trailing-icon-color);
+    --_c-line: var(--_error-line-color);
+    --_c-caret: var(--_error-caret-color);
+  }
+
+  .root[data-error] .support {
+    color: var(--_error-supporting-color);
+  }
+
+  @media (hover: hover) {
+    .root[data-error] .field:hover {
+      --_c-label: var(--_error-hover-label-color);
+      --_c-trailing: var(--_error-hover-trailing-icon-color);
+      --_c-line: var(--_error-hover-line-color);
+    }
+  }
+
+  .root[data-error]:focus-within .field {
+    --_c-label: var(--_error-focus-label-color);
+    --_c-trailing: var(--_error-trailing-icon-color);
+    --_c-line: var(--_error-line-color);
+    --_c-line-width: var(--_focus-line-width);
+  }
+
+  /* Disabled: fixed opacities of on-surface, and nothing responds. */
+  .root[data-disabled] .field {
+    --_c-label: color-mix(
+      in srgb,
+      var(--_disabled-label-color) calc(var(--_disabled-label-opacity) * 100%),
+      transparent
+    );
+    --_c-trailing: color-mix(
+      in srgb,
+      var(--_disabled-icon-color) calc(var(--_disabled-icon-opacity) * 100%),
+      transparent
+    );
+    --_c-line: color-mix(
+      in srgb,
+      var(--_disabled-line-color) calc(var(--_disabled-line-opacity) * 100%),
+      transparent
+    );
+    --_c-line-width: var(--_disabled-line-width);
+
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .root[data-disabled][data-variant='filled'] .field {
+    background-color: color-mix(
+      in srgb,
+      var(--_disabled-container-color) calc(var(--_disabled-container-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-disabled] .input,
+  .root[data-disabled] .prefix,
+  .root[data-disabled] .suffix {
+    color: color-mix(
+      in srgb,
+      var(--_disabled-input-color) calc(var(--_disabled-input-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-disabled] .leading {
+    color: color-mix(
+      in srgb,
+      var(--_disabled-icon-color) calc(var(--_disabled-icon-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-disabled] .support {
+    color: color-mix(
+      in srgb,
+      var(--_disabled-supporting-color) calc(var(--_disabled-supporting-opacity) * 100%),
+      transparent
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .label,
+    .prefix,
+    .suffix,
+    .indicator,
+    .outlineStart,
+    .outlineEnd,
+    .outlineNotch,
+    .field::before {
+      transition: none;
+    }
+  }
+
+  /* Forced colours drop backgrounds, so draw the boundary. */
+  @media (forced-colors: active) {
+    .root[data-variant='filled'] .field {
+      border-block-end: 1px solid CanvasText;
+    }
+
+    .indicator {
+      background-color: Highlight;
+    }
+
+    .root[data-disabled] .input {
+      color: GrayText;
+    }
+  }
+}

@@ -1,0 +1,107 @@
+/* TextField token defaults.
+ *
+ * Generated from text-field.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .filled {
+    --_container-shape: var(--md-comp-filled-text-field-container-shape, 4px 4px 0px 0px);
+    --_icon-size: var(--md-comp-filled-text-field-leading-icon-size, 24px);
+    --_input-font: var(--md-comp-filled-text-field-input-text-type, var(--md-sys-typescale-body-large));
+    --_input-font-tracking: var(--md-comp-filled-text-field-input-text-type-tracking, var(--md-sys-typescale-body-large-tracking));
+    --_label-font: var(--md-comp-filled-text-field-label-text-type, var(--md-sys-typescale-body-large));
+    --_label-font-tracking: var(--md-comp-filled-text-field-label-text-type-tracking, var(--md-sys-typescale-body-large-tracking));
+    --_supporting-font: var(--md-comp-filled-text-field-supporting-text-type, var(--md-sys-typescale-body-small));
+    --_supporting-font-tracking: var(--md-comp-filled-text-field-supporting-text-type-tracking, var(--md-sys-typescale-body-small-tracking));
+    --_input-color: var(--md-comp-filled-text-field-input-text-color, var(--md-sys-color-on-surface));
+    --_placeholder-color: var(--md-comp-filled-text-field-input-text-placeholder-color, var(--md-sys-color-on-surface-variant));
+    --_prefix-color: var(--md-comp-filled-text-field-input-text-prefix-color, var(--md-sys-color-on-surface-variant));
+    --_suffix-color: var(--md-comp-filled-text-field-input-text-suffix-color, var(--md-sys-color-on-surface-variant));
+    --_caret-color: var(--md-comp-filled-text-field-caret-color, var(--md-sys-color-primary));
+    --_error-caret-color: var(--md-comp-filled-text-field-error-focus-caret-color, var(--md-sys-color-error));
+    --_label-color: var(--md-comp-filled-text-field-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_hover-label-color: var(--md-comp-filled-text-field-hover-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_focus-label-color: var(--md-comp-filled-text-field-focus-label-text-color, var(--md-sys-color-primary));
+    --_error-label-color: var(--md-comp-filled-text-field-error-label-text-color, var(--md-sys-color-error));
+    --_error-hover-label-color: var(--md-comp-filled-text-field-error-hover-label-text-color, var(--md-sys-color-on-error-container));
+    --_error-focus-label-color: var(--md-comp-filled-text-field-error-focus-label-text-color, var(--md-sys-color-error));
+    --_supporting-color: var(--md-comp-filled-text-field-supporting-text-color, var(--md-sys-color-on-surface-variant));
+    --_error-supporting-color: var(--md-comp-filled-text-field-error-supporting-text-color, var(--md-sys-color-error));
+    --_leading-icon-color: var(--md-comp-filled-text-field-leading-icon-color, var(--md-sys-color-on-surface-variant));
+    --_trailing-icon-color: var(--md-comp-filled-text-field-trailing-icon-color, var(--md-sys-color-on-surface-variant));
+    --_error-trailing-icon-color: var(--md-comp-filled-text-field-error-trailing-icon-color, var(--md-sys-color-error));
+    --_error-hover-trailing-icon-color: var(--md-comp-filled-text-field-error-hover-trailing-icon-color, var(--md-sys-color-on-error-container));
+    --_container-color: var(--md-comp-filled-text-field-container-color, var(--md-sys-color-surface-container-highest));
+    --_line-color: var(--md-comp-filled-text-field-active-indicator-color, var(--md-sys-color-on-surface-variant));
+    --_line-width: var(--md-comp-filled-text-field-active-indicator-height, 1px);
+    --_hover-line-color: var(--md-comp-filled-text-field-hover-active-indicator-color, var(--md-sys-color-on-surface));
+    --_hover-line-width: var(--md-comp-filled-text-field-hover-active-indicator-height, 1px);
+    --_focus-line-color: var(--md-comp-filled-text-field-focus-active-indicator-color, var(--md-sys-color-primary));
+    --_focus-line-width: var(--md-comp-filled-text-field-focus-active-indicator-thickness, 3px);
+    --_error-line-color: var(--md-comp-filled-text-field-error-active-indicator-color, var(--md-sys-color-error));
+    --_error-hover-line-color: var(--md-comp-filled-text-field-error-hover-active-indicator-color, var(--md-sys-color-on-error-container));
+    --_hover-state-layer-color: var(--md-comp-filled-text-field-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_hover-state-layer-opacity: var(--md-comp-filled-text-field-hover-state-layer-opacity, 0.08);
+    --_disabled-container-color: var(--md-comp-filled-text-field-disabled-container-color, var(--md-sys-color-on-surface));
+    --_disabled-container-opacity: var(--md-comp-filled-text-field-disabled-container-opacity, 0.04);
+    --_disabled-line-color: var(--md-comp-filled-text-field-disabled-active-indicator-color, var(--md-sys-color-on-surface));
+    --_disabled-line-width: var(--md-comp-filled-text-field-disabled-active-indicator-height, 1px);
+    --_disabled-line-opacity: var(--md-comp-filled-text-field-disabled-active-indicator-opacity, 0.38);
+    --_disabled-input-color: var(--md-comp-filled-text-field-disabled-input-text-color, var(--md-sys-color-on-surface));
+    --_disabled-input-opacity: var(--md-comp-filled-text-field-disabled-input-text-opacity, 0.38);
+    --_disabled-label-color: var(--md-comp-filled-text-field-disabled-label-text-color, var(--md-sys-color-on-surface));
+    --_disabled-label-opacity: var(--md-comp-filled-text-field-disabled-label-text-opacity, 0.38);
+    --_disabled-supporting-color: var(--md-comp-filled-text-field-disabled-supporting-text-color, var(--md-sys-color-on-surface));
+    --_disabled-supporting-opacity: var(--md-comp-filled-text-field-disabled-supporting-text-opacity, 0.38);
+    --_disabled-icon-color: var(--md-comp-filled-text-field-disabled-leading-icon-color, var(--md-sys-color-on-surface));
+    --_disabled-icon-opacity: var(--md-comp-filled-text-field-disabled-leading-icon-opacity, 0.38);
+  }
+
+  .outlined {
+    --_container-shape: var(--md-comp-outlined-text-field-container-shape, 4px);
+    --_icon-size: var(--md-comp-outlined-text-field-leading-icon-size, 24px);
+    --_input-font: var(--md-comp-outlined-text-field-input-text-type, var(--md-sys-typescale-body-large));
+    --_input-font-tracking: var(--md-comp-outlined-text-field-input-text-type-tracking, var(--md-sys-typescale-body-large-tracking));
+    --_label-font: var(--md-comp-outlined-text-field-label-text-type, var(--md-sys-typescale-body-large));
+    --_label-font-tracking: var(--md-comp-outlined-text-field-label-text-type-tracking, var(--md-sys-typescale-body-large-tracking));
+    --_supporting-font: var(--md-comp-outlined-text-field-supporting-text-type, var(--md-sys-typescale-body-small));
+    --_supporting-font-tracking: var(--md-comp-outlined-text-field-supporting-text-type-tracking, var(--md-sys-typescale-body-small-tracking));
+    --_input-color: var(--md-comp-outlined-text-field-input-text-color, var(--md-sys-color-on-surface));
+    --_placeholder-color: var(--md-comp-outlined-text-field-input-text-placeholder-color, var(--md-sys-color-on-surface-variant));
+    --_prefix-color: var(--md-comp-outlined-text-field-input-text-prefix-color, var(--md-sys-color-on-surface-variant));
+    --_suffix-color: var(--md-comp-outlined-text-field-input-text-suffix-color, var(--md-sys-color-on-surface-variant));
+    --_caret-color: var(--md-comp-outlined-text-field-caret-color, var(--md-sys-color-primary));
+    --_error-caret-color: var(--md-comp-outlined-text-field-error-focus-caret-color, var(--md-sys-color-error));
+    --_label-color: var(--md-comp-outlined-text-field-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_hover-label-color: var(--md-comp-outlined-text-field-hover-label-text-color, var(--md-sys-color-on-surface));
+    --_focus-label-color: var(--md-comp-outlined-text-field-focus-label-text-color, var(--md-sys-color-primary));
+    --_error-label-color: var(--md-comp-outlined-text-field-error-label-text-color, var(--md-sys-color-error));
+    --_error-hover-label-color: var(--md-comp-outlined-text-field-error-hover-label-text-color, var(--md-sys-color-on-error-container));
+    --_error-focus-label-color: var(--md-comp-outlined-text-field-error-focus-label-text-color, var(--md-sys-color-error));
+    --_supporting-color: var(--md-comp-outlined-text-field-supporting-text-color, var(--md-sys-color-on-surface-variant));
+    --_error-supporting-color: var(--md-comp-outlined-text-field-error-supporting-text-color, var(--md-sys-color-error));
+    --_leading-icon-color: var(--md-comp-outlined-text-field-leading-icon-color, var(--md-sys-color-on-surface-variant));
+    --_trailing-icon-color: var(--md-comp-outlined-text-field-trailing-icon-color, var(--md-sys-color-on-surface-variant));
+    --_error-trailing-icon-color: var(--md-comp-outlined-text-field-error-trailing-icon-color, var(--md-sys-color-error));
+    --_error-hover-trailing-icon-color: var(--md-comp-outlined-text-field-error-hover-trailing-icon-color, var(--md-sys-color-on-error-container));
+    --_line-color: var(--md-comp-outlined-text-field-outline-color, var(--md-sys-color-outline));
+    --_line-width: var(--md-comp-outlined-text-field-outline-width, 1px);
+    --_hover-line-color: var(--md-comp-outlined-text-field-hover-outline-color, var(--md-sys-color-on-surface));
+    --_hover-line-width: var(--md-comp-outlined-text-field-hover-outline-width, 1px);
+    --_focus-line-color: var(--md-comp-outlined-text-field-focus-outline-color, var(--md-sys-color-primary));
+    --_focus-line-width: var(--md-comp-outlined-text-field-focus-outline-width, 3px);
+    --_error-line-color: var(--md-comp-outlined-text-field-error-outline-color, var(--md-sys-color-error));
+    --_error-hover-line-color: var(--md-comp-outlined-text-field-error-hover-outline-color, var(--md-sys-color-on-error-container));
+    --_disabled-line-color: var(--md-comp-outlined-text-field-disabled-outline-color, var(--md-sys-color-on-surface));
+    --_disabled-line-width: var(--md-comp-outlined-text-field-disabled-outline-width, 1px);
+    --_disabled-line-opacity: var(--md-comp-outlined-text-field-disabled-outline-opacity, 0.12);
+    --_disabled-input-color: var(--md-comp-outlined-text-field-disabled-input-text-color, var(--md-sys-color-on-surface));
+    --_disabled-input-opacity: var(--md-comp-outlined-text-field-disabled-input-text-opacity, 0.38);
+    --_disabled-label-color: var(--md-comp-outlined-text-field-disabled-label-text-color, var(--md-sys-color-on-surface));
+    --_disabled-label-opacity: var(--md-comp-outlined-text-field-disabled-label-text-opacity, 0.38);
+    --_disabled-supporting-color: var(--md-comp-outlined-text-field-disabled-supporting-text-color, var(--md-sys-color-on-surface));
+    --_disabled-supporting-opacity: var(--md-comp-outlined-text-field-disabled-supporting-text-opacity, 0.38);
+    --_disabled-icon-color: var(--md-comp-outlined-text-field-disabled-leading-icon-color, var(--md-sys-color-on-surface));
+    --_disabled-icon-opacity: var(--md-comp-outlined-text-field-disabled-leading-icon-opacity, 0.38);
+  }
+}
