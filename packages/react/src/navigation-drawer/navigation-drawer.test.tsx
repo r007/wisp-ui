@@ -45,7 +45,9 @@ function OpenerApp() {
   );
 }
 
-const dialog = () => page.getByRole('dialog', { name: 'Main' }).element() as HTMLDialogElement;
+// A closed dialog is not rendered, but tests still need to read its `open` state.
+const dialog = () =>
+  page.getByRole('dialog', { name: 'Main', includeHidden: true }).element() as HTMLDialogElement;
 
 test.describe('standard', () => {
   test('is a named navigation landmark with titled groups of destinations', async () => {
@@ -194,6 +196,19 @@ test.describe('modal', () => {
     await userEvent.keyboard('{Escape}');
     await expect.poll(() => dialog().open).toBe(false);
     await expect.element(opener).toHaveFocus();
+  });
+
+  test('slides out before closing, in every browser', async () => {
+    const { rerender } = await render(<Drawer variant="modal" open />);
+    await expect.poll(() => rect(dialog()).left).toBe(0);
+
+    await rerender(<Drawer variant="modal" open={false} />);
+    // Still on screen, heading for the edge, until the animation has finished.
+    expect(dialog().open).toBe(true);
+    expect(dialog()).toHaveAttribute('data-closing');
+    await expect.poll(() => rect(dialog()).left).toBeLessThan(0);
+    await expect.poll(() => dialog().open).toBe(false);
+    expect(dialog()).not.toHaveAttribute('data-closing');
   });
 
   test('dims the page with the scrim at 32%', async () => {

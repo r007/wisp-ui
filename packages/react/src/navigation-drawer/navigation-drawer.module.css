@@ -55,16 +55,13 @@
     box-shadow: var(--_modal-container-elevation);
     color: var(--md-sys-color-on-surface-variant);
     translate: calc(var(--_direction) * -100%) 0;
-    /* `display` and `overlay` are discrete: transitioning them keeps the drawer
-       on screen (and in the top layer) while it animates out. No overshoot: a
-       bounce would pull the edge away from the screen side. */
-    transition:
-      translate var(--md-sys-motion-spring-slow-effects),
-      display var(--md-sys-motion-spring-slow-effects) allow-discrete,
-      overlay var(--md-sys-motion-spring-slow-effects) allow-discrete;
+    /* Closing is driven from script (`data-closing`, see useModalDialog), so the
+       drawer stays on screen while it slides out. No overshoot: a bounce would
+       pull the edge away from the screen side. */
+    transition: translate var(--md-sys-motion-spring-slow-effects);
   }
 
-  .modal[open] {
+  .modal[open]:not([data-closing]) {
     translate: 0 0;
   }
 
@@ -81,13 +78,10 @@
       transparent
     );
     opacity: 0;
-    transition:
-      opacity var(--md-sys-motion-spring-default-effects),
-      display var(--md-sys-motion-spring-default-effects) allow-discrete,
-      overlay var(--md-sys-motion-spring-default-effects) allow-discrete;
+    transition: opacity var(--md-sys-motion-spring-default-effects);
   }
 
-  .modal[open]::backdrop {
+  .modal[open]:not([data-closing])::backdrop {
     opacity: 1;
   }
 

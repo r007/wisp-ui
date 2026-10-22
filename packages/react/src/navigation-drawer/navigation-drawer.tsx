@@ -3,20 +3,18 @@
 import {
   type ComponentPropsWithRef,
   createContext,
-  type MouseEvent,
   type ReactNode,
   type Ref,
   useContext,
-  useEffect,
   useId,
   useMemo,
-  useRef,
 } from 'react';
 import { cx } from '../foundation/cx.js';
 import { type RenderProp, renderElement } from '../foundation/merge-props.js';
 import { useMergedRef } from '../foundation/merge-refs.js';
 import { StateLayer } from '../foundation/state-layer.js';
 import { useControllableState } from '../foundation/use-controllable-state.js';
+import { useModalDialog } from '../foundation/use-modal-dialog.js';
 import { type PressableOptions, usePressable } from '../foundation/use-pressable.js';
 import styles from './navigation-drawer.module.css';
 import tokens from './navigation-drawer.tokens.generated.module.css';
@@ -101,16 +99,9 @@ export function NavigationDrawer({
     [value, select, variant, closeOnSelect, onOpenChange],
   );
 
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const mergedRef = useMergedRef<HTMLElement>(dialogRef as Ref<HTMLElement>, ref);
-
   // The native dialog owns the top layer and focus; React owns whether it is open.
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (variant !== 'modal' || !dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    else if (!open && dialog.open) dialog.close();
-  }, [open, variant]);
+  const modal = useModalDialog({ open: variant === 'modal' && open, onOpenChange });
+  const mergedRef = useMergedRef<HTMLElement>(modal.ref as Ref<HTMLElement>, ref);
 
   const classes = cx(styles.root, tokens.root, className);
 
@@ -132,18 +123,10 @@ export function NavigationDrawer({
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: a scrim click is a pointer shortcut for dismissing; the keyboard equivalent is Escape, handled by onCancel.
     <dialog
+      {...modal.props}
       ref={mergedRef as Ref<HTMLDialogElement>}
       aria-label={ariaLabel}
       className={cx(classes, styles.modal)}
-      // Escape: let the parent decide, so the drawer stays controlled.
-      onCancel={(event) => {
-        event.preventDefault();
-        onOpenChange?.(false);
-      }}
-      // The dialog has no padding, so a click on itself (not its content) is a scrim click.
-      onClick={(event: MouseEvent<HTMLDialogElement>) => {
-        if (event.target === event.currentTarget) onOpenChange?.(false);
-      }}
     >
       <nav {...rest} className={styles.panel}>
         <NavigationDrawerContext value={context}>{children}</NavigationDrawerContext>
