@@ -1,0 +1,30 @@
+/* Snackbar token defaults.
+ *
+ * Generated from snackbar.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-snackbar-container-color, var(--md-sys-color-inverse-surface));
+    --_container-shape: var(--md-comp-snackbar-container-shape, 4px);
+    --_container-elevation: var(--md-comp-snackbar-container-elevation, var(--md-sys-elevation-level3));
+    --_single-line-height: var(--md-comp-snackbar-with-single-line-container-height, 48px);
+    --_two-line-height: var(--md-comp-snackbar-with-two-lines-container-height, 68px);
+    --_text-color: var(--md-comp-snackbar-supporting-text-color, var(--md-sys-color-inverse-on-surface));
+    --_text-font: var(--md-comp-snackbar-supporting-text-type, var(--md-sys-typescale-body-medium));
+    --_text-font-tracking: var(--md-comp-snackbar-supporting-text-type-tracking, var(--md-sys-typescale-body-medium-tracking));
+    --_action-color: var(--md-comp-snackbar-action-label-text-color, var(--md-sys-color-inverse-primary));
+    --_action-font: var(--md-comp-snackbar-action-label-text-type, var(--md-sys-typescale-label-large));
+    --_action-font-tracking: var(--md-comp-snackbar-action-label-text-type-tracking, var(--md-sys-typescale-label-large-tracking));
+    --_action-state-layer-color: var(--md-comp-snackbar-action-hover-state-layer-color, var(--md-sys-color-inverse-primary));
+    --_action-hover-opacity: var(--md-comp-snackbar-action-hover-state-layer-opacity, 0.08);
+    --_action-focus-opacity: var(--md-comp-snackbar-action-focus-state-layer-opacity, 0.1);
+    --_action-pressed-opacity: var(--md-comp-snackbar-action-pressed-state-layer-opacity, 0.1);
+    --_icon-size: var(--md-comp-snackbar-icon-size, 24px);
+    --_icon-color: var(--md-comp-snackbar-icon-color, var(--md-sys-color-inverse-on-surface));
+    --_icon-state-layer-color: var(--md-comp-snackbar-icon-hover-state-layer-color, var(--md-sys-color-inverse-on-surface));
+    --_icon-hover-opacity: var(--md-comp-snackbar-icon-hover-state-layer-opacity, 0.08);
+    --_icon-focus-opacity: var(--md-comp-snackbar-icon-focus-state-layer-opacity, 0.1);
+    --_icon-pressed-opacity: var(--md-comp-snackbar-icon-pressed-state-layer-opacity, 0.1);
+  }
+}

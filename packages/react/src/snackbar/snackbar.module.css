@@ -1,0 +1,152 @@
+/*
+ * The snackbar is a native popover in the top layer, so it shows above dialogs and sheets,
+ * fixed to a screen edge. Closing is driven from script (`data-closing`, see usePopover), so
+ * it animates out in every browser. Colours, shapes and type come from
+ * snackbar.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    /* A popover is centred and has a border by default; this one is pinned to the bottom. */
+    position: fixed;
+    inset: auto;
+    inset-block-end: var(--wisp-snackbar-inset-block-end, 16px);
+    inset-inline-start: var(--wisp-snackbar-inset-inline-start, 16px);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    min-inline-size: 344px;
+    max-inline-size: min(560px, calc(100vw - 32px));
+    min-block-size: var(--_single-line-height);
+    margin: 0;
+    padding-block: 0;
+    padding-inline: 16px 8px;
+    overflow: visible;
+    border: 0;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--_text-color);
+    font: var(--_text-font);
+    letter-spacing: var(--_text-font-tracking);
+    opacity: 0;
+    translate: 0 16px;
+    transition:
+      opacity var(--md-sys-motion-spring-default-effects),
+      translate var(--md-sys-motion-spring-default-spatial);
+  }
+
+  /* On a narrow screen it spans the width, 8px in from each edge. */
+  @media (width <= 600px) {
+    .root {
+      inset-block-end: var(--wisp-snackbar-inset-block-end, 8px);
+      inset-inline: 8px;
+      /* A popover is `fit-content` wide by default; with both edges set, `auto` stretches. */
+      inline-size: auto;
+      min-inline-size: 0;
+      max-inline-size: none;
+    }
+  }
+
+  .root:popover-open:not([data-closing]) {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .root:popover-open {
+      opacity: 0;
+      translate: 0 16px;
+    }
+  }
+
+  .message {
+    flex: 1;
+    min-inline-size: 0;
+    margin: 0;
+    padding-block: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  .actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    margin-inline-start: 8px;
+  }
+
+  /* The action and close buttons: small, with a state layer on the dark container. */
+  .action,
+  .close {
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the content. */
+    isolation: isolate;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .action {
+    --_state-layer-color: var(--_action-state-layer-color);
+    --_hover-state-layer-opacity: var(--_action-hover-opacity);
+    --_focus-state-layer-opacity: var(--_action-focus-opacity);
+    --_pressed-state-layer-opacity: var(--_action-pressed-opacity);
+
+    min-inline-size: 48px;
+    block-size: 48px;
+    padding-inline: 12px;
+    border-radius: var(--md-sys-shape-corner-full);
+    color: var(--_action-color);
+    font: var(--_action-font);
+    letter-spacing: var(--_action-font-tracking);
+  }
+
+  .close {
+    --_state-layer-color: var(--_icon-state-layer-color);
+    --_hover-state-layer-opacity: var(--_icon-hover-opacity);
+    --_focus-state-layer-opacity: var(--_icon-focus-opacity);
+    --_pressed-state-layer-opacity: var(--_icon-pressed-opacity);
+
+    inline-size: 48px;
+    block-size: 48px;
+    border-radius: var(--md-sys-shape-corner-full);
+    color: var(--_icon-color);
+  }
+
+  .close > svg {
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    fill: currentcolor;
+  }
+
+  .action:focus-visible,
+  .close:focus-visible {
+    outline: 3px solid var(--_icon-color);
+    outline-offset: -3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+      background-color: Canvas;
+      color: CanvasText;
+    }
+
+    .action {
+      color: LinkText;
+    }
+  }
+}

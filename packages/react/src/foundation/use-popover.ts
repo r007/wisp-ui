@@ -12,6 +12,8 @@ export interface PopoverOptions {
   onOpenChange?: ((open: boolean, reason?: PopoverDismissReason) => void) | undefined;
   /** Dismiss on an outside press and on Escape. @default true */
   dismissible?: boolean;
+  /** Called once the popover has finished animating out and is hidden. */
+  onExited?: (() => void) | undefined;
   /**
    * Elements a press on which is not "outside": the anchor that toggles the popover, so
    * pressing it again does not close the popover and then immediately reopen it.
@@ -37,7 +39,13 @@ export interface PopoverOptions {
  * `data-closing` attribute (style that as the "exited" state) until the animations that
  * started have finished. It also works with reduced motion: no animations, so no waiting.
  */
-export function usePopover({ open, onOpenChange, dismissible = true, ignore }: PopoverOptions) {
+export function usePopover({
+  open,
+  onOpenChange,
+  dismissible = true,
+  ignore,
+  onExited,
+}: PopoverOptions) {
   const ref = useRef<HTMLElement>(null);
   const id = useId();
   // A dashed ident, unique to this instance, ties the popover to its anchor.
@@ -46,6 +54,8 @@ export function usePopover({ open, onOpenChange, dismissible = true, ignore }: P
   onOpenChangeRef.current = onOpenChange;
   const ignoreRef = useRef(ignore);
   ignoreRef.current = ignore;
+  const onExitedRef = useRef(onExited);
+  onExitedRef.current = onExited;
 
   useEffect(() => {
     const popover = ref.current;
@@ -67,6 +77,7 @@ export function usePopover({ open, onOpenChange, dismissible = true, ignore }: P
       if (cancelled) return;
       if (popover.matches(':popover-open')) popover.hidePopover();
       popover.removeAttribute('data-closing');
+      onExitedRef.current?.();
     });
     return () => {
       // Reopened mid-exit: the effect above takes it from here.
