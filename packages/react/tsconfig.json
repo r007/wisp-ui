@@ -3,7 +3,10 @@
   "compilerOptions": {
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["vite/client", "node"]
+    "types": ["vite/client", "node"],
+    // Typecheck against the tokens *source* so it never depends on a prior build.
+    // (The declaration build in tsconfig.build.json turns this off.)
+    "paths": { "@wisp-ui/tokens": ["../tokens/src/index.ts"] }
   },
   "include": [
     "src",
