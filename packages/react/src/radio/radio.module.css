@@ -1,0 +1,145 @@
+/*
+ * The native <input> is an invisible, full-size sibling of the visual ring, so
+ * every state is a CSS sibling selector (`.input:checked ~ .host`). Colours and
+ * sizes come from radio.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_state-layer-size);
+    block-size: var(--_state-layer-size);
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Centred on the 40px state layer, and filling the 48px touch target. */
+  .input {
+    position: absolute;
+    inset: calc((var(--_state-layer-size) - 48px) / 2);
+    z-index: 1;
+    box-sizing: border-box;
+    inline-size: 48px;
+    block-size: 48px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .input:disabled {
+    cursor: default;
+  }
+
+  /* Unselected is the default; states below only override what changes. */
+  .host {
+    --_icon-color: var(--_unselected-icon-color);
+    --_state-layer-color: var(--_unselected-state-layer-color);
+    --_pressed-state-layer-color: var(--_unselected-pressed-state-layer-color);
+
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--md-sys-shape-corner-full);
+    isolation: isolate;
+  }
+
+  .input:checked ~ .host {
+    --_icon-color: var(--_selected-icon-color);
+    --_state-layer-color: var(--_selected-state-layer-color);
+    --_pressed-state-layer-color: var(--_selected-pressed-state-layer-color);
+  }
+
+  /* The pressed state layer is tinted with the opposite colour. */
+  .host [data-wisp-state-layer][data-pressed] {
+    --_state-layer-color: var(--_pressed-state-layer-color);
+  }
+
+  /* A ring with a dot that grows from the centre when selected. */
+  .ring {
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    border: 2px solid var(--_icon-color);
+    border-radius: var(--md-sys-shape-corner-full);
+    transition: border-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .dot {
+    inline-size: calc(var(--_icon-size) / 2);
+    block-size: calc(var(--_icon-size) / 2);
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_icon-color);
+    transform: scale(0);
+    transition:
+      transform var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .input:checked ~ .host .dot {
+    transform: scale(1);
+  }
+
+  /* Interaction darkens an unselected ring; a selected one keeps its colour. */
+  @media (hover: hover) {
+    .input:enabled:not(:checked):hover ~ .host {
+      --_icon-color: var(--_unselected-icon-color-active);
+    }
+
+    .input:enabled:hover ~ .host [data-wisp-state-layer]::before {
+      opacity: var(--_hover-state-layer-opacity);
+    }
+  }
+
+  .input:enabled:not(:checked):focus-visible ~ .host,
+  .input:enabled:not(:checked):active ~ .host {
+    --_icon-color: var(--_unselected-icon-color-active);
+  }
+
+  .input:enabled:focus-visible ~ .host [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .input:focus-visible ~ .host .ring {
+    outline: var(--md-sys-state-focus-indicator-thickness) solid var(--md-sys-color-secondary);
+    outline-offset: var(--md-sys-state-focus-indicator-outer-offset);
+  }
+
+  /* Disabled: Material fades the ring and dot to a fixed opacity. */
+  .input:disabled ~ .host {
+    --_icon-color: color-mix(
+      in srgb,
+      var(--_disabled-icon-color) calc(var(--_disabled-icon-opacity) * 100%),
+      transparent
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ring,
+    .dot {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .ring {
+      border-color: CanvasText;
+    }
+
+    .dot {
+      background-color: Highlight;
+    }
+
+    .input:disabled ~ .host .ring {
+      border-color: GrayText;
+    }
+
+    .input:disabled ~ .host .dot {
+      background-color: GrayText;
+    }
+  }
+}
