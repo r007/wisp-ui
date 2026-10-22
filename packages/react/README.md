@@ -20,7 +20,7 @@ Import a component and you get **only that component's CSS**. Everything lives i
 ## Components
 
 `Badge`, `Banner`, `BottomAppBar`, `Button`, `ButtonGroup`, `Card`, `Checkbox`, `Chip`,
-`Dialog`, `Divider`, `Fab`, `IconButton`, `List`, `Menu`, `NavigationBar`,
+`Dialog`, `Divider`, `Fab`, `FabMenu`, `IconButton`, `List`, `Menu`, `NavigationBar`,
 `NavigationDrawer`, `NavigationRail`, `Progress` (linear and circular), `Radio`,
 `SegmentedButton`, `Sheet`, `Slider`, `Snackbar`, `SplitButton`, `Switch`, `Tabs`,
 `TextField`, `Toolbar`, `Tooltip` and `TopAppBar`.

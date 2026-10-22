@@ -1,0 +1,65 @@
+/* FabMenu token defaults.
+ *
+ * Generated from fab-menu.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_close-gap: var(--md-comp-fab-menu-close-button-between-space, 8px);
+    --_close-width: var(--md-comp-fab-menu-close-button-container-width, 56px);
+    --_close-shape: var(--md-comp-fab-menu-close-button-container-shape, calc(var(--_close-width) / 2));
+    --_close-icon-size: var(--md-comp-fab-menu-close-button-icon-size, 20px);
+  }
+
+  .root {
+    --_item-gap: var(--md-comp-fab-menu-menu-item-between-space, 4px);
+    --_item-height: var(--md-comp-fab-menu-menu-item-container-height, 56px);
+    --_item-elevation: var(--md-comp-fab-menu-menu-item-container-elevation, var(--md-sys-elevation-level0));
+    --_item-shape: var(--md-comp-fab-menu-menu-item-container-shape, calc(var(--_item-height) / 2));
+    --_item-icon-size: var(--md-comp-fab-menu-menu-item-icon-size, 24px);
+    --_item-icon-label-space: var(--md-comp-fab-menu-menu-item-icon-label-space, 8px);
+    --_item-leading-space: var(--md-comp-fab-menu-menu-item-leading-space, 24px);
+    --_item-trailing-space: var(--md-comp-fab-menu-menu-item-trailing-space, 24px);
+    --_item-font: var(--md-comp-fab-menu-menu-item-label-text, var(--md-sys-typescale-title-medium));
+    --_item-font-tracking: var(--md-comp-fab-menu-menu-item-label-text-tracking, var(--md-sys-typescale-title-medium-tracking));
+  }
+
+  .primary {
+    --_item-container-color: var(--md-comp-fab-menu-primary-container-list-item-container-color, var(--md-sys-color-primary-container));
+    --_item-hover-elevation: var(--md-comp-fab-menu-primary-container-list-item-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_item-focus-elevation: var(--md-comp-fab-menu-primary-container-list-item-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_item-pressed-elevation: var(--md-comp-fab-menu-primary-container-list-item-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_item-icon-color: var(--md-comp-fab-menu-primary-container-list-item-icon-color, var(--md-sys-color-on-primary-container));
+    --_item-label-color: var(--md-comp-fab-menu-primary-container-list-item-label-text-color, var(--md-sys-color-on-primary-container));
+    --_item-state-layer-color: var(--md-comp-fab-menu-primary-container-list-item-hovered-state-layer-color, var(--md-sys-color-on-primary-container));
+    --_item-hover-state-layer-opacity: var(--md-comp-fab-menu-primary-container-list-item-hovered-state-layer-opacity, 0.08);
+    --_item-focus-state-layer-opacity: var(--md-comp-fab-menu-primary-container-list-item-focused-state-layer-opacity, 0.1);
+    --_item-pressed-state-layer-opacity: var(--md-comp-fab-menu-primary-container-list-item-pressed-state-layer-opacity, 0.1);
+  }
+
+  .secondary {
+    --_item-container-color: var(--md-comp-fab-menu-secondary-container-list-item-container-color, var(--md-sys-color-secondary-container));
+    --_item-hover-elevation: var(--md-comp-fab-menu-secondary-container-list-item-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_item-focus-elevation: var(--md-comp-fab-menu-secondary-container-list-item-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_item-pressed-elevation: var(--md-comp-fab-menu-secondary-container-list-item-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_item-icon-color: var(--md-comp-fab-menu-secondary-container-list-item-icon-color, var(--md-sys-color-on-secondary-container));
+    --_item-label-color: var(--md-comp-fab-menu-secondary-container-list-item-label-text-color, var(--md-sys-color-on-secondary-container));
+    --_item-state-layer-color: var(--md-comp-fab-menu-secondary-container-list-item-hovered-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_item-hover-state-layer-opacity: var(--md-comp-fab-menu-secondary-container-list-item-hovered-state-layer-opacity, 0.08);
+    --_item-focus-state-layer-opacity: var(--md-comp-fab-menu-secondary-container-list-item-focused-state-layer-opacity, 0.1);
+    --_item-pressed-state-layer-opacity: var(--md-comp-fab-menu-secondary-container-list-item-pressed-state-layer-opacity, 0.1);
+  }
+
+  .tertiary {
+    --_item-container-color: var(--md-comp-fab-menu-tertiary-container-list-item-container-color, var(--md-sys-color-tertiary-container));
+    --_item-hover-elevation: var(--md-comp-fab-menu-tertiary-container-list-item-hovered-container-elevation, var(--md-sys-elevation-level4));
+    --_item-focus-elevation: var(--md-comp-fab-menu-tertiary-container-list-item-focused-container-elevation, var(--md-sys-elevation-level3));
+    --_item-pressed-elevation: var(--md-comp-fab-menu-tertiary-container-list-item-pressed-container-elevation, var(--md-sys-elevation-level3));
+    --_item-icon-color: var(--md-comp-fab-menu-tertiary-container-list-item-icon-color, var(--md-sys-color-on-tertiary-container));
+    --_item-label-color: var(--md-comp-fab-menu-tertiary-container-list-item-label-text-color, var(--md-sys-color-on-tertiary-container));
+    --_item-state-layer-color: var(--md-comp-fab-menu-tertiary-container-list-item-hovered-state-layer-color, var(--md-sys-color-on-tertiary-container));
+    --_item-hover-state-layer-opacity: var(--md-comp-fab-menu-tertiary-container-list-item-hovered-state-layer-opacity, 0.08);
+    --_item-focus-state-layer-opacity: var(--md-comp-fab-menu-tertiary-container-list-item-focused-state-layer-opacity, 0.1);
+    --_item-pressed-state-layer-opacity: var(--md-comp-fab-menu-tertiary-container-list-item-pressed-state-layer-opacity, 0.1);
+  }
+}

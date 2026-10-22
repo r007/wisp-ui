@@ -9,38 +9,39 @@ them to components, the Flutter widget to read, and the archetype to copy from
 
 ## Ported
 
-| Component                 | Tokens (`md.comp.*`)                                                   | Notes                                                                                                                                                 |
-| ------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ✅ **Banner**             | `banner`                                                               | Persistent message, optional icon and two actions; folds away rather than unmounting                                                                  |
-| ✅ **BottomAppBar**       | `bottom-app-bar`                                                       | 80px bar: icon actions at the start, an optional FAB at the end; sticky                                                                               |
-| ✅ **Button**             | `button` (358 tokens)                                                  | Elevated, filled, tonal, outlined, text; 5 sizes; round/square; toggle with shape morph; link; `render`                                               |
-| ✅ **ButtonGroup**        | `button-group`                                                         | Standard (spaced by size) and connected (2px apart, shared corners); sizes its Buttons through a context                                              |
-| ✅ **Card**               | `elevated-card`, `filled-card`, `outlined-card`                        | A container until it has `onClick`/`href`; then hover, focus, press; dragged; disabled                                                                |
-| ✅ **Checkbox**           | `checkbox`                                                             | Native input; indeterminate (controlled), error, drawn tick                                                                                           |
-| ✅ **Chip / ChipGroup**   | `chips`, `assist-chip`, `filter-chip`, `input-chip`, `suggestion-chip` | One component, four variants; the shared `chips` tokens carry the Expressive shape morph; input chips get a sibling remove button                     |
-| ✅ **Dialog**             | `dialog`, `full-screen-dialog`                                         | Native `<dialog>` modal; basic and full-screen; exit animation in every browser (`useModalDialog`)                                                    |
-| ✅ **Divider**            | `divider`                                                              | Horizontal or vertical `<hr>`, optional inset                                                                                                         |
-| ✅ **Fab**                | `fab`, `extended-fab`                                                  | 7 colour sets, 4 sizes, extended with a label that can collapse into a square                                                                         |
-| ✅ **IconButton**         | `icon-button`                                                          | 4 variants; 5 sizes; narrow/default/wide; toggle with `selectedIcon`; requires `aria-label`                                                           |
-| ✅ **List**               | `list`                                                                 | `List`, `ListItem`, `ListDivider`; 1 to 3 lines, leading icon/avatar/image/video; the **list-item contract** that Menu reuses; segmented (Expressive) |
-| ✅ **Menu**               | `menus` (standard and vibrant)                                         | Popover on CSS anchor positioning; WAI-ARIA menu button pattern (arrows, typeahead, Escape returns focus); checkbox and radio items                   |
-| ✅ **NavigationBar**      | `nav-bar`                                                              | Expressive 64px bar; vertical and horizontal items; label behaviours; badges. Uses the new `nav-bar` tokens, not the older `navigation-bar`           |
-| ✅ **NavigationDrawer**   | `navigation-drawer`                                                    | Standard and modal (native `<dialog>`); sections, dividers, trailing counts                                                                           |
-| ✅ **NavigationRail**     | `nav-rail`                                                             | Collapsed (96/80px, vertical items) and expanded (220 to 360px, horizontal items); header slot                                                        |
-| ✅ **Badge**              | `badge`                                                                | Dot or labelled pill                                                                                                                                  |
-| ✅ **Progress**           | `progress-indicator`                                                   | `LinearProgress` and `CircularProgress`; determinate/indeterminate; flat and wavy; the Expressive gap and stop dot                                    |
-| ✅ **Radio / RadioGroup** | `radio-button`                                                         | Native input; the group owns the value and a shared `name`                                                                                            |
-| ✅ **SegmentedButton**    | `outlined-segmented-button`                                            | Native radios (single) or checkboxes (multiple); a selected segment folds in a check                                                                  |
-| ✅ **Sheet**              | `sheet`, `drag-handle`                                                 | Modal bottom and side sheets on native `<dialog>` (`useModalDialog`); drag handle; swipe to dismiss                                                   |
-| ✅ **Slider**             | `slider`                                                               | Native range input over the Expressive visuals; 5 sizes; handle pill, stop dot, value bubble, icon. Single value (no range slider yet)                |
-| ✅ **Snackbar**           | `snackbar`                                                             | Top-layer popover; auto-dismiss that pauses on hover/focus; `SnackbarProvider` + `useSnackbar` queue                                                  |
-| ✅ **SplitButton**        | `split-button`                                                         | An action plus a chevron that opens a Menu; built from two Buttons in a connected group                                                               |
-| ✅ **Switch**             | `switch`                                                               | Native `<input role="switch">`; optional icons; spring handle; RTL                                                                                    |
-| ✅ **Tabs**               | `primary-navigation-tab`, `secondary-navigation-tab`                   | `Tabs`, `TabList`, `Tab`, `TabPanel`; sliding measured indicator; roving focus; automatic or manual activation; scrollable                            |
-| ✅ **TextField**          | `filled-text-field`, `outlined-text-field`                             | Native input/textarea; the label floats with CSS alone; outlined notch; supporting/error text, counter, icons, prefix/suffix                          |
-| ✅ **Toolbar**            | `toolbar`                                                              | Docked bar or floating pill (horizontal or vertical), standard and vibrant; WAI-ARIA toolbar pattern (one tab stop, arrow keys); optional FAB         |
-| ✅ **Tooltip**            | `plain-tooltip`, `rich-tooltip`                                        | Popover on CSS anchor positioning; hover delay, keyboard focus, Escape; rich tooltips stay open under the pointer                                     |
-| ✅ **TopAppBar**          | `app-bar`                                                              | Small, medium, large (Expressive flexible heights), subtitle, collapse on scroll, sticky                                                              |
+| Component                 | Tokens (`md.comp.*`)                                                   | Notes                                                                                                                                                               |
+| ------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ✅ **Banner**             | `banner`                                                               | Persistent message, optional icon and two actions; folds away rather than unmounting                                                                                |
+| ✅ **BottomAppBar**       | `bottom-app-bar`                                                       | 80px bar: icon actions at the start, an optional FAB at the end; sticky                                                                                             |
+| ✅ **Button**             | `button` (358 tokens)                                                  | Elevated, filled, tonal, outlined, text; 5 sizes; round/square; toggle with shape morph; link; `render`                                                             |
+| ✅ **ButtonGroup**        | `button-group`                                                         | Standard (spaced by size) and connected (2px apart, shared corners); sizes its Buttons through a context                                                            |
+| ✅ **Card**               | `elevated-card`, `filled-card`, `outlined-card`                        | A container until it has `onClick`/`href`; then hover, focus, press; dragged; disabled                                                                              |
+| ✅ **Checkbox**           | `checkbox`                                                             | Native input; indeterminate (controlled), error, drawn tick                                                                                                         |
+| ✅ **Chip / ChipGroup**   | `chips`, `assist-chip`, `filter-chip`, `input-chip`, `suggestion-chip` | One component, four variants; the shared `chips` tokens carry the Expressive shape morph; input chips get a sibling remove button                                   |
+| ✅ **Dialog**             | `dialog`, `full-screen-dialog`                                         | Native `<dialog>` modal; basic and full-screen; exit animation in every browser (`useModalDialog`)                                                                  |
+| ✅ **Divider**            | `divider`                                                              | Horizontal or vertical `<hr>`, optional inset                                                                                                                       |
+| ✅ **Fab**                | `fab`, `extended-fab`                                                  | 7 colour sets, 4 sizes, extended with a label that can collapse into a square                                                                                       |
+| ✅ **FabMenu**            | `fab-menu`                                                             | A FAB that opens into stacked pill items and becomes the close button (a `Fab` re-coloured through its public variables); menu button pattern (`useMenuNavigation`) |
+| ✅ **IconButton**         | `icon-button`                                                          | 4 variants; 5 sizes; narrow/default/wide; toggle with `selectedIcon`; requires `aria-label`                                                                         |
+| ✅ **List**               | `list`                                                                 | `List`, `ListItem`, `ListDivider`; 1 to 3 lines, leading icon/avatar/image/video; the **list-item contract** that Menu reuses; segmented (Expressive)               |
+| ✅ **Menu**               | `menus` (standard and vibrant)                                         | Popover on CSS anchor positioning; WAI-ARIA menu button pattern (arrows, typeahead, Escape returns focus); checkbox and radio items                                 |
+| ✅ **NavigationBar**      | `nav-bar`                                                              | Expressive 64px bar; vertical and horizontal items; label behaviours; badges. Uses the new `nav-bar` tokens, not the older `navigation-bar`                         |
+| ✅ **NavigationDrawer**   | `navigation-drawer`                                                    | Standard and modal (native `<dialog>`); sections, dividers, trailing counts                                                                                         |
+| ✅ **NavigationRail**     | `nav-rail`                                                             | Collapsed (96/80px, vertical items) and expanded (220 to 360px, horizontal items); header slot                                                                      |
+| ✅ **Badge**              | `badge`                                                                | Dot or labelled pill                                                                                                                                                |
+| ✅ **Progress**           | `progress-indicator`                                                   | `LinearProgress` and `CircularProgress`; determinate/indeterminate; flat and wavy; the Expressive gap and stop dot                                                  |
+| ✅ **Radio / RadioGroup** | `radio-button`                                                         | Native input; the group owns the value and a shared `name`                                                                                                          |
+| ✅ **SegmentedButton**    | `outlined-segmented-button`                                            | Native radios (single) or checkboxes (multiple); a selected segment folds in a check                                                                                |
+| ✅ **Sheet**              | `sheet`, `drag-handle`                                                 | Modal bottom and side sheets on native `<dialog>` (`useModalDialog`); drag handle; swipe to dismiss                                                                 |
+| ✅ **Slider**             | `slider`                                                               | Native range input over the Expressive visuals; 5 sizes; handle pill, stop dot, value bubble, icon. Single value (no range slider yet)                              |
+| ✅ **Snackbar**           | `snackbar`                                                             | Top-layer popover; auto-dismiss that pauses on hover/focus; `SnackbarProvider` + `useSnackbar` queue                                                                |
+| ✅ **SplitButton**        | `split-button`                                                         | An action plus a chevron that opens a Menu; built from two Buttons in a connected group                                                                             |
+| ✅ **Switch**             | `switch`                                                               | Native `<input role="switch">`; optional icons; spring handle; RTL                                                                                                  |
+| ✅ **Tabs**               | `primary-navigation-tab`, `secondary-navigation-tab`                   | `Tabs`, `TabList`, `Tab`, `TabPanel`; sliding measured indicator; roving focus; automatic or manual activation; scrollable                                          |
+| ✅ **TextField**          | `filled-text-field`, `outlined-text-field`                             | Native input/textarea; the label floats with CSS alone; outlined notch; supporting/error text, counter, icons, prefix/suffix                                        |
+| ✅ **Toolbar**            | `toolbar`                                                              | Docked bar or floating pill (horizontal or vertical), standard and vibrant; WAI-ARIA toolbar pattern (one tab stop, arrow keys); optional FAB                       |
+| ✅ **Tooltip**            | `plain-tooltip`, `rich-tooltip`                                        | Popover on CSS anchor positioning; hover delay, keyboard focus, Escape; rich tooltips stay open under the pointer                                                   |
+| ✅ **TopAppBar**          | `app-bar`                                                              | Small, medium, large (Expressive flexible heights), subtitle, collapse on scroll, sticky                                                                            |
 
 ## Next up (suggested order)
 
@@ -51,7 +52,6 @@ Ordered by how much of the remaining set each unlocks.
 | ⬜ Search              | `search-bar`, `search-view`                              | `SearchBar`, `SearchAnchor`        | composite + overlay | text field + list + popover                               |
 | ⬜ Carousel            | `carousel-item`                                          | `CarouselView`                     | scroll-snap         | multi-browse, hero, uncontained                           |
 | ⬜ Loading indicator   | `loading-indicator`                                      | `CircularProgressIndicator`        | SVG                 | needs the **Material Shapes** morphing foundation         |
-| ⬜ FAB menu            | `fab-menu`                                               | none yet                           | composite + overlay | a FAB that expands into a menu                            |
 | ⬜ Range slider        | `slider`                                                 | `RangeSlider`                      | native input        | two thumbs                                                |
 | ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex             | 147 + 71 tokens; consider a headless base                 |
 | ⬜ Menu groups         | `menus`                                                  | `MenuAnchor`                       | composite           | the Expressive grouped, segmented menu (`group.*` tokens) |
@@ -60,14 +60,15 @@ Ordered by how much of the remaining set each unlocks.
 
 Built and reused:
 
-| Piece                               | Used by                  | Notes                                                                                                 |
-| ----------------------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `usePressable`, state layer, ripple | every pressable control  | Button-or-link semantics, disabled handling, toggle state, press ripple                               |
-| `useModalDialog`                    | Dialog, NavigationDrawer | Native `<dialog>` with an exit animation in every browser (`data-closing`), scrim and Escape handling |
-| `usePopover`                        | Menu, Tooltip, Snackbar  | Native manual popover placed by CSS anchor positioning; script-driven dismissal and exit animation    |
-| The list-item contract              | List, Menu               | One set of private variables an item reads; a container supplies them from its own tokens             |
-| `ButtonGroupContext`                | ButtonGroup, SplitButton | Sizes the Buttons inside and tells a connected group's buttons to draw shared corners                 |
-| Snackbar queue                      | Snackbar                 | `SnackbarProvider` and `useSnackbar`                                                                  |
+| Piece                               | Used by                          | Notes                                                                                                 |
+| ----------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `usePressable`, state layer, ripple | every pressable control          | Button-or-link semantics, disabled handling, toggle state, press ripple                               |
+| `useModalDialog`                    | Dialog, NavigationDrawer         | Native `<dialog>` with an exit animation in every browser (`data-closing`), scrim and Escape handling |
+| `useMenuNavigation`                 | Menu, FabMenu                    | The menu button keyboard pattern: arrows, Home/End, typeahead, Tab closes, choosing closes            |
+| `usePopover`                        | Menu, Tooltip, Snackbar, FabMenu | Native manual popover placed by CSS anchor positioning; script-driven dismissal and exit animation    |
+| The list-item contract              | List, Menu                       | One set of private variables an item reads; a container supplies them from its own tokens             |
+| `ButtonGroupContext`                | ButtonGroup, SplitButton         | Sizes the Buttons inside and tells a connected group's buttons to draw shared corners                 |
+| Snackbar queue                      | Snackbar                         | `SnackbarProvider` and `useSnackbar`                                                                  |
 
 Still to build:
 
@@ -88,7 +89,7 @@ handle pill · flexible app bars · connected button groups · the Standard/Expr
 motion switch.
 
 Not yet used: `MaterialShapes` morphing, emphasised type scale (tokens exist), loading
-indicator, FAB menu, grouped menus.
+indicator, grouped menus.
 
 ## Browser support
 

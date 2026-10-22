@@ -10,6 +10,7 @@ export * from './chip/index.js';
 export * from './dialog/index.js';
 export * from './divider/index.js';
 export * from './fab/index.js';
+export * from './fab-menu/index.js';
 export * from './icon-button/index.js';
 export * from './list/index.js';
 export * from './menu/index.js';

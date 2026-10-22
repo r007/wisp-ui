@@ -1,0 +1,154 @@
+/*
+ * The menu is a native popover placed above the toggle by CSS anchor positioning, its items
+ * aligned to the toggle's end edge. The toggle is a `Fab`; open, it becomes the close button
+ * through Fab's public override variables, and these rules let that change animate. Colours,
+ * sizes and shapes come from fab-menu.tokens.generated.module.css. Closing is driven from
+ * script (`data-closing`, see usePopover), so it animates out in every browser.
+ */
+@layer wisp {
+  .root {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  /* Open, the toggle is the close button: a circle with a smaller icon. */
+  .root[data-open] {
+    --md-comp-fab-container-shape: var(--_close-shape);
+    --md-comp-fab-icon-size: var(--_close-icon-size);
+  }
+
+  /* The toggle's size, shape and colour change together, as one spring. */
+  .root .toggle {
+    transition:
+      box-shadow var(--md-sys-motion-spring-fast-effects),
+      background-color var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects),
+      inline-size var(--md-sys-motion-spring-fast-spatial),
+      block-size var(--md-sys-motion-spring-fast-spatial),
+      border-radius var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .panel {
+    /* A popover is centred and has a border by default; this one is placed by its anchor. */
+    position: fixed;
+    inset: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--_item-gap);
+    max-block-size: calc(100dvh - 16px);
+    margin-block: var(--_close-gap);
+    margin-inline: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    background: none;
+    /* Above the toggle, the items' end edges lined up with its. */
+    position-area: block-start span-inline-start;
+    position-try-fallbacks: flip-block;
+    transform-origin: bottom right;
+    opacity: 0;
+    scale: 0.8;
+    transition:
+      opacity var(--md-sys-motion-spring-fast-effects),
+      scale var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .panel:popover-open:not([data-closing]) {
+    opacity: 1;
+    scale: 1;
+  }
+
+  @starting-style {
+    .panel:popover-open {
+      opacity: 0;
+      scale: 0.8;
+    }
+  }
+
+  .item {
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the icon and label. */
+    isolation: isolate;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--_item-icon-label-space);
+    box-sizing: border-box;
+    min-block-size: var(--_item-height);
+    margin: 0;
+    padding-inline: var(--_item-leading-space) var(--_item-trailing-space);
+    border: 0;
+    border-radius: var(--_item-shape);
+    background-color: var(--_item-container-color);
+    box-shadow: var(--_item-elevation);
+    color: var(--_item-label-color);
+    font: var(--_item-font);
+    letter-spacing: var(--_item-font-tracking);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      box-shadow var(--md-sys-motion-spring-fast-effects),
+      background-color var(--md-sys-motion-spring-fast-effects);
+    /* What the state layer reads. */
+    --_state-layer-color: var(--_item-state-layer-color);
+    --_hover-state-layer-opacity: var(--_item-hover-state-layer-opacity);
+    --_focus-state-layer-opacity: var(--_item-focus-state-layer-opacity);
+    --_pressed-state-layer-opacity: var(--_item-pressed-state-layer-opacity);
+  }
+
+  @media (hover: hover) {
+    .item:hover {
+      box-shadow: var(--_item-hover-elevation);
+    }
+  }
+
+  .item:focus-visible {
+    box-shadow: var(--_item-focus-elevation);
+  }
+
+  .item:active {
+    box-shadow: var(--_item-pressed-elevation);
+  }
+
+  .item[aria-disabled='true'],
+  .item:disabled {
+    cursor: default;
+    opacity: 0.38;
+    pointer-events: none;
+  }
+
+  .icon {
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_item-icon-size);
+    block-size: var(--_item-icon-size);
+    color: var(--_item-icon-color);
+    font-size: var(--_item-icon-size);
+  }
+
+  .icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root .toggle,
+    .panel,
+    .item {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .item {
+      border: 1px solid ButtonBorder;
+    }
+  }
+}

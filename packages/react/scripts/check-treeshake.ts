@@ -31,6 +31,7 @@ const CSS_GZIP_BUDGET_KB = 4;
  * component is allowed to pull in another's styles.
  */
 const COMPOSED_OF: Record<string, readonly string[]> = {
+  'fab-menu': ['fab'],
   'split-button': ['button', 'menu'],
 };
 /** Folders in dist that are not components. */
