@@ -1,10 +1,15 @@
 import { type CSSProperties, type RefObject, useEffect, useId, useRef } from 'react';
 
+export type PopoverDismissReason = 'escape' | 'outside';
+
 export interface PopoverOptions {
   /** Whether the popover is shown. The parent owns this; the hook makes the DOM follow it. */
   open: boolean;
-  /** Called when the user dismisses it: an outside press, Escape. */
-  onOpenChange?: ((open: boolean) => void) | undefined;
+  /**
+   * Called when the user dismisses it. `reason` says how: Escape, where focus should go back
+   * to the trigger, or a press elsewhere, where the user has chosen somewhere else to be.
+   */
+  onOpenChange?: ((open: boolean, reason?: PopoverDismissReason) => void) | undefined;
   /** Dismiss on an outside press and on Escape. @default true */
   dismissible?: boolean;
   /**
@@ -77,12 +82,12 @@ export function usePopover({ open, onOpenChange, dismissible = true, ignore }: P
       const target = event.target as Node | null;
       if (!target || popover?.contains(target)) return;
       if (ignoreRef.current?.some((entry) => entry.current?.contains(target))) return;
-      onOpenChangeRef.current?.(false);
+      onOpenChangeRef.current?.(false, 'outside');
     };
     const onEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape' || event.defaultPrevented) return;
       event.stopPropagation();
-      onOpenChangeRef.current?.(false);
+      onOpenChangeRef.current?.(false, 'escape');
     };
     // Capture, so a press that something inside stops from bubbling still counts.
     document.addEventListener('pointerdown', outside, true);

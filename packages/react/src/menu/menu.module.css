@@ -1,0 +1,112 @@
+/*
+ * The menu is a native popover placed against its trigger by CSS anchor positioning. Its items
+ * reuse the list item's styles (list.module.css) and read the same variables, which the menu
+ * supplies from its own tokens (menu.tokens.generated.module.css). Closing is driven from
+ * script (`data-closing`, see usePopover), so it animates out in every browser.
+ */
+@layer wisp {
+  .root {
+    /* A popover is centred and has a border by default; this one is placed by its anchor. */
+    position: fixed;
+    inset: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--_panel-gap);
+    min-inline-size: 112px;
+    max-inline-size: 280px;
+    max-block-size: calc(100dvh - 16px);
+    /* A small gap to the anchor; no inline margin, so the edges line up. */
+    margin-block: 2px;
+    margin-inline: 0;
+    padding: var(--_panel-padding);
+    overflow-y: auto;
+    border: 0;
+    border-radius: var(--_panel-shape);
+    background-color: var(--_panel-color);
+    box-shadow: var(--_panel-elevation);
+    color: var(--_label-color);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    position-try-fallbacks:
+      flip-block,
+      flip-inline,
+      flip-block flip-inline;
+    opacity: 0;
+    scale: 0.9;
+    transition:
+      opacity var(--md-sys-motion-spring-fast-effects),
+      scale var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  /* Which corner of the anchor it opens from, and which way it flips when there is no room. */
+  .root[data-placement='bottom-start'] {
+    position-area: block-end span-inline-end;
+    transform-origin: top left;
+  }
+
+  .root[data-placement='bottom-end'] {
+    position-area: block-end span-inline-start;
+    transform-origin: top right;
+  }
+
+  .root[data-placement='top-start'] {
+    position-area: block-start span-inline-end;
+    transform-origin: bottom left;
+  }
+
+  .root[data-placement='top-end'] {
+    position-area: block-start span-inline-start;
+    transform-origin: bottom right;
+  }
+
+  .root:popover-open:not([data-closing]) {
+    opacity: 1;
+    scale: 1;
+  }
+
+  @starting-style {
+    .root:popover-open {
+      opacity: 0;
+      scale: 0.9;
+    }
+  }
+
+  /* The ends of a group round to 12px; the corners where items meet stay 4px. */
+  .root > .item:first-child {
+    border-start-start-radius: var(--_end-shape);
+    border-start-end-radius: var(--_end-shape);
+  }
+
+  .root > .item:last-child {
+    border-end-start-radius: var(--_end-shape);
+    border-end-end-radius: var(--_end-shape);
+  }
+
+  /* Menu items are not tab stops; the menu moves focus between them. */
+  .root > .item {
+    cursor: pointer;
+  }
+
+  .divider {
+    flex: none;
+    margin-block: 2px;
+    margin-inline: 12px;
+    padding: 0;
+    border: 0;
+    border-block-start: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+      background-color: Canvas;
+    }
+  }
+}

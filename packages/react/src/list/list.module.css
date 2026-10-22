@@ -84,6 +84,7 @@
     --_trailing-text: var(--_selected-trailing-text-color);
     --_leading-icon: var(--_selected-leading-icon-color);
     --_trailing-icon: var(--_selected-trailing-icon-color);
+    --_state-layer-color: var(--_selected-state-layer-color);
   }
 
   .root[data-segmented] .item[data-selected] {

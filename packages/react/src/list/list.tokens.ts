@@ -108,11 +108,9 @@ export default {
         'video-height': `${ITEM}.small.leading-video.height`,
         'video-shape': `${ITEM}.leading-video.shape`,
 
-        // State layer: one colour for every state, selected or not.
-        'state-layer-color': [
-          ...active('state-layer.color'),
-          ...active('state-layer.color', `${ITEM}.selected.`),
-        ],
+        // State layer: one colour per selection, shared by hover, focus and press.
+        'state-layer-color': active('state-layer.color'),
+        'selected-state-layer-color': active('state-layer.color', `${ITEM}.selected.`),
         'hover-state-layer-opacity': [
           `${ITEM}.hover.state-layer.opacity`,
           `${ITEM}.selected.hover.state-layer.opacity`,

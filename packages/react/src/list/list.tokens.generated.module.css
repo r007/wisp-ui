@@ -61,6 +61,7 @@
     --_video-height: var(--md-comp-list-list-item-small-leading-video-height, 56px);
     --_video-shape: var(--md-comp-list-list-item-leading-video-shape, 8px);
     --_state-layer-color: var(--md-comp-list-list-item-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_selected-state-layer-color: var(--md-comp-list-list-item-selected-hover-state-layer-color, var(--md-sys-color-on-surface));
     --_hover-state-layer-opacity: var(--md-comp-list-list-item-hover-state-layer-opacity, 0.08);
     --_focus-state-layer-opacity: var(--md-comp-list-list-item-focus-state-layer-opacity, 0.1);
     --_pressed-state-layer-opacity: var(--md-comp-list-list-item-pressed-state-layer-opacity, 0.1);
