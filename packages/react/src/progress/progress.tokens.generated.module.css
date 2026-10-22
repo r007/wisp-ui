@@ -1,0 +1,33 @@
+/* Progress token defaults.
+ *
+ * Generated from progress.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_active-color: var(--md-comp-progress-indicator-active-indicator-color, var(--md-sys-color-primary));
+    --_track-color: var(--md-comp-progress-indicator-track-color, var(--md-sys-color-secondary-container));
+    --_stop-color: var(--md-comp-progress-indicator-stop-indicator-color, var(--md-sys-color-primary));
+  }
+
+  .linear {
+    --_height: var(--md-comp-progress-indicator-linear-height, 4px);
+    --_wavy-height: var(--md-comp-progress-indicator-linear-with-wave-height, 10px);
+    --_thickness: var(--md-comp-progress-indicator-linear-active-indicator-thickness, 4px);
+    --_track-thickness: var(--md-comp-progress-indicator-linear-track-thickness, 4px);
+    --_gap: var(--md-comp-progress-indicator-linear-track-active-indicator-space, 4px);
+    --_stop-size: var(--md-comp-progress-indicator-linear-stop-indicator-size, 4px);
+    --_stop-trailing-space: var(--md-comp-progress-indicator-linear-stop-indicator-trailing-space, 0px);
+    --_amplitude: var(--md-comp-progress-indicator-linear-active-indicator-wave-amplitude, 3px);
+    --_wavelength: var(--md-comp-progress-indicator-linear-active-indicator-wave-wavelength, 40px);
+    --_indeterminate-wavelength: var(--md-comp-progress-indicator-linear-indeterminate-active-indicator-wave-wavelength, 20px);
+  }
+
+  .circular {
+    --_size: var(--md-comp-progress-indicator-circular-size, 40px);
+    --_wavy-size: var(--md-comp-progress-indicator-circular-with-wave-size, 48px);
+    --_thickness: var(--md-comp-progress-indicator-circular-active-indicator-thickness, 4px);
+    --_track-thickness: var(--md-comp-progress-indicator-circular-track-thickness, 4px);
+    --_gap: var(--md-comp-progress-indicator-circular-track-active-indicator-space, 4px);
+  }
+}

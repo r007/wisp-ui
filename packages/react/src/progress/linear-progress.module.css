@@ -1,0 +1,150 @@
+/*
+ * A linear indicator is three absolutely placed pieces: the active bar, the track beside
+ * it (a gap away) and a stop dot at the track's end. Determinate progress is the `--_progress`
+ * custom property (0 to 1) set inline; everything else is CSS. A wavy bar is a mask of one
+ * wave, repeated along the bar and slid sideways.
+ */
+@layer wisp {
+  .root {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: var(--_height);
+    /* The gap exists only once there is something to be apart from. */
+    --_gap-now: calc(min(1, var(--_progress) * 1000) * var(--_gap));
+  }
+
+  .root[data-wavy] {
+    block-size: var(--_wavy-height);
+  }
+
+  .track,
+  .bar,
+  .stop {
+    position: absolute;
+    border-radius: var(--md-sys-shape-corner-full);
+  }
+
+  .track {
+    inset-block: calc((100% - var(--_track-thickness)) / 2);
+    inset-inline: calc(var(--_progress) * 100% + var(--_gap-now)) 0;
+    background-color: var(--_track-color);
+    transition: inset-inline-start var(--md-sys-motion-spring-slow-effects);
+  }
+
+  .bar {
+    inset-block: calc((100% - var(--_thickness)) / 2);
+    inset-inline-start: 0;
+    inline-size: calc(var(--_progress) * 100%);
+    background-color: var(--_active-color);
+    transition: inline-size var(--md-sys-motion-spring-slow-effects);
+  }
+
+  .stop {
+    inset-block: calc((100% - var(--_stop-size)) / 2);
+    inset-inline-end: var(--_stop-trailing-space);
+    inline-size: var(--_stop-size);
+    block-size: var(--_stop-size);
+    background-color: var(--_stop-color);
+  }
+
+  /* A finished bar has nothing left to stop at. */
+  .root[data-complete] .stop {
+    opacity: 0;
+  }
+
+  /* Wavy: one period of a sine wave as a mask, repeated; the bar's own box clips it. */
+  .root[data-wavy] .bar {
+    inset-block: 0;
+    border-radius: 0;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 10'%3E%3Cpath d='M0 5C5.5 2 14.5 2 20 5S34.5 8 40 5' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
+    mask-repeat: repeat-x;
+    mask-size: var(--_wavelength) 100%;
+    mask-position: 0 center;
+    animation: wave 1s linear infinite;
+  }
+
+  @keyframes wave {
+    to {
+      mask-position: var(--_wavelength) center;
+    }
+  }
+
+  /* Indeterminate: one bar sweeps across, growing and shrinking; no gap and no stop dot. */
+  .root[data-indeterminate] {
+    --_gap-now: 0px;
+  }
+
+  .root[data-indeterminate] .track {
+    inset-inline: 0;
+  }
+
+  .root[data-indeterminate] .stop {
+    display: none;
+  }
+
+  .root[data-indeterminate] .bar {
+    inline-size: 0;
+    transition: none;
+    animation: sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .root[data-indeterminate][data-wavy] .bar {
+    animation:
+      sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite,
+      wave 1s linear infinite;
+  }
+
+  @keyframes sweep {
+    0% {
+      inset-inline-start: 0;
+      inline-size: 0;
+    }
+
+    40% {
+      inset-inline-start: 10%;
+      inline-size: 55%;
+    }
+
+    75% {
+      inset-inline-start: 70%;
+      inline-size: 30%;
+    }
+
+    100% {
+      inset-inline-start: 100%;
+      inline-size: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track,
+    .bar {
+      transition: none;
+    }
+
+    /* The wave stops moving; the bar still sweeps, as it is the only sign that work continues. */
+    .root[data-wavy]:not([data-indeterminate]) .bar {
+      animation: none;
+    }
+
+    .root[data-indeterminate][data-wavy] .bar {
+      animation: sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .track {
+      background-color: GrayText;
+    }
+
+    .bar {
+      background-color: Highlight;
+    }
+
+    .stop {
+      background-color: Highlight;
+    }
+  }
+}

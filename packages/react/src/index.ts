@@ -10,6 +10,7 @@ export * from './icon-button/index.js';
 export * from './list/index.js';
 export * from './navigation-bar/index.js';
 export * from './navigation-drawer/index.js';
+export * from './progress/index.js';
 export * from './radio/index.js';
 export * from './switch/index.js';
 export * from './text-field/index.js';

@@ -1,0 +1,106 @@
+/*
+ * A circular indicator is an SVG with two circles, the track and the active arc. Both are
+ * dashed paths measured in `pathLength="100"` units, so the arc is a number of percent
+ * whatever its radius. The component computes the dash lengths from the value.
+ */
+@layer wisp {
+  .root {
+    display: inline-block;
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    vertical-align: middle;
+    color: var(--_active-color);
+  }
+
+  .root[data-wavy] {
+    inline-size: var(--_wavy-size);
+    block-size: var(--_wavy-size);
+  }
+
+  .svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: visible;
+  }
+
+  .track,
+  .arc {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .track {
+    stroke: var(--_track-color);
+    transition: stroke-dasharray var(--md-sys-motion-spring-slow-effects);
+  }
+
+  .arc {
+    stroke: var(--_active-color);
+    transition: stroke-dasharray var(--md-sys-motion-spring-slow-effects);
+  }
+
+  /* A wavy circle also turns slowly, so the wave travels. */
+  .root[data-wavy]:not([data-indeterminate]) .svg {
+    animation: turn 8s linear infinite;
+  }
+
+  /* Indeterminate: only the arc, turning while it grows and shrinks. */
+  .root[data-indeterminate] .svg {
+    animation: turn 1.6s linear infinite;
+  }
+
+  .root[data-indeterminate] .track {
+    display: none;
+  }
+
+  .root[data-indeterminate] .arc {
+    transition: none;
+    animation: grow 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes turn {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes grow {
+    0% {
+      stroke-dasharray: 4 96;
+      stroke-dashoffset: 0;
+    }
+
+    50% {
+      stroke-dasharray: 68 32;
+      stroke-dashoffset: -16;
+    }
+
+    100% {
+      stroke-dasharray: 4 96;
+      stroke-dashoffset: -96;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track,
+    .arc {
+      transition: none;
+    }
+
+    .root[data-wavy]:not([data-indeterminate]) .svg {
+      animation: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .track {
+      stroke: GrayText;
+    }
+
+    .arc {
+      stroke: Highlight;
+    }
+  }
+}
