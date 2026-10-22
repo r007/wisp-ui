@@ -6,19 +6,12 @@
  * CSS collapses them (e.g. one label colour for rest/hover/focus/press), so
  * generation fails loudly if an upstream update ever makes them diverge.
  */
-import type { ComponentTokenSpec, TokenBlock } from '@wisp-ui/codegen/spec';
-
-const STATES = ['hovered', 'focused', 'pressed'] as const;
-
-/** `label-text.color` plus its hover/focus/press siblings, which must match. */
-const sameInEveryState = (path: string, prefix = '') => [
-  `${prefix}${path}`,
-  ...STATES.map((state) => `${prefix}${state}.${path}`),
-];
-
-/** Hover/focus/press share one state-layer colour; opacity is per-state. */
-const stateLayerColor = (prefix = '') =>
-  STATES.map((state) => `${prefix}${state}.state-layer.color`);
+import {
+  type ComponentTokenSpec,
+  sameInEveryState,
+  stateLayerColor,
+  type TokenBlock,
+} from '@wisp-ui/codegen/spec';
 
 const BASE = 'md.comp.button';
 

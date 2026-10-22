@@ -32,3 +32,19 @@ export interface ComponentTokenSpec {
   name: string;
   blocks: readonly TokenBlock[];
 }
+
+/** The interaction states Material specifies colours for besides rest/disabled. */
+export const INTERACTION_STATES = ['hovered', 'focused', 'pressed'] as const;
+
+/**
+ * `path` plus its hover/focus/press siblings. Use as one `vars` entry to assert
+ * they share a value, so the CSS can use a single colour for every state.
+ */
+export function sameInEveryState(path: string, prefix = ''): string[] {
+  return [`${prefix}${path}`, ...INTERACTION_STATES.map((state) => `${prefix}${state}.${path}`)];
+}
+
+/** Hover, focus and press share one state-layer colour (opacity differs per state). */
+export function stateLayerColor(prefix = ''): string[] {
+  return INTERACTION_STATES.map((state) => `${prefix}${state}.state-layer.color`);
+}

@@ -1,13 +1,11 @@
 'use client';
 
-import type { ComponentPropsWithRef, ReactNode } from 'react';
+import type { ComponentPropsWithRef, ReactNode, Ref } from 'react';
 import { cx } from '../foundation/cx.js';
 import focusRing from '../foundation/focus-ring.module.css';
 import { type RenderProp, renderElement } from '../foundation/merge-props.js';
-import { useMergedRef } from '../foundation/merge-refs.js';
 import { StateLayer } from '../foundation/state-layer.js';
-import { useControllableState } from '../foundation/use-controllable-state.js';
-import { useStateLayer } from '../foundation/use-state-layer.js';
+import { type PressableOptions, usePressable } from '../foundation/use-pressable.js';
 import styles from './button.module.css';
 import tokens from './button.tokens.generated.module.css';
 
@@ -60,79 +58,65 @@ export function Button(props: ButtonProps) {
     onSelectedChange,
     icon,
     trailingIcon,
-    disabled = false,
+    disabled,
     render,
     children,
     className,
     onClick,
     ref,
     href,
+    type,
     ...rest
   } = props as ButtonOwnProps & AnchorElementProps & ComponentPropsWithRef<'button'>;
 
-  const isLink = href !== undefined;
-  const isToggle = selectedProp !== undefined || defaultSelected !== undefined;
-  const [selected, setSelected] = useControllableState({
-    value: selectedProp,
-    defaultValue: defaultSelected ?? false,
-    onChange: onSelectedChange,
+  const pressable = usePressable({
+    href,
+    disabled,
+    selected: selectedProp,
+    defaultSelected,
+    onSelectedChange,
+    // Handlers are typed per element (button/anchor); the hook only needs the event.
+    onClick: onClick as PressableOptions['onClick'],
+    ref: ref as Ref<HTMLElement> | undefined,
+    type,
   });
+  const { isToggle, selected } = pressable;
 
-  const { controlRef, surfaceRef } = useStateLayer<HTMLElement>({ disabled });
-  const mergedRef = useMergedRef(controlRef, ref as never);
-
-  const rootProps = {
-    ...rest,
-    ref: mergedRef,
-    className: cx(
-      styles.root,
-      focusRing.focusRing,
-      tokens.root,
-      tokens[variant],
-      tokens[`size-${size}`],
-      isToggle && (selected ? tokens.selected : tokens.unselected),
-      className,
-    ),
-    'data-variant': variant,
-    'data-size': size,
-    'data-shape': shape,
-    'data-selected': isToggle && selected ? '' : undefined,
-    'aria-pressed': isToggle ? selected : undefined,
-    onClick: (event: React.MouseEvent<HTMLElement>) => {
-      if (disabled) {
-        event.preventDefault();
-        return;
-      }
-      onClick?.(event as never);
-      if (isToggle && !event.defaultPrevented) setSelected(!selected);
+  return renderElement(
+    pressable.tag,
+    {
+      ...rest,
+      ...pressable.props,
+      className: cx(
+        styles.root,
+        focusRing.focusRing,
+        tokens.root,
+        tokens[variant],
+        tokens[`size-${size}`],
+        isToggle && (selected ? tokens.selected : tokens.unselected),
+        className,
+      ),
+      'data-variant': variant,
+      'data-size': size,
+      'data-shape': shape,
+      'data-selected': isToggle && selected ? '' : undefined,
+      children: (
+        <>
+          <StateLayer ref={pressable.surfaceRef} />
+          {icon ? (
+            <span className={styles.icon} aria-hidden="true">
+              {icon}
+            </span>
+          ) : null}
+          <span>{children}</span>
+          {trailingIcon ? (
+            <span className={styles.icon} aria-hidden="true">
+              {trailingIcon}
+            </span>
+          ) : null}
+        </>
+      ),
     },
-    // Links cannot be natively disabled. Without an href an <a> loses its link
-    // role, so restore it explicitly (the ARIA pattern for a disabled link).
-    ...(isLink
-      ? {
-          href: disabled ? undefined : href,
-          role: disabled ? 'link' : undefined,
-          'aria-disabled': disabled || undefined,
-          tabIndex: disabled ? -1 : undefined,
-        }
-      : { type: (rest as { type?: string }).type ?? 'button', disabled }),
-    children: (
-      <>
-        <StateLayer ref={surfaceRef} />
-        {icon ? (
-          <span className={styles.icon} aria-hidden="true">
-            {icon}
-          </span>
-        ) : null}
-        <span>{children}</span>
-        {trailingIcon ? (
-          <span className={styles.icon} aria-hidden="true">
-            {trailingIcon}
-          </span>
-        ) : null}
-      </>
-    ),
-  };
-
-  return renderElement(isLink ? 'a' : 'button', rootProps, render);
+    render,
+  );
 }

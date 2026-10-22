@@ -1,0 +1,183 @@
+/* IconButton token defaults.
+ *
+ * Generated from icon-button.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_focus-indicator-color: var(--md-comp-icon-button-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-icon-button-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-icon-button-focus-indicator-outline-offset, 2px);
+    --_hover-state-layer-opacity: var(--md-comp-icon-button-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-icon-button-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-icon-button-pressed-state-layer-opacity, 0.1);
+    --_disabled-container-opacity: var(--md-comp-icon-button-disabled-container-opacity, 0.1);
+    --_disabled-icon-opacity: var(--md-comp-icon-button-disabled-icon-opacity, 0.38);
+  }
+
+  .standard {
+    --_icon-color: var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant));
+    --_state-layer-color: var(--md-comp-icon-button-standard-hovered-state-layer-color, var(--md-sys-color-on-surface-variant));
+    --_disabled-icon-color: var(--md-comp-icon-button-standard-disabled-icon-color, var(--md-sys-color-on-surface));
+  }
+
+  .standard.selected {
+    --_icon-color: var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary));
+    --_state-layer-color: var(--md-comp-icon-button-standard-selected-hovered-state-layer-color, var(--md-sys-color-primary));
+  }
+
+  .standard.unselected {
+    --_icon-color: var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+    --_state-layer-color: var(--md-comp-icon-button-standard-unselected-hovered-state-layer-color, var(--md-sys-color-on-surface-variant));
+  }
+
+  .filled {
+    --_container-color: var(--md-comp-icon-button-filled-container-color, var(--md-sys-color-primary));
+    --_disabled-container-color: var(--md-comp-icon-button-filled-disabled-container-color, var(--md-sys-color-on-surface));
+    --_icon-color: var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary));
+    --_state-layer-color: var(--md-comp-icon-button-filled-hovered-state-layer-color, var(--md-sys-color-on-primary));
+    --_disabled-icon-color: var(--md-comp-icon-button-filled-disabled-icon-color, var(--md-sys-color-on-surface));
+  }
+
+  .filled.selected {
+    --_container-color: var(--md-comp-icon-button-filled-selected-container-color, var(--md-sys-color-primary));
+    --_icon-color: var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary));
+    --_state-layer-color: var(--md-comp-icon-button-filled-selected-hovered-state-layer-color, var(--md-sys-color-on-primary));
+  }
+
+  .filled.unselected {
+    --_container-color: var(--md-comp-icon-button-filled-unselected-container-color, var(--md-sys-color-surface-container));
+    --_icon-color: var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+    --_state-layer-color: var(--md-comp-icon-button-filled-unselected-hovered-state-layer-color, var(--md-sys-color-on-surface-variant));
+  }
+
+  .tonal {
+    --_container-color: var(--md-comp-icon-button-tonal-container-color, var(--md-sys-color-secondary-container));
+    --_disabled-container-color: var(--md-comp-icon-button-tonal-disabled-container-color, var(--md-sys-color-on-surface));
+    --_icon-color: var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container));
+    --_state-layer-color: var(--md-comp-icon-button-tonal-hovered-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_disabled-icon-color: var(--md-comp-icon-button-tonal-disabled-icon-color, var(--md-sys-color-on-surface));
+  }
+
+  .tonal.selected {
+    --_container-color: var(--md-comp-icon-button-tonal-selected-container-color, var(--md-sys-color-secondary));
+    --_icon-color: var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary));
+    --_state-layer-color: var(--md-comp-icon-button-tonal-selected-hovered-state-layer-color, var(--md-sys-color-on-secondary));
+  }
+
+  .tonal.unselected {
+    --_container-color: var(--md-comp-icon-button-tonal-unselected-container-color, var(--md-sys-color-secondary-container));
+    --_icon-color: var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container));
+    --_state-layer-color: var(--md-comp-icon-button-tonal-unselected-hovered-state-layer-color, var(--md-sys-color-on-secondary-container));
+  }
+
+  .outlined {
+    --_icon-color: var(--md-comp-icon-button-outlined-icon-color, var(--md-sys-color-on-surface-variant));
+    --_state-layer-color: var(--md-comp-icon-button-outlined-hovered-state-layer-color, var(--md-sys-color-on-surface-variant));
+    --_disabled-icon-color: var(--md-comp-icon-button-outlined-disabled-icon-color, var(--md-sys-color-on-surface));
+    --_outline-color: var(--md-comp-icon-button-outlined-outline-color, var(--md-sys-color-outline-variant));
+    --_disabled-outline-color: var(--md-comp-icon-button-outlined-disabled-outline-color, var(--md-sys-color-outline-variant));
+  }
+
+  .outlined.selected {
+    --_container-color: var(--md-comp-icon-button-outlined-selected-container-color, var(--md-sys-color-inverse-surface));
+    --_icon-color: var(--md-comp-icon-button-outlined-selected-icon-color, var(--md-sys-color-inverse-on-surface));
+    --_state-layer-color: var(--md-comp-icon-button-outlined-selected-hovered-state-layer-color, var(--md-sys-color-inverse-on-surface));
+    --_disabled-container-color: var(--md-comp-icon-button-outlined-selected-disabled-container-color, var(--md-sys-color-on-surface));
+  }
+
+  .outlined.unselected {
+    --_icon-color: var(--md-comp-icon-button-outlined-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+    --_state-layer-color: var(--md-comp-icon-button-outlined-unselected-hovered-state-layer-color, var(--md-sys-color-on-surface-variant));
+  }
+
+  .size-xsmall {
+    --_container-height: var(--md-comp-icon-button-xsmall-container-height, 32px);
+    --_icon-size: var(--md-comp-icon-button-xsmall-icon-size, 20px);
+    --_narrow-leading-space: var(--md-comp-icon-button-xsmall-narrow-leading-space, 4px);
+    --_narrow-trailing-space: var(--md-comp-icon-button-xsmall-narrow-trailing-space, 4px);
+    --_default-leading-space: var(--md-comp-icon-button-xsmall-default-leading-space, 6px);
+    --_default-trailing-space: var(--md-comp-icon-button-xsmall-default-trailing-space, 6px);
+    --_wide-leading-space: var(--md-comp-icon-button-xsmall-wide-leading-space, 10px);
+    --_wide-trailing-space: var(--md-comp-icon-button-xsmall-wide-trailing-space, 10px);
+    --_outline-width: var(--md-comp-icon-button-xsmall-outlined-outline-width, 1px);
+    --_shape-round: var(--md-comp-icon-button-xsmall-container-shape-round, calc(var(--_container-height) / 2));
+    --_shape-square: var(--md-comp-icon-button-xsmall-container-shape-square, 12px);
+    --_selected-shape-round: var(--md-comp-icon-button-xsmall-selected-container-shape-round, 12px);
+    --_selected-shape-square: var(--md-comp-icon-button-xsmall-selected-container-shape-square, calc(var(--_container-height) / 2));
+    --_pressed-shape: var(--md-comp-icon-button-xsmall-pressed-container-shape, 8px);
+    --_shape-spring: var(--md-comp-icon-button-xsmall-pressed-container-corner-size-motion-spring, var(--md-sys-motion-spring-fast-spatial));
+  }
+
+  .size-small {
+    --_container-height: var(--md-comp-icon-button-small-container-height, 40px);
+    --_icon-size: var(--md-comp-icon-button-small-icon-size, 24px);
+    --_narrow-leading-space: var(--md-comp-icon-button-small-narrow-leading-space, 4px);
+    --_narrow-trailing-space: var(--md-comp-icon-button-small-narrow-trailing-space, 4px);
+    --_default-leading-space: var(--md-comp-icon-button-small-default-leading-space, 8px);
+    --_default-trailing-space: var(--md-comp-icon-button-small-default-trailing-space, 8px);
+    --_wide-leading-space: var(--md-comp-icon-button-small-wide-leading-space, 14px);
+    --_wide-trailing-space: var(--md-comp-icon-button-small-wide-trailing-space, 14px);
+    --_outline-width: var(--md-comp-icon-button-small-outlined-outline-width, 1px);
+    --_shape-round: var(--md-comp-icon-button-small-container-shape-round, calc(var(--_container-height) / 2));
+    --_shape-square: var(--md-comp-icon-button-small-container-shape-square, 12px);
+    --_selected-shape-round: var(--md-comp-icon-button-small-selected-container-shape-round, 12px);
+    --_selected-shape-square: var(--md-comp-icon-button-small-selected-container-shape-square, calc(var(--_container-height) / 2));
+    --_pressed-shape: var(--md-comp-icon-button-small-pressed-container-shape, 8px);
+    --_shape-spring: var(--md-comp-icon-button-small-pressed-container-corner-size-motion-spring, var(--md-sys-motion-spring-fast-spatial));
+  }
+
+  .size-medium {
+    --_container-height: var(--md-comp-icon-button-medium-container-height, 56px);
+    --_icon-size: var(--md-comp-icon-button-medium-icon-size, 24px);
+    --_narrow-leading-space: var(--md-comp-icon-button-medium-narrow-leading-space, 12px);
+    --_narrow-trailing-space: var(--md-comp-icon-button-medium-narrow-trailing-space, 12px);
+    --_default-leading-space: var(--md-comp-icon-button-medium-default-leading-space, 16px);
+    --_default-trailing-space: var(--md-comp-icon-button-medium-default-trailing-space, 16px);
+    --_wide-leading-space: var(--md-comp-icon-button-medium-wide-leading-space, 24px);
+    --_wide-trailing-space: var(--md-comp-icon-button-medium-wide-trailing-space, 24px);
+    --_outline-width: var(--md-comp-icon-button-medium-outlined-outline-width, 1px);
+    --_shape-round: var(--md-comp-icon-button-medium-container-shape-round, calc(var(--_container-height) / 2));
+    --_shape-square: var(--md-comp-icon-button-medium-container-shape-square, 16px);
+    --_selected-shape-round: var(--md-comp-icon-button-medium-selected-container-shape-round, 16px);
+    --_selected-shape-square: var(--md-comp-icon-button-medium-selected-container-shape-square, calc(var(--_container-height) / 2));
+    --_pressed-shape: var(--md-comp-icon-button-medium-pressed-container-shape, 12px);
+    --_shape-spring: var(--md-comp-icon-button-medium-pressed-container-corner-size-motion-spring, var(--md-sys-motion-spring-fast-spatial));
+  }
+
+  .size-large {
+    --_container-height: var(--md-comp-icon-button-large-container-height, 96px);
+    --_icon-size: var(--md-comp-icon-button-large-icon-size, 32px);
+    --_narrow-leading-space: var(--md-comp-icon-button-large-narrow-leading-space, 16px);
+    --_narrow-trailing-space: var(--md-comp-icon-button-large-narrow-trailing-space, 16px);
+    --_default-leading-space: var(--md-comp-icon-button-large-default-leading-space, 32px);
+    --_default-trailing-space: var(--md-comp-icon-button-large-default-trailing-space, 32px);
+    --_wide-leading-space: var(--md-comp-icon-button-large-wide-leading-space, 48px);
+    --_wide-trailing-space: var(--md-comp-icon-button-large-wide-trailing-space, 48px);
+    --_outline-width: var(--md-comp-icon-button-large-outlined-outline-width, 2px);
+    --_shape-round: var(--md-comp-icon-button-large-container-shape-round, calc(var(--_container-height) / 2));
+    --_shape-square: var(--md-comp-icon-button-large-container-shape-square, 28px);
+    --_selected-shape-round: var(--md-comp-icon-button-large-selected-container-shape-round, 28px);
+    --_selected-shape-square: var(--md-comp-icon-button-large-selected-container-shape-square, calc(var(--_container-height) / 2));
+    --_pressed-shape: var(--md-comp-icon-button-large-pressed-container-shape, 16px);
+    --_shape-spring: var(--md-comp-icon-button-large-pressed-container-corner-size-motion-spring, var(--md-sys-motion-spring-fast-spatial));
+  }
+
+  .size-xlarge {
+    --_container-height: var(--md-comp-icon-button-xlarge-container-height, 136px);
+    --_icon-size: var(--md-comp-icon-button-xlarge-icon-size, 40px);
+    --_narrow-leading-space: var(--md-comp-icon-button-xlarge-narrow-leading-space, 32px);
+    --_narrow-trailing-space: var(--md-comp-icon-button-xlarge-narrow-trailing-space, 32px);
+    --_default-leading-space: var(--md-comp-icon-button-xlarge-default-leading-space, 48px);
+    --_default-trailing-space: var(--md-comp-icon-button-xlarge-default-trailing-space, 48px);
+    --_wide-leading-space: var(--md-comp-icon-button-xlarge-wide-leading-space, 72px);
+    --_wide-trailing-space: var(--md-comp-icon-button-xlarge-wide-trailing-space, 72px);
+    --_outline-width: var(--md-comp-icon-button-xlarge-outlined-outline-width, 3px);
+    --_shape-round: var(--md-comp-icon-button-xlarge-container-shape-round, calc(var(--_container-height) / 2));
+    --_shape-square: var(--md-comp-icon-button-xlarge-container-shape-square, 28px);
+    --_selected-shape-round: var(--md-comp-icon-button-xlarge-selected-container-shape-round, 28px);
+    --_selected-shape-square: var(--md-comp-icon-button-xlarge-selected-container-shape-square, calc(var(--_container-height) / 2));
+    --_pressed-shape: var(--md-comp-icon-button-xlarge-pressed-container-shape, 16px);
+    --_shape-spring: var(--md-comp-icon-button-xlarge-pressed-container-corner-size-motion-spring, var(--md-sys-motion-spring-fast-spatial));
+  }
+}

@@ -35,6 +35,12 @@ export default mergeConfig(
           preserveModules: true,
           preserveModulesRoot: 'src',
           entryFileNames: '[name].js',
+          // The class names are already scoped and baked into the JS, so ship plain
+          // `.css`. Consumers' bundlers always keep a bare `import './x.css'`, but
+          // drop a bare CSS *Module* import whose exports are unused, which would
+          // silently lose the component's styles.
+          assetFileNames: ({ names }) =>
+            `${(names[0] ?? '[name]').replace(/\.module\.css$/, '.css')}`,
         },
       },
     },

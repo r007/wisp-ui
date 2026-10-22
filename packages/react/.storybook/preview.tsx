@@ -2,7 +2,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import '@wisp-ui/tokens/theme.css';
-import './preview.js';
+import './canvas.css';
 import type { Decorator, Preview } from '@storybook/react-vite';
 import { applyTheme } from '@wisp-ui/tokens';
 import { useEffect } from 'react';

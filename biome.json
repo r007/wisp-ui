@@ -39,7 +39,11 @@
         "useExhaustiveDependencies": "error",
         "noUnusedImports": "error",
         "noUnusedVariables": "error",
-        "useImportExtensions": { "level": "error", "options": { "forceJsExtensions": true } }
+        "useImportExtensions": {
+          "level": "error",
+          "fix": "none",
+          "options": { "forceJsExtensions": true }
+        }
       },
       "style": {
         "useImportType": "error",
@@ -53,11 +57,19 @@
   },
   "overrides": [
     {
+      "includes": ["packages/*/.storybook/**"],
+      "linter": { "rules": { "correctness": { "useImportExtensions": "off" } } }
+    },
+    {
       "includes": ["tools/**"],
       "linter": {
         "rules": {
           "correctness": {
-            "useImportExtensions": { "level": "error", "options": { "forceJsExtensions": false } }
+            "useImportExtensions": {
+              "level": "error",
+              "fix": "none",
+              "options": { "forceJsExtensions": false }
+            }
           }
         }
       }
