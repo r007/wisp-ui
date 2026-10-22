@@ -1,0 +1,72 @@
+/* Card token defaults.
+ *
+ * Generated from card.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .elevated {
+    --_container-color: var(--md-comp-elevated-card-container-color, var(--md-sys-color-surface-container-low));
+    --_container-shape: var(--md-comp-elevated-card-container-shape, 12px);
+    --_container-elevation: var(--md-comp-elevated-card-container-elevation, var(--md-sys-elevation-level1));
+    --_hover-elevation: var(--md-comp-elevated-card-hover-container-elevation, var(--md-sys-elevation-level2));
+    --_focus-elevation: var(--md-comp-elevated-card-focus-container-elevation, var(--md-sys-elevation-level1));
+    --_pressed-elevation: var(--md-comp-elevated-card-pressed-container-elevation, var(--md-sys-elevation-level1));
+    --_dragged-elevation: var(--md-comp-elevated-card-dragged-container-elevation, var(--md-sys-elevation-level4));
+    --_state-layer-color: var(--md-comp-elevated-card-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_hover-state-layer-opacity: var(--md-comp-elevated-card-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-elevated-card-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-elevated-card-pressed-state-layer-opacity, 0.1);
+    --_dragged-state-layer-opacity: var(--md-comp-elevated-card-dragged-state-layer-opacity, 0.16);
+    --_focus-indicator-color: var(--md-comp-elevated-card-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-elevated-card-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-elevated-card-focus-indicator-outline-offset, 2px);
+    --_disabled-elevation: var(--md-comp-elevated-card-disabled-container-elevation, var(--md-sys-elevation-level1));
+    --_disabled-container-color: var(--md-comp-elevated-card-disabled-container-color, var(--md-sys-color-surface));
+    --_disabled-container-opacity: var(--md-comp-elevated-card-disabled-container-opacity, 0.38);
+  }
+
+  .filled {
+    --_container-color: var(--md-comp-filled-card-container-color, var(--md-sys-color-surface-container-highest));
+    --_container-shape: var(--md-comp-filled-card-container-shape, 12px);
+    --_container-elevation: var(--md-comp-filled-card-container-elevation, var(--md-sys-elevation-level0));
+    --_hover-elevation: var(--md-comp-filled-card-hover-container-elevation, var(--md-sys-elevation-level1));
+    --_focus-elevation: var(--md-comp-filled-card-focus-container-elevation, var(--md-sys-elevation-level0));
+    --_pressed-elevation: var(--md-comp-filled-card-pressed-container-elevation, var(--md-sys-elevation-level0));
+    --_dragged-elevation: var(--md-comp-filled-card-dragged-container-elevation, var(--md-sys-elevation-level3));
+    --_state-layer-color: var(--md-comp-filled-card-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_hover-state-layer-opacity: var(--md-comp-filled-card-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-filled-card-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-filled-card-pressed-state-layer-opacity, 0.1);
+    --_dragged-state-layer-opacity: var(--md-comp-filled-card-dragged-state-layer-opacity, 0.16);
+    --_focus-indicator-color: var(--md-comp-filled-card-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-filled-card-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-filled-card-focus-indicator-outline-offset, 2px);
+    --_disabled-elevation: var(--md-comp-filled-card-disabled-container-elevation, var(--md-sys-elevation-level0));
+    --_disabled-container-color: var(--md-comp-filled-card-disabled-container-color, var(--md-sys-color-on-surface));
+    --_disabled-container-opacity: var(--md-comp-filled-card-disabled-container-opacity, 0.38);
+  }
+
+  .outlined {
+    --_container-color: var(--md-comp-outlined-card-container-color, var(--md-sys-color-surface));
+    --_container-shape: var(--md-comp-outlined-card-container-shape, 12px);
+    --_container-elevation: var(--md-comp-outlined-card-container-elevation, var(--md-sys-elevation-level0));
+    --_hover-elevation: var(--md-comp-outlined-card-hover-container-elevation, var(--md-sys-elevation-level1));
+    --_focus-elevation: var(--md-comp-outlined-card-focus-container-elevation, var(--md-sys-elevation-level0));
+    --_pressed-elevation: var(--md-comp-outlined-card-pressed-container-elevation, var(--md-sys-elevation-level0));
+    --_dragged-elevation: var(--md-comp-outlined-card-dragged-container-elevation, var(--md-sys-elevation-level3));
+    --_state-layer-color: var(--md-comp-outlined-card-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_hover-state-layer-opacity: var(--md-comp-outlined-card-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-outlined-card-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-outlined-card-pressed-state-layer-opacity, 0.1);
+    --_dragged-state-layer-opacity: var(--md-comp-outlined-card-dragged-state-layer-opacity, 0.16);
+    --_focus-indicator-color: var(--md-comp-outlined-card-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-outlined-card-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-outlined-card-focus-indicator-outline-offset, 2px);
+    --_disabled-elevation: var(--md-comp-outlined-card-disabled-container-elevation, var(--md-sys-elevation-level0));
+    --_outline-width: var(--md-comp-outlined-card-outline-width, 1px);
+    --_outline-color: var(--md-comp-outlined-card-outline-color, var(--md-sys-color-outline-variant));
+    --_focus-outline-color: var(--md-comp-outlined-card-focus-outline-color, var(--md-sys-color-on-surface));
+    --_disabled-outline-color: var(--md-comp-outlined-card-disabled-outline-color, var(--md-sys-color-outline));
+    --_disabled-outline-opacity: var(--md-comp-outlined-card-disabled-outline-opacity, 0.12);
+  }
+}

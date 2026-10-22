@@ -1,0 +1,117 @@
+/*
+ * Structure and behaviour only. Every colour, size, shape and elevation comes
+ * from a private `--_*` variable defined in card.tokens.generated.module.css.
+ *
+ * A card is a plain container until it is clickable; only then does it get hover,
+ * focus and press states.
+ */
+@layer wisp {
+  .root {
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the content. */
+    isolation: isolate;
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--md-sys-color-on-surface);
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: start;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      box-shadow var(--md-sys-motion-spring-fast-effects),
+      background-color var(--md-sys-motion-spring-fast-effects),
+      border-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* The outline sits in the border box, so it counts towards the card's size. */
+  .root[data-variant='outlined'] {
+    border: var(--_outline-width) solid var(--_outline-color);
+  }
+
+  /* A <button> shrinks to fit its content; a card should fill its container. */
+  button.root {
+    inline-size: 100%;
+  }
+
+  .root[data-interactive] {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Elevation and outline respond to the interaction state. */
+  @media (hover: hover) {
+    .root[data-interactive]:hover {
+      box-shadow: var(--_hover-elevation);
+    }
+  }
+
+  .root[data-interactive]:focus-visible {
+    box-shadow: var(--_focus-elevation);
+  }
+
+  .root[data-variant='outlined']:focus-visible {
+    border-color: var(--_focus-outline-color);
+  }
+
+  .root[data-interactive]:active {
+    box-shadow: var(--_pressed-elevation);
+  }
+
+  /* Dragging lifts the card and darkens its state layer. */
+  .root[data-dragged] {
+    box-shadow: var(--_dragged-elevation);
+  }
+
+  .root[data-dragged] [data-wisp-state-layer]::before {
+    opacity: var(--_dragged-state-layer-opacity);
+  }
+
+  /* Disabled: the container fades to a fixed opacity; an outlined card fades its outline. */
+  .root:disabled,
+  .root[aria-disabled='true'] {
+    cursor: default;
+    box-shadow: var(--_disabled-elevation);
+  }
+
+  .root:not([data-variant='outlined']):is(:disabled, [aria-disabled='true']) {
+    background-color: color-mix(
+      in srgb,
+      var(--_disabled-container-color) calc(var(--_disabled-container-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-variant='outlined']:is(:disabled, [aria-disabled='true']) {
+    border-color: color-mix(
+      in srgb,
+      var(--_disabled-outline-color) calc(var(--_disabled-outline-opacity) * 100%),
+      transparent
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      transition: none;
+    }
+  }
+
+  /* Forced colours drop backgrounds and shadows, so draw the boundary. */
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+    }
+
+    .root:disabled,
+    .root[aria-disabled='true'] {
+      border-color: GrayText;
+    }
+  }
+}

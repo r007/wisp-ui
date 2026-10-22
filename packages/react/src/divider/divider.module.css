@@ -1,0 +1,52 @@
+@layer wisp {
+  .root {
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    background-color: var(--_color);
+    /* An <hr> has a default 1px inset border and auto margins; both are reset above. */
+    flex: none;
+  }
+
+  .root[data-orientation='horizontal'] {
+    block-size: var(--_thickness);
+    inline-size: auto;
+  }
+
+  .root[data-orientation='vertical'] {
+    inline-size: var(--_thickness);
+    block-size: auto;
+    align-self: stretch;
+  }
+
+  /* Insets follow the reading direction, so they flip in right-to-left layouts. */
+  .root[data-orientation='horizontal'][data-inset='start'] {
+    margin-inline-start: 16px;
+  }
+
+  .root[data-orientation='horizontal'][data-inset='end'] {
+    margin-inline-end: 16px;
+  }
+
+  .root[data-orientation='horizontal'][data-inset='both'] {
+    margin-inline: 16px;
+  }
+
+  .root[data-orientation='vertical'][data-inset='start'] {
+    margin-block-start: 16px;
+  }
+
+  .root[data-orientation='vertical'][data-inset='end'] {
+    margin-block-end: 16px;
+  }
+
+  .root[data-orientation='vertical'][data-inset='both'] {
+    margin-block: 16px;
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      background-color: CanvasText;
+    }
+  }
+}

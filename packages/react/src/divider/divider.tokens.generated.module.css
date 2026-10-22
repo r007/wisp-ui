@@ -1,0 +1,11 @@
+/* Divider token defaults.
+ *
+ * Generated from divider.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_color: var(--md-comp-divider-color, var(--md-sys-color-outline-variant));
+    --_thickness: var(--md-comp-divider-thickness, 1px);
+  }
+}
