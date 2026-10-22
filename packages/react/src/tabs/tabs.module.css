@@ -1,0 +1,178 @@
+/*
+ * The tab list is a flex row with a single indicator that slides under the selected tab. The
+ * indicator's position is measured (`--_x`, `--_w`, set by TabList), because it moves between
+ * elements of different widths. Colours, sizes and shapes come from
+ * tabs.tokens.generated.module.css.
+ */
+@layer wisp {
+  /* Secondary tabs have a square indicator; primary tabs set their own rounded top. */
+  :where(.list) {
+    --_indicator-shape: 0;
+    --_x: 0px;
+    --_w: 0px;
+    --_direction: 1;
+  }
+
+  .list:dir(rtl) {
+    --_direction: -1;
+  }
+
+  .list {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    inline-size: 100%;
+    overflow-x: auto;
+    background-color: var(--_container-color);
+    /* The hairline under the whole row. */
+    box-shadow: inset 0 -1px 0 var(--md-sys-color-outline-variant);
+    scrollbar-width: none;
+  }
+
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .indicator {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    inline-size: var(--_w);
+    block-size: var(--_indicator-height);
+    border-radius: var(--_indicator-shape);
+    background-color: var(--_indicator-color);
+    translate: calc(var(--_direction) * var(--_x)) 0;
+    pointer-events: none;
+    transition:
+      translate var(--md-sys-motion-spring-default-spatial),
+      inline-size var(--md-sys-motion-spring-default-spatial);
+  }
+
+  .tab {
+    /* Inactive is the default; the selected tab overrides what changes. */
+    --_label: var(--_inactive-label-color);
+    --_icon: var(--_inactive-icon-color);
+    --_state-layer-color: var(--_inactive-state-layer-color);
+    --_pressed-layer: var(--_inactive-pressed-state-layer-color);
+
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the content. */
+    isolation: isolate;
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    block-size: var(--_container-height);
+    margin: 0;
+    padding-block: 0;
+    padding-inline: 16px;
+    border: 0;
+    background: none;
+    color: var(--_label);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* Scrollable tabs are as wide as their content, at least 90px. */
+  .list[data-scrollable] .tab {
+    flex: 0 0 auto;
+    min-inline-size: 90px;
+  }
+
+  /* An icon with a label is a taller, stacked tab (primary). */
+  .tab[data-stacked] {
+    block-size: var(--_stacked-height);
+  }
+
+  .content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tab[data-stacked] .content {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .icon {
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    color: var(--_icon);
+    font-size: var(--_icon-size);
+    transition: color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  .tab[aria-selected='true'] {
+    --_label: var(--_active-label-color);
+    --_icon: var(--_active-icon-color);
+    --_state-layer-color: var(--_active-state-layer-color);
+    --_pressed-layer: var(--_active-state-layer-color);
+  }
+
+  /* An inactive tab darkens when interacted with. */
+  @media (hover: hover) {
+    .tab[aria-selected='false']:enabled:hover {
+      --_label: var(--_inactive-label-color-active);
+      --_icon: var(--_inactive-icon-color-active);
+    }
+  }
+
+  .tab[aria-selected='false']:enabled:focus-visible,
+  .tab[aria-selected='false']:enabled:active {
+    --_label: var(--_inactive-label-color-active);
+    --_icon: var(--_inactive-icon-color-active);
+  }
+
+  .tab [data-wisp-state-layer][data-pressed] {
+    --_state-layer-color: var(--_pressed-layer);
+  }
+
+  .tab:focus-visible {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  .tab:disabled {
+    cursor: default;
+    opacity: 0.38;
+  }
+
+  .panel[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .indicator,
+    .tab,
+    .icon {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .indicator {
+      background-color: Highlight;
+    }
+
+    .tab[aria-selected='true'] {
+      color: Highlight;
+    }
+  }
+}

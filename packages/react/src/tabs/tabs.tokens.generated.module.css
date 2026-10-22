@@ -1,0 +1,58 @@
+/* Tabs token defaults.
+ *
+ * Generated from tabs.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .primary {
+    --_container-color: var(--md-comp-primary-navigation-tab-container-color, var(--md-sys-color-surface));
+    --_container-height: var(--md-comp-primary-navigation-tab-container-height, 48px);
+    --_stacked-height: var(--md-comp-primary-navigation-tab-with-icon-and-label-text-container-height, 64px);
+    --_indicator-color: var(--md-comp-primary-navigation-tab-active-indicator-color, var(--md-sys-color-primary));
+    --_indicator-height: var(--md-comp-primary-navigation-tab-active-indicator-height, 3px);
+    --_indicator-shape: var(--md-comp-primary-navigation-tab-active-indicator-shape, 3px 3px 0px 0px);
+    --_label-font: var(--md-comp-primary-navigation-tab-with-label-text-label-text-type, var(--md-sys-typescale-title-small));
+    --_label-font-tracking: var(--md-comp-primary-navigation-tab-with-label-text-label-text-type-tracking, var(--md-sys-typescale-title-small-tracking));
+    --_icon-size: var(--md-comp-primary-navigation-tab-with-icon-icon-size, 24px);
+    --_active-label-color: var(--md-comp-primary-navigation-tab-with-label-text-active-label-text-color, var(--md-sys-color-primary));
+    --_active-icon-color: var(--md-comp-primary-navigation-tab-with-icon-active-icon-color, var(--md-sys-color-primary));
+    --_inactive-label-color: var(--md-comp-primary-navigation-tab-with-label-text-inactive-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_inactive-label-color-active: var(--md-comp-primary-navigation-tab-with-label-text-inactive-hover-label-text-color, var(--md-sys-color-on-surface));
+    --_inactive-icon-color: var(--md-comp-primary-navigation-tab-with-icon-inactive-icon-color, var(--md-sys-color-on-surface-variant));
+    --_inactive-icon-color-active: var(--md-comp-primary-navigation-tab-with-icon-inactive-hover-icon-color, var(--md-sys-color-on-surface));
+    --_active-state-layer-color: var(--md-comp-primary-navigation-tab-active-hover-state-layer-color, var(--md-sys-color-primary));
+    --_inactive-state-layer-color: var(--md-comp-primary-navigation-tab-inactive-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_inactive-pressed-state-layer-color: var(--md-comp-primary-navigation-tab-inactive-pressed-state-layer-color, var(--md-sys-color-primary));
+    --_hover-state-layer-opacity: var(--md-comp-primary-navigation-tab-active-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-primary-navigation-tab-active-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-primary-navigation-tab-active-pressed-state-layer-opacity, 0.1);
+    --_focus-indicator-color: var(--md-comp-primary-navigation-tab-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-primary-navigation-tab-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-primary-navigation-tab-focus-indicator-outline-offset, -3px);
+  }
+
+  .secondary {
+    --_container-color: var(--md-comp-secondary-navigation-tab-container-color, var(--md-sys-color-surface));
+    --_container-height: var(--md-comp-secondary-navigation-tab-container-height, 48px);
+    --_indicator-color: var(--md-comp-secondary-navigation-tab-active-indicator-color, var(--md-sys-color-primary));
+    --_indicator-height: var(--md-comp-secondary-navigation-tab-active-indicator-height, 2px);
+    --_label-font: var(--md-comp-secondary-navigation-tab-label-text-type, var(--md-sys-typescale-title-small));
+    --_label-font-tracking: var(--md-comp-secondary-navigation-tab-label-text-type-tracking, var(--md-sys-typescale-title-small-tracking));
+    --_icon-size: var(--md-comp-secondary-navigation-tab-with-icon-icon-size, 24px);
+    --_active-label-color: var(--md-comp-secondary-navigation-tab-active-label-text-color, var(--md-sys-color-on-surface));
+    --_active-icon-color: var(--md-comp-secondary-navigation-tab-with-icon-active-icon-color, var(--md-sys-color-on-surface));
+    --_inactive-label-color: var(--md-comp-secondary-navigation-tab-inactive-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_inactive-label-color-active: var(--md-comp-secondary-navigation-tab-hover-label-text-color, var(--md-sys-color-on-surface));
+    --_inactive-icon-color: var(--md-comp-secondary-navigation-tab-with-icon-inactive-icon-color, var(--md-sys-color-on-surface-variant));
+    --_inactive-icon-color-active: var(--md-comp-secondary-navigation-tab-with-icon-hover-icon-color, var(--md-sys-color-on-surface));
+    --_active-state-layer-color: var(--md-comp-secondary-navigation-tab-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_inactive-state-layer-color: var(--md-comp-secondary-navigation-tab-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_inactive-pressed-state-layer-color: var(--md-comp-secondary-navigation-tab-pressed-state-layer-color, var(--md-sys-color-on-surface));
+    --_hover-state-layer-opacity: var(--md-comp-secondary-navigation-tab-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-secondary-navigation-tab-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-secondary-navigation-tab-pressed-state-layer-opacity, 0.1);
+    --_focus-indicator-color: var(--md-comp-secondary-navigation-tab-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-secondary-navigation-tab-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-secondary-navigation-tab-focus-indicator-outline-offset, -3px);
+  }
+}
