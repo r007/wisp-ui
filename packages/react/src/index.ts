@@ -14,3 +14,4 @@ export * from './progress/index.js';
 export * from './radio/index.js';
 export * from './switch/index.js';
 export * from './text-field/index.js';
+export * from './tooltip/index.js';

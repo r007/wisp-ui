@@ -1,0 +1,113 @@
+/*
+ * The tooltip is a native popover placed against its trigger by CSS anchor positioning:
+ * `position-area` picks the side and `position-try-fallbacks` flips it when there is no
+ * room. Closing is driven from script (`data-closing`, see usePopover), so it animates out
+ * in every browser. Colours, shapes and type come from tooltip.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    /* A popover is centred and has a border by default; this one is placed by its anchor. */
+    position: fixed;
+    inset: auto;
+    box-sizing: border-box;
+    margin: 4px;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    color: var(--_text-color);
+    font: var(--_text-font);
+    letter-spacing: var(--_text-font-tracking);
+    opacity: 0;
+    scale: 0.92;
+    transition:
+      opacity var(--md-sys-motion-spring-fast-effects),
+      scale var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .root[data-placement='top'] {
+    position-area: block-start;
+    position-try-fallbacks: flip-block;
+    transform-origin: bottom center;
+  }
+
+  .root[data-placement='bottom'] {
+    position-area: block-end;
+    position-try-fallbacks: flip-block;
+    transform-origin: top center;
+  }
+
+  .root[data-placement='start'] {
+    position-area: inline-start;
+    position-try-fallbacks: flip-inline;
+    transform-origin: right center;
+  }
+
+  .root[data-placement='end'] {
+    position-area: inline-end;
+    position-try-fallbacks: flip-inline;
+    transform-origin: left center;
+  }
+
+  .root:popover-open:not([data-closing]) {
+    opacity: 1;
+    scale: 1;
+  }
+
+  @starting-style {
+    .root:popover-open {
+      opacity: 0;
+      scale: 0.92;
+    }
+  }
+
+  /* Plain: a short dark label. */
+  .plain {
+    min-block-size: 24px;
+    max-inline-size: 200px;
+    padding: 4px 8px;
+    text-align: center;
+  }
+
+  /* Rich: a surface with a subhead, supporting text and actions. */
+  .rich {
+    inline-size: max-content;
+    max-inline-size: 312px;
+    padding: 12px 16px;
+    box-shadow: var(--_container-elevation);
+  }
+
+  .subhead {
+    margin: 0 0 4px;
+    color: var(--_subhead-color);
+    font: var(--_subhead-font);
+    letter-spacing: var(--_subhead-font-tracking);
+  }
+
+  .text {
+    margin: 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-block: 12px -4px;
+    margin-inline: -8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+      background-color: Canvas;
+      color: CanvasText;
+    }
+  }
+}
