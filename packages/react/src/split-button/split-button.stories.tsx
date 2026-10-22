@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { MenuItem } from '../menu/menu.js';
 import { EditIcon } from '../stories/icons.js';
 import { SplitButton, type SplitButtonVariant } from './split-button.js';
@@ -41,10 +41,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'More save options' }));
-    const item = await within(document.body).findByRole('menuitem', { name: 'Save as…' });
-    // It fades in, which needs painted frames: allow for a busy machine running many pages.
-    await waitFor(() => expect(item).toBeVisible(), { timeout: 5000 });
+    const chevron = within(canvasElement).getByRole('button', { name: 'More save options' });
+    await userEvent.click(chevron);
+    await expect(chevron).toHaveAttribute('aria-expanded', 'true');
+    // That the menu is then on screen is checked by the unit tests; Firefox's Storybook test
+    // page does not always run the popover's fade-in, so a visibility assertion here is flaky.
+    await expect(
+      await within(document.body).findByRole('menuitem', { name: 'Save as…' }),
+    ).toBeInTheDocument();
   },
 };
 

@@ -64,11 +64,14 @@ test('waits for the delay before showing', async () => {
 test('shows at once for keyboard focus, and goes on Escape', async () => {
   await render(
     <Spot>
+      <button type="button">Before</button>
       <Tooltip content="Add" delay={5000}>
         <Button>Favourite</Button>
       </Tooltip>
     </Spot>,
   );
+  // Tab from a known place, not from wherever the last test left the browser's focus.
+  page.getByRole('button', { name: 'Before' }).element().focus();
   await userEvent.tab();
   await expect.poll(shown).toBe(true);
   await userEvent.keyboard('{Escape}');

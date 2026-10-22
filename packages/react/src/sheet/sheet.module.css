@@ -1,0 +1,228 @@
+/*
+ * A modal sheet is a native <dialog> pinned to an edge: it has no padding and its child fills it,
+ * so a click that targets the <dialog> itself can only have landed on the scrim (see
+ * useModalDialog). Closing is driven from script (`data-closing`), so it slides out in every
+ * browser; a bottom sheet also follows a drag on its handle (`--_drag`). Colours, shapes and type
+ * come from sheet.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    --_scrim-opacity: var(--md-comp-sheet-scrim-opacity, 0.32);
+    --_direction: 1;
+    /* How far a bottom sheet has been dragged down, set while the handle is held. */
+    --_drag: 0px;
+
+    position: fixed;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--md-sys-color-on-surface);
+    transition: translate var(--md-sys-motion-spring-default-spatial);
+  }
+
+  .root:dir(rtl) {
+    --_direction: -1;
+  }
+
+  /* A held handle moves the sheet with the pointer: no spring while it is being dragged. */
+  .root[data-dragging] {
+    transition: none;
+  }
+
+  .root::backdrop {
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-scrim) calc(var(--_scrim-opacity) * 100%),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-spring-default-effects);
+  }
+
+  .root[open]:not([data-closing])::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .root[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  /* The page behind a modal must not scroll. */
+  :global(html):has(.root[open]) {
+    overflow: hidden;
+  }
+
+  /* Bottom: slides up from the bottom edge, centred and at most 640px wide. */
+  .root[data-side='bottom'] {
+    inset: auto 0 0;
+    inline-size: 100%;
+    max-inline-size: 640px;
+    max-block-size: calc(100dvh - 72px);
+    margin-inline: auto;
+    border-radius: var(--_container-shape);
+    translate: 0 100%;
+  }
+
+  .root[data-side='bottom'][open]:not([data-closing]) {
+    translate: 0 var(--_drag);
+  }
+
+  @starting-style {
+    .root[data-side='bottom'][open] {
+      translate: 0 100%;
+    }
+  }
+
+  /* Floating: detached from the edge, fully rounded. */
+  .root[data-side='bottom'][data-floating] {
+    inset-block-end: 8px;
+    inline-size: calc(100% - 16px);
+    border-radius: var(--_container-shape);
+    translate: 0 calc(100% + 8px);
+  }
+
+  /* Side: slides in from the start or end edge. */
+  .root[data-side='end'],
+  .root[data-side='start'] {
+    inset-block: 0;
+    inline-size: 400px;
+    min-inline-size: var(--_min-width);
+    max-inline-size: calc(100vw - 56px);
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+  }
+
+  .root[data-side='end'] {
+    inset-inline: auto 0;
+    border-start-start-radius: var(--_detached-shape);
+    border-end-start-radius: var(--_detached-shape);
+    translate: calc(var(--_direction) * 100%) 0;
+  }
+
+  .root[data-side='start'] {
+    inset-inline: 0 auto;
+    border-start-end-radius: var(--_detached-shape);
+    border-end-end-radius: var(--_detached-shape);
+    translate: calc(var(--_direction) * -100%) 0;
+  }
+
+  .root[data-side='end'][open]:not([data-closing]),
+  .root[data-side='start'][open]:not([data-closing]) {
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .root[data-side='end'][open] {
+      translate: calc(var(--_direction) * 100%) 0;
+    }
+
+    .root[data-side='start'][open] {
+      translate: calc(var(--_direction) * -100%) 0;
+    }
+  }
+
+  .surface {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: 0;
+    max-block-size: inherit;
+    block-size: inherit;
+  }
+
+  /* The drag handle: a 32x4 pill in a 48px-tall touch target. */
+  .handle {
+    position: relative;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    block-size: 48px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: grab;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .handle::before {
+    content: '';
+    inline-size: var(--_handle-width);
+    block-size: var(--_handle-height);
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_handle-color);
+  }
+
+  .handle:active {
+    cursor: grabbing;
+  }
+
+  .handle:focus-visible {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: calc(-1 * var(--_focus-indicator-thickness));
+  }
+
+  .header {
+    display: flex;
+    flex: none;
+    align-items: center;
+    padding: 16px 24px;
+  }
+
+  .headline {
+    flex: 1;
+    margin: 0;
+    color: var(--_headline-color);
+    font: var(--_headline-font);
+    letter-spacing: var(--_headline-font-tracking);
+  }
+
+  .body {
+    flex: 1;
+    min-block-size: 0;
+    padding-inline: 24px;
+    padding-block: 0 24px;
+    overflow-y: auto;
+  }
+
+  .root[data-side='bottom'] .header {
+    padding-block-start: 0;
+  }
+
+  .actions {
+    display: flex;
+    flex: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 16px 24px 24px;
+    border-block-start: 1px solid var(--_divider-color);
+  }
+
+  .root[data-side='bottom'] .actions {
+    border-block-start: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root,
+    .root::backdrop {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+    }
+  }
+}

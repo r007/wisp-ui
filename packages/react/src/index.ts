@@ -18,6 +18,7 @@ export * from './navigation-rail/index.js';
 export * from './progress/index.js';
 export * from './radio/index.js';
 export * from './segmented-button/index.js';
+export * from './sheet/index.js';
 export * from './slider/index.js';
 export * from './snackbar/index.js';
 export * from './split-button/index.js';
