@@ -1,5 +1,6 @@
 {
   "name": "@wisp-ui/codegen",
+  "version": "0.0.0",
   "private": true,
   "description": "Build-time token importer and CSS emitters. Never published.",
   "type": "module",

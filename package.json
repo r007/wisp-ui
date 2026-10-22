@@ -1,7 +1,7 @@
 {
   "name": "wisp-ui-monorepo",
   "private": true,
-  "description": "Wisp — Material Design 3 Expressive for the modern web. Lightweight React components, zero-runtime CSS, no shadow DOM.",
+  "description": "Wisp \u2014 Material Design 3 Expressive for the modern web. Lightweight React components, zero-runtime CSS, no shadow DOM.",
   "type": "module",
   "packageManager": "pnpm@12.15.0",
   "engines": {
@@ -11,19 +11,23 @@
     "build": "pnpm -r --filter \"./packages/*\" build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "lint": "biome check . && stylelint \"packages/**/*.css\"",
+    "lint": "biome check . && stylelint \"packages/**/*.css\" \"tools/**/*.css\"",
     "format": "biome check --write .",
     "codegen": "node tools/codegen/src/cli.ts",
     "storybook": "pnpm --filter @wisp-ui/react storybook",
     "build-storybook": "pnpm --filter @wisp-ui/react build-storybook",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish",
+    "check:packages": "pnpm -r --filter \"./packages/*\" exec publint --strict && pnpm -r --filter \"./packages/*\" exec attw --pack . --profile esm-only --exclude-entrypoints theme.css"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@biomejs/biome": "catalog:",
     "@changesets/cli": "catalog:",
+    "publint": "^0.3.25",
     "stylelint": "catalog:",
+    "stylelint-config-standard": "^40.0.0",
     "typescript": "catalog:"
   }
 }

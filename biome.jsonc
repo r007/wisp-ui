@@ -48,7 +48,10 @@
       "style": {
         "useImportType": "error",
         "useNodejsImportProtocol": "error",
-        "noNonNullAssertion": "error"
+        "noNonNullAssertion": "error",
+        // The same heuristic, and the same reason, as Stylelint's no-descending-specificity:
+        // it cannot see that paired :not() guards make state selectors mutually exclusive.
+        "noDescendingSpecificity": "off"
       },
       "suspicious": {
         "noExplicitAny": "error"

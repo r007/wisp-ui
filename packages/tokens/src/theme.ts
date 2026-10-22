@@ -10,6 +10,7 @@
 import {
   argbFromHex,
   type DynamicColor,
+  type DynamicScheme,
   Hct,
   hexFromArgb,
   MaterialDynamicColors,
@@ -25,7 +26,31 @@ import {
 } from '@material/material-color-utilities';
 import { COLOR_ROLES } from './color-roles.generated.js';
 
-const VARIANTS = {
+/** Palette strategies, named as in Material Theme Builder. */
+export type ThemeVariant =
+  | 'tonal-spot'
+  | 'vibrant'
+  | 'expressive'
+  | 'neutral'
+  | 'monochrome'
+  | 'fidelity'
+  | 'content'
+  | 'rainbow'
+  | 'fruit-salad';
+
+/**
+ * The one shape of the scheme classes we rely on. Typing the table with this,
+ * rather than inferring it, keeps the (bundler-only) library's types out of
+ * our published declarations.
+ */
+type SchemeConstructor = new (
+  source: Hct,
+  isDark: boolean,
+  contrast: number,
+  specVersion: '2021' | '2025',
+) => DynamicScheme;
+
+const VARIANTS: Record<ThemeVariant, SchemeConstructor> = {
   'tonal-spot': SchemeTonalSpot,
   vibrant: SchemeVibrant,
   expressive: SchemeExpressive,
@@ -35,9 +60,7 @@ const VARIANTS = {
   content: SchemeContent,
   rainbow: SchemeRainbow,
   'fruit-salad': SchemeFruitSalad,
-} as const;
-
-export type ThemeVariant = keyof typeof VARIANTS;
+};
 
 export interface ThemeOptions {
   /** Palette strategy. Defaults to `tonal-spot`, Material's default. */
