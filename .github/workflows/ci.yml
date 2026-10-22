@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # The pnpm version comes from `packageManager` in package.json.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint (Biome, Stylelint)
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      # Generated files are committed; they must match what the emitters produce.
+      - name: Generated files are up to date
+        run: |
+          pnpm codegen generate
+          git diff --exit-code || (echo "::error::Run 'pnpm codegen generate' and commit the result." && exit 1)
+
+      - name: Build
+        run: pnpm build
+
+      - name: Each component ships only its own CSS, within budget
+        run: pnpm --filter @wisp-ui/react check:treeshake
+
+      - name: Published types resolve for consumers
+        run: pnpm --filter @wisp-ui/react check:types
+
+      - name: Package metadata (publint, Are The Types Wrong?)
+        run: pnpm check:packages
+
+      - name: Install Chromium
+        run: pnpm --filter @wisp-ui/react exec playwright install --with-deps chromium
+
+      - name: Test
+        run: pnpm test

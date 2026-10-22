@@ -1,0 +1,35 @@
+Wisp
+Copyright 2026 Wisp contributors
+
+This product includes software and data developed by third parties. Their
+licences are reproduced or referenced below and in THIRD_PARTY_LICENSES.md.
+
+--------------------------------------------------------------------------------
+Material 3 Expressive design tokens
+--------------------------------------------------------------------------------
+tools/codegen/data/tokens.json is derived from the Material token data in
+https://github.com/flutter/packages (packages/material_ui/tool/gen_defaults/data),
+Copyright 2013 The Flutter Authors, used under the BSD 3-Clause licence
+(see THIRD_PARTY_LICENSES.md). The provenance (repository, commit and token
+release) is recorded inside that file. The values originate from Google's
+Material Design system.
+
+--------------------------------------------------------------------------------
+Material Web
+--------------------------------------------------------------------------------
+Parts of packages/react are adapted from Material Web
+(https://github.com/material-components/material-web), Copyright 2022 Google LLC,
+used under the Apache License 2.0:
+
+  - packages/react/src/foundation/ripple-controller.ts: the press-ripple state
+    machine and its timing constants (ripple/internal/ripple.ts), reworked as a
+    framework-agnostic controller. Changes are listed in the file header.
+  - tools/codegen/src/emit-system.ts (`elevationShadow`): the closed-form
+    elevation shadow curves (elevation/internal/_elevation.scss).
+
+--------------------------------------------------------------------------------
+Trademarks
+--------------------------------------------------------------------------------
+Material Design is a trademark of Google LLC. Wisp is an independent project and
+is not affiliated with, sponsored by, or endorsed by Google. "Material Design"
+is used only to describe the design system that Wisp implements.

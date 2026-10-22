@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Wisp
+
+**Material Design 3 Expressive for React.** Zero-runtime CSS, tree-shakeable, no shadow DOM.
+
+```tsx
+import '@wisp-ui/react/theme.css'; // system tokens, once at the app root
+import { Button } from '@wisp-ui/react/button';
+
+<Button variant="filled">Save</Button>;
+```
+
+Import a component and you get **only that component's CSS**.
+
+## Try the theme controls
+
+The toolbar above this page changes the whole explorer:
+
+- **Colour scheme**: light, dark, or follow the system. Colour follows CSS `color-scheme`.
+- **Seed colour**: generates a full palette at runtime (Material You dynamic colour).
+- **Motion**: Expressive springs (bouncier, the default) or Standard springs.
+- **Contrast**: standard, medium or high.
+
+Every story is also an accessibility test (axe) and, where it has a `play` function, an
+interaction test.
+
+## Where the values come from
+
+Colours, sizes, shapes and timings are **not hand-copied**. They are imported from Flutter's
+Material library (token release 38.2.83, including Expressive) and compiled to CSS, so the
+components match the Material specification, and update when it does.
+
+## Customising
+
+Override any component through its Material token, on any ancestor:
+
+```css
+.checkout {
+  --md-comp-button-filled-container-color: var(--md-sys-color-tertiary);
+}
+```
+
+All library CSS is in the `wisp` cascade layer, so your own CSS always wins.

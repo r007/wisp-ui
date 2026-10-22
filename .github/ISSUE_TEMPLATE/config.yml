@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea
+    url: https://github.com/r007/wisp-ui/discussions
+    about: For open-ended questions and ideas, use Discussions.
+  - name: Security vulnerability
+    url: https://github.com/r007/wisp-ui/security/advisories/new
+    about: Please report security issues privately.

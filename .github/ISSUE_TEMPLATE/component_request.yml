@@ -1,0 +1,24 @@
+name: Component request
+description: Ask for a Material component to be ported
+labels: [component]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check [docs/COMPONENTS.md](../blob/main/docs/COMPONENTS.md) first: the planned components and their order are listed there. Porting is documented in [docs/porting-guide.md](../blob/main/docs/porting-guide.md), and a pull request is very welcome.
+  - type: input
+    id: component
+    attributes:
+      label: Component
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What do you need it for?
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Can you help?
+      options:
+        - label: I would like to port it myself

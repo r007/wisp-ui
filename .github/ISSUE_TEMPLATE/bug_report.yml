@@ -1,0 +1,36 @@
+name: Bug report
+description: Something looks or behaves wrong
+labels: [bug]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      placeholder: Button, NavigationBar, …
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: For a visual problem, a screenshot next to Flutter's or the Material spec's rendering is ideal.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: A minimal snippet, a Storybook story, or a StackBlitz link.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "@wisp-ui/react version"
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Browser and OS
+      placeholder: Chrome 140 on Linux
