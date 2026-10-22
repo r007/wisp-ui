@@ -47,6 +47,15 @@
     }
   }
 
+  /*
+   * Closed, a popover must leave the layout. The `display` above would otherwise override the
+   * browser's own `display: none`, leaving an invisible box that takes presses and that
+   * screen readers still read. It stays `:popover-open` while it animates out.
+   */
+  .root:not(:popover-open) {
+    display: none;
+  }
+
   .root:popover-open:not([data-closing]) {
     opacity: 1;
     translate: 0 0;

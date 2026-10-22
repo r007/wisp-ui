@@ -39,6 +39,15 @@
       scale var(--md-sys-motion-spring-fast-spatial);
   }
 
+  /*
+   * Closed, a popover must leave the layout. The `display` above would otherwise override the
+   * browser's own `display: none`, leaving an invisible box that takes presses and that
+   * screen readers still read. It stays `:popover-open` while it animates out.
+   */
+  .root:not(:popover-open) {
+    display: none;
+  }
+
   /* Which corner of the anchor it opens from, and which way it flips when there is no room. */
   .root[data-placement='bottom-start'] {
     position-area: block-end span-inline-end;

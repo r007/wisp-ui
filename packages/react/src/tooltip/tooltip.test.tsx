@@ -32,6 +32,20 @@ const Rich = (props: Partial<React.ComponentProps<typeof Tooltip>>) => (
   </Spot>
 );
 
+test('leaves the layout while hidden, so nothing invisible takes presses or is read', async () => {
+  await render(
+    <Spot>
+      <Tooltip content="Add to favourites" delay={30}>
+        <Button>Favourite</Button>
+      </Tooltip>
+    </Spot>,
+  );
+  expect(style(tip()).display).toBe('none');
+  await userEvent.hover(trigger());
+  await expect.poll(shown).toBe(true);
+  expect(style(tip()).display).not.toBe('none');
+});
+
 test('shows after the pointer rests on the trigger, and hides when it leaves', async () => {
   await render(
     <Spot>

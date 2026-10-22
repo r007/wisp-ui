@@ -10,6 +10,12 @@ type Engine = 'chromium' | 'firefox' | 'webkit';
 // same suite on more engines (browsers come from `playwright install`).
 const engines = (process.env.WISP_BROWSERS ?? 'chromium').split(',').map((name) => name.trim());
 
+// Headless Firefox, with several browsers and files running at once, sometimes starves
+// `requestAnimationFrame` in a background page, so Playwright's "stable" check on a click times
+// out after 15 s. A test that fails for that reason passes when run again; one that is wrong
+// fails twice. CI runs Chromium only and keeps no retries.
+const retry = engines.some((name) => name !== 'chromium') ? 1 : 0;
+
 // A factory, not a shared object: Vitest names browser instances by mutating them.
 const browser = () => ({
   enabled: true,
@@ -25,6 +31,7 @@ export default mergeConfig(
   defineConfig({
     resolve: { alias: workspaceAliases },
     test: {
+      retry,
       projects: [
         {
           extends: true,

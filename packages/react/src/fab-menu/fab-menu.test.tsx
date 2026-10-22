@@ -58,6 +58,14 @@ test('opens from its button, which announces a menu', async () => {
   await expect.element(page.getByRole('menu', { name: 'Create' })).toBeVisible();
 });
 
+test('leaves the layout while closed, so nothing invisible takes presses or is read', async () => {
+  await render(<Sample />);
+  expect(style(panel()).display).toBe('none');
+  expect(rect(panel()).width).toBe(0);
+  await open();
+  expect(style(panel()).display).not.toBe('none');
+});
+
 test('moves focus to the item nearest the button when opened', async () => {
   await render(<Sample />);
   await open();

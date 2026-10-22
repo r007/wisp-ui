@@ -1,0 +1,179 @@
+/*
+ * A search view has two forms of one surface: docked, a popover laid over the search bar
+ * (same top, start and width, found by CSS anchor positioning) that grows downward as results
+ * appear, or full-screen, a modal dialog. Closing is driven from script (`data-closing`, see
+ * usePopover and useModalDialog), so both animate out in every browser. Colours, sizes and
+ * shapes come from search.tokens.generated.module.css.
+ */
+@layer wisp {
+  /* The bar and its anchor name. */
+  .anchor {
+    inline-size: 100%;
+  }
+
+  .view {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--md-sys-color-on-surface);
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /*
+   * Closed, a popover must leave the layout. The `display` above would otherwise override the
+   * browser's own `display: none`, leaving an invisible box that takes presses and that
+   * screen readers still read. It stays `:popover-open` while it animates out.
+   */
+  .view[data-variant='docked']:not(:popover-open),
+  .view[data-variant='full-screen']:not([open]) {
+    display: none;
+  }
+
+  /* Docked: over the bar. */
+  .view[data-variant='docked'] {
+    position: fixed;
+    inset: auto;
+    inset-block-start: anchor(top);
+    inset-inline-start: anchor(start);
+    inline-size: anchor-size(inline);
+    max-block-size: min(calc(100dvh - 32px), 560px);
+    overflow: hidden;
+    border-radius: var(--_docked-shape);
+  }
+
+  .view[data-variant='docked']:popover-open:not([data-closing]) {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .view[data-variant='docked']:popover-open {
+      opacity: 0;
+    }
+  }
+
+  /* Full-screen: the dialog is the viewport. */
+  .view[data-variant='full-screen'] {
+    position: fixed;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    max-inline-size: none;
+    max-block-size: none;
+    border-radius: var(--_full-screen-shape);
+    translate: 0 24px;
+    transition:
+      opacity var(--md-sys-motion-spring-fast-effects),
+      translate var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .view[data-variant='full-screen'][open]:not([data-closing]) {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .view[data-variant='full-screen'][open] {
+      opacity: 0;
+      translate: 0 24px;
+    }
+  }
+
+  /* The page behind a modal must not scroll. */
+  :global(html):has(.view[data-variant='full-screen'][open]) {
+    overflow: hidden;
+  }
+
+  .header {
+    display: flex;
+    flex: none;
+    align-items: center;
+    box-sizing: border-box;
+    padding-inline: 8px var(--_trailing-space);
+  }
+
+  .view[data-variant='docked'] .header {
+    min-block-size: var(--_docked-header-height);
+  }
+
+  .view[data-variant='full-screen'] .header {
+    min-block-size: var(--_full-screen-header-height);
+  }
+
+  /* The back button is the header's leading icon, which has the on-surface colour. */
+  .back {
+    --md-comp-icon-button-standard-icon-color: var(--_leading-icon-color);
+    flex: none;
+    margin-inline-end: calc(var(--_icon-label-space) - 8px);
+  }
+
+  .input {
+    flex: 1;
+    min-inline-size: 0;
+    align-self: stretch;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: none;
+    color: var(--_input-color);
+    caret-color: var(--_input-color);
+    font: var(--_input-font);
+    letter-spacing: var(--_input-font-tracking);
+    appearance: none;
+  }
+
+  .input::placeholder {
+    color: var(--_supporting-color);
+    font: var(--_supporting-font);
+    letter-spacing: var(--_supporting-font-tracking);
+    opacity: 1;
+  }
+
+  .input::-webkit-search-cancel-button,
+  .input::-webkit-search-decoration {
+    display: none;
+    appearance: none;
+  }
+
+  .trailing {
+    display: flex;
+    flex: none;
+    align-items: center;
+    margin-inline-start: var(--_label-trailing-space);
+    color: var(--_trailing-icon-color);
+  }
+
+  .trailing:empty {
+    display: none;
+  }
+
+  /* The results scroll; a rule separates them from the header. */
+  .results {
+    /* List items take the view's surface, not their own. */
+    --md-comp-list-list-item-container-color: transparent;
+
+    flex: 1;
+    min-block-size: 0;
+    overflow-y: auto;
+    border-block-start: 1px solid var(--_divider-color);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .view {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .view {
+      border: 1px solid CanvasText;
+      background-color: Canvas;
+    }
+  }
+}

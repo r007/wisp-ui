@@ -19,6 +19,8 @@ export * from './navigation-drawer/index.js';
 export * from './navigation-rail/index.js';
 export * from './progress/index.js';
 export * from './radio/index.js';
+export * from './search/index.js';
+export * from './search-bar/index.js';
 export * from './segmented-button/index.js';
 export * from './sheet/index.js';
 export * from './slider/index.js';

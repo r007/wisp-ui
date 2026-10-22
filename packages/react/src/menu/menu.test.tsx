@@ -55,6 +55,14 @@ test('opens from its trigger, which announces a menu', async () => {
   await expect.element(page.getByRole('menu', { name: 'Options' })).toBeVisible();
 });
 
+test('leaves the layout while closed, so nothing invisible takes presses or is read', async () => {
+  await render(<Sample />);
+  expect(style(panel()).display).toBe('none');
+  expect(rect(panel()).width).toBe(0);
+  await open();
+  expect(style(panel()).display).not.toBe('none');
+});
+
 test('is named by aria-label when it has one', async () => {
   await render(<Sample aria-label="Item actions" />);
   await open();

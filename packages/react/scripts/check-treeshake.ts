@@ -32,6 +32,7 @@ const CSS_GZIP_BUDGET_KB = 4;
  */
 const COMPOSED_OF: Record<string, readonly string[]> = {
   'fab-menu': ['fab'],
+  search: ['search-bar', 'icon-button'],
   'split-button': ['button', 'menu'],
 };
 /** Folders in dist that are not components. */

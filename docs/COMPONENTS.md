@@ -31,6 +31,8 @@ them to components, the Flutter widget to read, and the archetype to copy from
 | ✅ **Badge**              | `badge`                                                                | Dot or labelled pill                                                                                                                                                |
 | ✅ **Progress**           | `progress-indicator`                                                   | `LinearProgress` and `CircularProgress`; determinate/indeterminate; flat and wavy; the Expressive gap and stop dot                                                  |
 | ✅ **Radio / RadioGroup** | `radio-button`                                                         | Native input; the group owns the value and a shared `name`                                                                                                          |
+| ✅ **Search**             | `search-view`                                                          | A search bar that opens into suggestions or results, docked over the bar or full-screen (modal `<dialog>`); Enter searches, arrows move into the results            |
+| ✅ **SearchBar**          | `search-bar`                                                           | Pill with a magnifier, a native `type=search` input and trailing actions; hover and press tint the whole bar                                                        |
 | ✅ **SegmentedButton**    | `outlined-segmented-button`                                            | Native radios (single) or checkboxes (multiple); a selected segment folds in a check                                                                                |
 | ✅ **Sheet**              | `sheet`, `drag-handle`                                                 | Modal bottom and side sheets on native `<dialog>` (`useModalDialog`); drag handle; swipe to dismiss                                                                 |
 | ✅ **Slider**             | `slider`                                                               | Native range input over the Expressive visuals; 5 sizes; handle pill, stop dot, value bubble, icon. Single value (no range slider yet)                              |
@@ -47,14 +49,13 @@ them to components, the Flutter widget to read, and the archetype to copy from
 
 Ordered by how much of the remaining set each unlocks.
 
-| Component              | Tokens                                                   | Flutter widget                     | Archetype           | Unlocks / notes                                           |
-| ---------------------- | -------------------------------------------------------- | ---------------------------------- | ------------------- | --------------------------------------------------------- |
-| ⬜ Search              | `search-bar`, `search-view`                              | `SearchBar`, `SearchAnchor`        | composite + overlay | text field + list + popover                               |
-| ⬜ Carousel            | `carousel-item`                                          | `CarouselView`                     | scroll-snap         | multi-browse, hero, uncontained                           |
-| ⬜ Loading indicator   | `loading-indicator`                                      | `CircularProgressIndicator`        | SVG                 | needs the **Material Shapes** morphing foundation         |
-| ⬜ Range slider        | `slider`                                                 | `RangeSlider`                      | native input        | two thumbs                                                |
-| ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex             | 147 + 71 tokens; consider a headless base                 |
-| ⬜ Menu groups         | `menus`                                                  | `MenuAnchor`                       | composite           | the Expressive grouped, segmented menu (`group.*` tokens) |
+| Component              | Tokens                                                   | Flutter widget                     | Archetype    | Unlocks / notes                                           |
+| ---------------------- | -------------------------------------------------------- | ---------------------------------- | ------------ | --------------------------------------------------------- |
+| ⬜ Carousel            | `carousel-item`                                          | `CarouselView`                     | scroll-snap  | multi-browse, hero, uncontained                           |
+| ⬜ Loading indicator   | `loading-indicator`                                      | `CircularProgressIndicator`        | SVG          | needs the **Material Shapes** morphing foundation         |
+| ⬜ Range slider        | `slider`                                                 | `RangeSlider`                      | native input | two thumbs                                                |
+| ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex      | 147 + 71 tokens; consider a headless base                 |
+| ⬜ Menu groups         | `menus`                                                  | `MenuAnchor`                       | composite    | the Expressive grouped, segmented menu (`group.*` tokens) |
 
 ## Foundation
 

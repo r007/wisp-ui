@@ -187,9 +187,19 @@ Things Firefox taught us, which apply to every component:
 - **Overlays must not rely on `transition-behavior: allow-discrete` for their exit.** Firefox
   hides a closing `<dialog>` or popover at once. Keep the element open with `data-closing`
   and let `useModalDialog` / `usePopover` close it when its animations finish.
+- **A popover (or dialog) that sets `display` must hide itself when closed.** An author
+  `display: flex` overrides the browser's own `display: none` for a closed popover, leaving
+  an invisible box in the layout that takes pointer presses and is read by screen readers.
+  Add `.root:not(:popover-open) { display: none }` (`:not([open])` for a `<dialog>`), and
+  keep a `@starting-style` for the entry. It stays `:popover-open` while it animates out.
+  Every popover component's tests assert that it computes `display: none` while closed.
 - Firefox supports popover, CSS anchor positioning, `@starting-style`, `:has()` and
   `color-mix()`, but not `interpolate-size`, `corner-shape`, scroll-driven animations or
   interest invokers. Use those only as enhancements.
+- A multi-engine run (`WISP_BROWSERS` with anything but Chromium) retries a failed test once,
+  because a busy headless Firefox sometimes starves `requestAnimationFrame` and a click's
+  "stable" check times out after 15 s. A wrong test fails both times. CI is Chromium only,
+  with no retries.
 - Under a parallel run Firefox may not paint frames for a background page, so a fade-in
   can still be at opacity 0 when a one-second wait expires. Give `waitFor` in stories a
   generous timeout, and never assert in a story's `play` function on something that is

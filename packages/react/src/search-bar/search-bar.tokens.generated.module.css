@@ -1,0 +1,32 @@
+/* SearchBar token defaults.
+ *
+ * Generated from search-bar.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-search-bar-container-color, var(--md-sys-color-surface-container-high));
+    --_container-elevation: var(--md-comp-search-bar-container-elevation, var(--md-sys-elevation-level3));
+    --_container-height: var(--md-comp-search-bar-container-height, 56px);
+    --_container-shape: var(--md-comp-search-bar-container-shape, calc(var(--_container-height) / 2));
+    --_leading-space: var(--md-comp-search-bar-leading-space, 16px);
+    --_trailing-space: var(--md-comp-search-bar-trailing-space, 16px);
+    --_icon-size: var(--md-comp-search-bar-icon-size, 24px);
+    --_icon-label-space: var(--md-comp-search-bar-leading-icon-leading-icon-label-space, 16px);
+    --_label-trailing-space: var(--md-comp-search-bar-trailing-icon-label-trailing-icon-space, 16px);
+    --_leading-icon-color: var(--md-comp-search-bar-leading-icon-color, var(--md-sys-color-on-surface));
+    --_trailing-icon-color: var(--md-comp-search-bar-trailing-icon-color, var(--md-sys-color-on-surface-variant));
+    --_input-color: var(--md-comp-search-bar-input-text-color, var(--md-sys-color-on-surface));
+    --_input-font: var(--md-comp-search-bar-input-text-type, var(--md-sys-typescale-body-large));
+    --_input-font-tracking: var(--md-comp-search-bar-input-text-type-tracking, var(--md-sys-typescale-body-large-tracking));
+    --_supporting-color: var(--md-comp-search-bar-supporting-text-color, var(--md-sys-color-on-surface-variant));
+    --_supporting-font: var(--md-comp-search-bar-supporting-text-type, var(--md-sys-typescale-body-large));
+    --_supporting-font-tracking: var(--md-comp-search-bar-supporting-text-type-tracking, var(--md-sys-typescale-body-large-tracking));
+    --_state-layer-color: var(--md-comp-search-bar-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_hover-state-layer-opacity: var(--md-comp-search-bar-hover-state-layer-opacity, 0.08);
+    --_pressed-state-layer-opacity: var(--md-comp-search-bar-pressed-state-layer-opacity, 0.1);
+    --_focus-indicator-color: var(--md-comp-search-bar-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-search-bar-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-search-bar-focus-indicator-outline-offset, 2px);
+  }
+}

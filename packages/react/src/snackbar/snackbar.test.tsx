@@ -37,6 +37,14 @@ test('shows its message in a status region while open', async () => {
   await expect.element(page.getByRole('status')).toHaveTextContent('Saved');
 });
 
+test('leaves the layout while closed, so nothing invisible takes presses or is read', async () => {
+  const { rerender } = await render(<Snackbar open={false}>Saved</Snackbar>);
+  expect(style(bar()).display).toBe('none');
+  await rerender(<Snackbar open>Saved</Snackbar>);
+  await expect.poll(shown).toBe(true);
+  expect(style(bar()).display).not.toBe('none');
+});
+
 test('is a dark container with 4px corners and a 48px minimum height', async () => {
   await render(<Snackbar open>Saved</Snackbar>);
   await expect.poll(() => style(bar()).opacity).toBe('1');
