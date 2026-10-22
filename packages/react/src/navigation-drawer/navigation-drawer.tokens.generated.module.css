@@ -1,0 +1,49 @@
+/* NavigationDrawer token defaults.
+ *
+ * Generated from navigation-drawer.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-width: var(--md-comp-navigation-drawer-container-width, 360px);
+    --_container-shape: var(--md-comp-navigation-drawer-container-shape, 0px 16px 16px 0px);
+    --_modal-container-color: var(--md-comp-navigation-drawer-modal-container-color, var(--md-sys-color-surface-container-low));
+    --_modal-container-elevation: var(--md-comp-navigation-drawer-modal-container-elevation, var(--md-sys-elevation-level1));
+    --_standard-container-color: var(--md-comp-navigation-drawer-standard-container-color, var(--md-sys-color-surface));
+    --_standard-container-elevation: var(--md-comp-navigation-drawer-standard-container-elevation, var(--md-sys-elevation-level0));
+    --_headline-color: var(--md-comp-navigation-drawer-headline-color, var(--md-sys-color-on-surface-variant));
+    --_headline-font: var(--md-comp-navigation-drawer-headline-type, var(--md-sys-typescale-title-small));
+    --_headline-font-tracking: var(--md-comp-navigation-drawer-headline-type-tracking, var(--md-sys-typescale-title-small-tracking));
+  }
+
+  .root {
+    --_divider-color: var(--md-comp-divider-color, var(--md-sys-color-outline-variant));
+    --_divider-thickness: var(--md-comp-divider-thickness, 1px);
+  }
+
+  .item {
+    --_icon-size: var(--md-comp-navigation-drawer-icon-size, 24px);
+    --_label-font: var(--md-comp-navigation-drawer-label-text-type, var(--md-sys-typescale-label-large));
+    --_label-font-tracking: var(--md-comp-navigation-drawer-label-text-type-tracking, var(--md-sys-typescale-label-large-tracking));
+    --_trailing-font: var(--md-comp-navigation-drawer-large-badge-label-type, var(--md-sys-typescale-label-large));
+    --_trailing-font-tracking: var(--md-comp-navigation-drawer-large-badge-label-type-tracking, var(--md-sys-typescale-label-large-tracking));
+    --_trailing-color: var(--md-comp-navigation-drawer-large-badge-label-color, var(--md-sys-color-on-surface-variant));
+    --_indicator-color: var(--md-comp-navigation-drawer-active-indicator-color, var(--md-sys-color-secondary-container));
+    --_indicator-height: var(--md-comp-navigation-drawer-active-indicator-height, 56px);
+    --_active-icon-color: var(--md-comp-navigation-drawer-active-icon-color, var(--md-sys-color-on-secondary-container));
+    --_active-label-color: var(--md-comp-navigation-drawer-active-label-text-color, var(--md-sys-color-on-secondary-container));
+    --_active-state-layer-color: var(--md-comp-navigation-drawer-active-hover-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_inactive-icon-color: var(--md-comp-navigation-drawer-inactive-icon-color, var(--md-sys-color-on-surface-variant));
+    --_inactive-icon-color-active: var(--md-comp-navigation-drawer-inactive-hover-icon-color, var(--md-sys-color-on-surface));
+    --_inactive-label-color: var(--md-comp-navigation-drawer-inactive-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_inactive-label-color-active: var(--md-comp-navigation-drawer-inactive-hover-label-text-color, var(--md-sys-color-on-surface));
+    --_inactive-state-layer-color: var(--md-comp-navigation-drawer-inactive-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_inactive-pressed-state-layer-color: var(--md-comp-navigation-drawer-inactive-pressed-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_hover-state-layer-opacity: var(--md-comp-navigation-drawer-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-navigation-drawer-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-navigation-drawer-pressed-state-layer-opacity, 0.1);
+    --_focus-indicator-color: var(--md-comp-navigation-drawer-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-navigation-drawer-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-navigation-drawer-focus-indicator-outline-offset, -3px);
+  }
+}

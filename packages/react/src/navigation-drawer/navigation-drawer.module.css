@@ -1,0 +1,259 @@
+/*
+ * Structure and behaviour only; see navigation-drawer.tokens.generated.module.css
+ * for the values.
+ *
+ * The standard drawer is a plain <nav>. The modal drawer is a <dialog> opened
+ * with showModal(): the browser supplies the top layer, focus containment,
+ * Escape handling and an inert page, and CSS animates it in and out.
+ */
+@layer wisp {
+  .root {
+    --_direction: 1;
+    /* Material's scrim is the scrim colour at 32%; it is not published as a token. */
+    --_scrim-opacity: var(--md-comp-navigation-drawer-scrim-opacity, 0.32);
+    /* A drawer that would cover the whole window leaves a 56px gap to tap out. */
+    --_modal-width: min(var(--_container-width), calc(100vw - 56px));
+
+    box-sizing: border-box;
+    inline-size: var(--_container-width);
+    max-inline-size: 100%;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .root:dir(rtl) {
+    --_direction: -1;
+  }
+
+  .panel {
+    box-sizing: border-box;
+    block-size: 100%;
+    padding: 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .standard {
+    background-color: var(--_standard-container-color);
+    border-radius: var(--_container-shape);
+    box-shadow: var(--_standard-container-elevation);
+  }
+
+  /* Modal: slides in from the inline-start edge. */
+  .modal {
+    position: fixed;
+    inset-block: 0;
+    inset-inline: 0 auto;
+    inline-size: var(--_modal-width);
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--_container-shape);
+    background-color: var(--_modal-container-color);
+    box-shadow: var(--_modal-container-elevation);
+    color: var(--md-sys-color-on-surface-variant);
+    translate: calc(var(--_direction) * -100%) 0;
+    /* `display` and `overlay` are discrete: transitioning them keeps the drawer
+       on screen (and in the top layer) while it animates out. No overshoot: a
+       bounce would pull the edge away from the screen side. */
+    transition:
+      translate var(--md-sys-motion-spring-slow-effects),
+      display var(--md-sys-motion-spring-slow-effects) allow-discrete,
+      overlay var(--md-sys-motion-spring-slow-effects) allow-discrete;
+  }
+
+  .modal[open] {
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .modal[open] {
+      translate: calc(var(--_direction) * -100%) 0;
+    }
+  }
+
+  .modal::backdrop {
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-scrim) calc(var(--_scrim-opacity) * 100%),
+      transparent
+    );
+    opacity: 0;
+    transition:
+      opacity var(--md-sys-motion-spring-default-effects),
+      display var(--md-sys-motion-spring-default-effects) allow-discrete,
+      overlay var(--md-sys-motion-spring-default-effects) allow-discrete;
+  }
+
+  .modal[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .modal[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  /* The page behind a modal drawer must not scroll. */
+  :global(html):has(.modal[open]) {
+    overflow: hidden;
+  }
+
+  /* Sections. */
+  .section {
+    margin: 0;
+    padding: 0;
+  }
+
+  .headline {
+    margin: 0;
+    padding: 18px 16px 18px;
+    color: var(--_headline-color);
+    font: var(--_headline-font);
+    letter-spacing: var(--_headline-font-tracking);
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .divider {
+    block-size: 0;
+    margin: 8px 16px;
+    border: 0;
+    border-block-start: var(--_divider-thickness) solid var(--_divider-color);
+  }
+
+  /* Destinations. */
+  .item {
+    /* Unselected is the default; a selected item overrides what changes. */
+    --_icon-color: var(--_inactive-icon-color);
+    --_label-color: var(--_inactive-label-color);
+    --_state-layer-color: var(--_inactive-state-layer-color);
+
+    position: relative;
+    /* Contains the indicator (z-index: -2) and state layer (z-index: -1). */
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: var(--_indicator-height);
+    margin: 0;
+    padding-block: 0;
+    padding-inline: 16px 24px;
+    border: 0;
+    border-radius: var(--md-sys-shape-corner-full);
+    background: none;
+    color: var(--_label-color);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .item[data-selected] {
+    --_icon-color: var(--_active-icon-color);
+    --_label-color: var(--_active-label-color);
+    --_state-layer-color: var(--_active-state-layer-color);
+  }
+
+  /* Engaging an unselected item darkens it; pressing tints it with the indicator colour. */
+  @media (hover: hover) {
+    .item:hover:not([data-selected]) {
+      --_icon-color: var(--_inactive-icon-color-active);
+      --_label-color: var(--_inactive-label-color-active);
+    }
+  }
+
+  .item:focus-visible:not([data-selected]) {
+    --_icon-color: var(--_inactive-icon-color-active);
+    --_label-color: var(--_inactive-label-color-active);
+  }
+
+  .item:active:not([data-selected]) {
+    --_state-layer-color: var(--_inactive-pressed-state-layer-color);
+  }
+
+  .item:focus-visible {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  /* The selected pill fades and widens in on a spring. */
+  .item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    border-radius: inherit;
+    background-color: var(--_indicator-color);
+    opacity: 0;
+    transform: scaleX(0.9);
+    transition:
+      transform var(--md-sys-motion-spring-fast-spatial),
+      opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .item[data-selected]::before {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .icon {
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+    color: var(--_icon-color);
+    font-size: var(--_icon-size);
+    transition: color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentColor;
+  }
+
+  .label {
+    flex: 1;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* A count or other short trailing text. */
+  .trailing {
+    flex: none;
+    color: var(--_trailing-color);
+    font: var(--_trailing-font);
+    letter-spacing: var(--_trailing-font-tracking);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .modal,
+    .modal::backdrop,
+    .item,
+    .item::before,
+    .icon {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .item[data-selected] {
+      border: 2px solid Highlight;
+    }
+  }
+}
