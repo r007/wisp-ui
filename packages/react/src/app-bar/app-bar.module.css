@@ -1,0 +1,138 @@
+/*
+ * A top app bar is a 64px row (navigation, a title for small bars, actions) and, for medium and
+ * large bars, a title block under it that folds away when the bar collapses, as the title moves
+ * up into the row. Colours, sizes and fonts come from app-bar.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    position: relative;
+    box-sizing: border-box;
+    inline-size: 100%;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--_title-color);
+    transition:
+      background-color var(--md-sys-motion-spring-default-effects),
+      box-shadow var(--md-sys-motion-spring-default-effects);
+  }
+
+  .root[data-sticky] {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 1;
+  }
+
+  /* Content has scrolled under the bar: it lifts onto a tinted surface. */
+  .root[data-scrolled] {
+    background-color: var(--_scrolled-color);
+    box-shadow: var(--_scrolled-elevation);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-block-size: var(--_row-height);
+    padding-inline: var(--_leading-space) var(--_trailing-space);
+    gap: var(--_icon-button-space);
+  }
+
+  .navigation,
+  .actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--_icon-button-space);
+  }
+
+  /* The title in the row: always for small bars, and once a medium or large one collapses. */
+  .rowTitle {
+    flex: 1;
+    min-inline-size: 0;
+    padding-inline: 12px;
+    transition: opacity var(--md-sys-motion-spring-default-effects);
+  }
+
+  .root:not([data-variant='small'], [data-collapsed]) .rowTitle {
+    opacity: 0;
+  }
+
+  .title,
+  .subtitle {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .rowTitle .title {
+    color: var(--_title-color);
+    font: var(--_small-title-font);
+    letter-spacing: var(--_small-title-font-tracking);
+  }
+
+  .rowTitle .subtitle {
+    color: var(--_subtitle-color);
+    font: var(--_small-subtitle-font);
+    letter-spacing: var(--_small-subtitle-font-tracking);
+  }
+
+  /* The big title block of a medium or large bar. */
+  .expanded {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows var(--md-sys-motion-spring-default-spatial);
+  }
+
+  /* The grid item that clips: with no height of its own it can shrink to nothing. */
+  .expandedInner {
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .expandedBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    padding-block-end: 12px;
+    padding-inline: 16px;
+    /* The block is what is left of the bar's height once the row is taken out. */
+    block-size: calc(var(--_height) - var(--_row-height));
+  }
+
+  .root[data-subtitle] .expandedBody {
+    block-size: calc(var(--_subtitle-height) - var(--_row-height));
+  }
+
+  .root[data-collapsed] .expanded {
+    grid-template-rows: 0fr;
+  }
+
+  .expandedBody .title {
+    color: var(--_title-color);
+    font: var(--_title-font);
+    letter-spacing: var(--_title-font-tracking);
+  }
+
+  .expandedBody .subtitle {
+    color: var(--_subtitle-color);
+    font: var(--_subtitle-font);
+    letter-spacing: var(--_subtitle-font-tracking);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root,
+    .rowTitle,
+    .expanded {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border-block-end: 1px solid CanvasText;
+    }
+  }
+}

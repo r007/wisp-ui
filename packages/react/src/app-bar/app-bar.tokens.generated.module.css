@@ -1,0 +1,42 @@
+/* TopAppBar token defaults.
+ *
+ * Generated from app-bar.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-app-bar-container-color, var(--md-sys-color-surface));
+    --_container-elevation: var(--md-comp-app-bar-container-elevation, var(--md-sys-elevation-level0));
+    --_container-shape: var(--md-comp-app-bar-container-shape, 0px);
+    --_scrolled-color: var(--md-comp-app-bar-on-scroll-container-color, var(--md-sys-color-surface-container));
+    --_scrolled-elevation: var(--md-comp-app-bar-on-scroll-container-elevation, var(--md-sys-elevation-level2));
+    --_row-height: var(--md-comp-app-bar-small-container-height, 64px);
+    --_leading-space: var(--md-comp-app-bar-leading-space, 4px);
+    --_trailing-space: var(--md-comp-app-bar-trailing-space, 4px);
+    --_icon-button-space: var(--md-comp-app-bar-icon-button-space, 0px);
+    --_title-color: var(--md-comp-app-bar-title-color, var(--md-sys-color-on-surface));
+    --_subtitle-color: var(--md-comp-app-bar-subtitle-color, var(--md-sys-color-on-surface-variant));
+    --_small-title-font: var(--md-comp-app-bar-small-title-font, var(--md-sys-typescale-title-large));
+    --_small-title-font-tracking: var(--md-comp-app-bar-small-title-font-tracking, var(--md-sys-typescale-title-large-tracking));
+    --_small-subtitle-font: var(--md-comp-app-bar-small-subtitle-font, var(--md-sys-typescale-label-medium));
+    --_small-subtitle-font-tracking: var(--md-comp-app-bar-small-subtitle-font-tracking, var(--md-sys-typescale-label-medium-tracking));
+  }
+
+  .medium {
+    --_height: var(--md-comp-app-bar-medium-flexible-container-height, 112px);
+    --_subtitle-height: var(--md-comp-app-bar-medium-flexible-with-subtitle-container-height, 136px);
+    --_title-font: var(--md-comp-app-bar-medium-flexible-title-font, var(--md-sys-typescale-headline-medium));
+    --_title-font-tracking: var(--md-comp-app-bar-medium-flexible-title-font-tracking, var(--md-sys-typescale-headline-medium-tracking));
+    --_subtitle-font: var(--md-comp-app-bar-medium-flexible-subtitle-font, var(--md-sys-typescale-label-large));
+    --_subtitle-font-tracking: var(--md-comp-app-bar-medium-flexible-subtitle-font-tracking, var(--md-sys-typescale-label-large-tracking));
+  }
+
+  .large {
+    --_height: var(--md-comp-app-bar-large-flexible-container-height, 120px);
+    --_subtitle-height: var(--md-comp-app-bar-large-flexible-with-subtitle-container-height, 152px);
+    --_title-font: var(--md-comp-app-bar-large-flexible-title-font, var(--md-sys-typescale-display-small));
+    --_title-font-tracking: var(--md-comp-app-bar-large-flexible-title-font-tracking, var(--md-sys-typescale-display-small-tracking));
+    --_subtitle-font: var(--md-comp-app-bar-large-flexible-subtitle-font, var(--md-sys-typescale-title-medium));
+    --_subtitle-font-tracking: var(--md-comp-app-bar-large-flexible-subtitle-font-tracking, var(--md-sys-typescale-title-medium-tracking));
+  }
+}

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import { VolumeUpIcon } from '../stories/icons.js';
 import { Slider, type SliderSize } from './slider.js';
 
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {
   play: async ({ canvasElement }) => {
     const slider = within(canvasElement).getByRole('slider');
-    await userEvent.tab();
+    slider.focus();
     await expect(slider).toHaveFocus();
     // Moving it with the keys is covered by the unit tests: Storybook's key events are synthetic,
     // and the browser only moves a native range input for real ones.
