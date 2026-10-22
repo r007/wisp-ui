@@ -1,0 +1,45 @@
+/* NavigationRail token defaults.
+ *
+ * Generated from navigation-rail.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-nav-rail-collapsed-container-color, var(--md-sys-color-surface));
+    --_container-shape: var(--md-comp-nav-rail-collapsed-container-shape, 0px);
+    --_collapsed-width: var(--md-comp-nav-rail-collapsed-container-width, 96px);
+    --_narrow-width: var(--md-comp-nav-rail-collapsed-narrow-container-width, 80px);
+    --_expanded-min-width: var(--md-comp-nav-rail-expanded-container-width-minimum, 220px);
+    --_expanded-max-width: var(--md-comp-nav-rail-expanded-container-width-maximum, 360px);
+    --_top-space: var(--md-comp-nav-rail-collapsed-top-space, 44px);
+    --_collapsed-item-space: var(--md-comp-nav-rail-collapsed-item-vertical-space, 4px);
+    --_expanded-item-space: var(--md-comp-nav-rail-item-container-vertical-space, 6px);
+    --_expanded-side-space: var(--md-comp-nav-rail-item-horizontal-full-width-leading-space, 16px);
+  }
+
+  .item {
+    --_icon-size: var(--md-comp-nav-rail-item-icon-size, 24px);
+    --_vertical-label-font: var(--md-comp-nav-rail-item-vertical-label-text-font, var(--md-sys-typescale-label-medium));
+    --_vertical-label-font-tracking: var(--md-comp-nav-rail-item-vertical-label-text-font-tracking, var(--md-sys-typescale-label-medium-tracking));
+    --_horizontal-label-font: var(--md-comp-nav-rail-item-horizontal-label-text-font, var(--md-sys-typescale-label-large));
+    --_horizontal-label-font-tracking: var(--md-comp-nav-rail-item-horizontal-label-text-font-tracking, var(--md-sys-typescale-label-large-tracking));
+    --_indicator-color: var(--md-comp-nav-rail-item-active-indicator-color, var(--md-sys-color-secondary-container));
+    --_active-icon-color: var(--md-comp-nav-rail-item-active-icon-color, var(--md-sys-color-on-secondary-container));
+    --_inactive-icon-color: var(--md-comp-nav-rail-item-inactive-icon-color, var(--md-sys-color-on-surface-variant));
+    --_active-label-color: var(--md-comp-nav-rail-item-active-label-text-color, var(--md-sys-color-secondary));
+    --_inactive-label-color: var(--md-comp-nav-rail-item-inactive-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_active-state-layer-color: var(--md-comp-nav-rail-item-active-hovered-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_inactive-state-layer-color: var(--md-comp-nav-rail-item-inactive-hovered-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --_hover-state-layer-opacity: var(--md-comp-nav-rail-item-active-hovered-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-nav-rail-item-active-focused-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-nav-rail-item-active-pressed-state-layer-opacity, 0.1);
+    --_vertical-height: var(--md-comp-nav-rail-item-container-height, 64px);
+    --_vertical-indicator-width: var(--md-comp-nav-rail-item-vertical-active-indicator-width, 56px);
+    --_vertical-indicator-height: var(--md-comp-nav-rail-item-vertical-active-indicator-height, 32px);
+    --_vertical-icon-label-space: var(--md-comp-nav-rail-item-vertical-icon-label-space, 4px);
+    --_horizontal-indicator-height: var(--md-comp-nav-rail-item-horizontal-active-indicator-height, 56px);
+    --_horizontal-leading-space: var(--md-comp-nav-rail-item-horizontal-full-width-leading-space, 16px);
+    --_horizontal-trailing-space: var(--md-comp-nav-rail-item-horizontal-full-width-trailing-space, 16px);
+    --_horizontal-icon-label-space: var(--md-comp-nav-rail-item-horizontal-icon-label-space, 8px);
+  }
+}
