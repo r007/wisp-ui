@@ -121,7 +121,6 @@ export function NavigationDrawer({
   }
 
   return (
-    // biome-ignore lint/a11y/useKeyWithClickEvents: a scrim click is a pointer shortcut for dismissing; the keyboard equivalent is Escape, handled by onCancel.
     <dialog
       {...modal.props}
       ref={mergedRef as Ref<HTMLDialogElement>}
