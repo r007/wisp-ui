@@ -1,0 +1,412 @@
+/*
+ * A chip is a wrapper that draws the shape, outline and state layer, holding a main
+ * button (or link) and, for input chips, a sibling remove button: buttons cannot nest.
+ * The wrapper reacts to its buttons with `:has()`. Colours, sizes and shapes come from
+ * chip.tokens.generated.module.css.
+ */
+@layer wisp {
+  /*
+   * Custom properties inherit, so a variable this chip leaves unset would pick up the
+   * surrounding card's or dialog's. Neutral defaults at zero specificity: the generated
+   * token classes still win.
+   */
+  :where(.root) {
+    --_container-color: transparent;
+    --_trailing-icon-color: currentcolor;
+    --_pressed-state-layer-color: var(--_state-layer-color);
+  }
+
+  .root {
+    /* Flat and unselected is the default; each state below only overrides what changes. */
+    --_outline-width: var(--_unselected-outline-width);
+    --_outline-color: var(--_unselected-outline-color);
+    --_shadow: inset 0 0 0 var(--_outline-width) var(--_outline-color);
+
+    position: relative;
+    /* Contains the state layer (z-index: -1) behind the label and icons. */
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    max-inline-size: 100%;
+    block-size: var(--_height);
+    border-radius: var(--_unselected-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_shadow);
+    color: var(--_label-color);
+    font: var(--_label-font);
+    letter-spacing: var(--_label-font-tracking);
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-radius var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects),
+      box-shadow var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* Input chips are a little tighter than the others. */
+  .root[data-variant='input'] {
+    --_padding-leading: var(--_input-padding-leading);
+    --_padding-trailing: var(--_input-padding-trailing);
+  }
+
+  /* Selected: a filled container, no outline, fully rounded. */
+  .root[data-selected] {
+    --_outline-width: var(--_selected-outline-width);
+    --_container-color: var(--_selected-container-color);
+
+    border-radius: var(--_selected-shape);
+  }
+
+  /* Elevated swaps the outline for a shadow and a tinted container. */
+  .root[data-elevated] {
+    --_container-color: var(--_elevated-container-color);
+    --_shadow: var(--_elevated-elevation);
+  }
+
+  /* The main button covers the chip, bar the remove button. */
+  .main {
+    position: relative;
+    display: inline-flex;
+    flex: 1 1 auto;
+    align-items: center;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    block-size: 100%;
+    margin: 0;
+    padding-block: 0;
+    padding-inline: var(--_padding-leading) var(--_padding-trailing);
+    gap: var(--_gap);
+    border: 0;
+    border-radius: inherit;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: padding-inline-start var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  /* Extends the hit area to the 48px minimum touch target. */
+  .main::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    inset-block: min(0px, calc((var(--_height) - 48px) / 2));
+  }
+
+  .root[data-leading='icon'] .main {
+    padding-inline-start: var(--_with-leading-icon-padding-leading);
+  }
+
+  .root[data-leading='avatar'] .main {
+    padding-inline-start: var(--_with-avatar-padding-leading);
+  }
+
+  .root[data-leading='check'] .main {
+    padding-inline-start: var(--_with-leading-icon-padding-leading);
+  }
+
+  .root[data-trailing] .main {
+    padding-inline-end: var(--_with-trailing-icon-padding-trailing);
+  }
+
+  /* Next to a remove button the label's end padding is just the gap to the icon. */
+  .root[data-removable] .main {
+    padding-inline-end: max(0px, calc(var(--_gap) - 3px));
+  }
+
+  .label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Slots. The leading slot holds an icon, an avatar, or a filter chip's check. */
+  .leading,
+  .trailing {
+    display: grid;
+    flex: none;
+    place-items: center;
+    inline-size: var(--_icon-size);
+    block-size: var(--_icon-size);
+  }
+
+  .leading {
+    color: var(--_icon-color);
+    transition:
+      inline-size var(--md-sys-motion-spring-fast-spatial),
+      margin-inline-end var(--md-sys-motion-spring-fast-spatial),
+      opacity var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .trailing {
+    color: var(--_trailing-icon-color);
+  }
+
+  .icon,
+  .trailing {
+    display: grid;
+    place-items: center;
+  }
+
+  .icon {
+    grid-area: 1 / 1;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .icon > svg,
+  .trailing > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  .root[data-leading='avatar'] .leading {
+    inline-size: var(--_avatar-size);
+    block-size: var(--_avatar-size);
+    overflow: hidden;
+    border-radius: var(--_avatar-shape);
+  }
+
+  .icon > img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  /* A filter chip's check takes the leading slot when selected, and folds away otherwise. */
+  .root[data-variant='filter']:not([data-leading]) .leading {
+    inline-size: 0;
+    margin-inline-end: calc(-1 * var(--_gap));
+    opacity: 0;
+  }
+
+  .tick,
+  .icon {
+    transition:
+      opacity var(--md-sys-motion-spring-fast-effects),
+      stroke-dashoffset var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .tick {
+    grid-area: 1 / 1;
+    inline-size: 100%;
+    block-size: 100%;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2px;
+    stroke-linecap: square;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+
+  .root[data-selected][data-variant='filter'] .tick {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  /* A selected filter chip shows its check in place of any icon. */
+  .root[data-selected][data-variant='filter'] .icon {
+    opacity: 0;
+  }
+
+  /* The remove button: a small circle with its own state layer, as a sibling of the main one. */
+  .remove {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    flex: none;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: calc(var(--_icon-size) + 6px);
+    block-size: calc(var(--_icon-size) + 6px);
+    margin: 0;
+    margin-inline-end: calc(var(--_with-trailing-icon-padding-trailing) - 3px);
+    padding: 3px;
+    border: 0;
+    border-radius: var(--md-sys-shape-corner-full);
+    background: none;
+    color: var(--_trailing-icon-color);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .remove::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+  }
+
+  .remove > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  /* States, read from the main button. Hover and press are behind a media query so touch
+     devices do not keep a "stuck" hover. */
+  @media (hover: hover) {
+    .main:enabled:hover ~ [data-wisp-state-layer]::before,
+    .main[href]:hover ~ [data-wisp-state-layer]::before {
+      opacity: var(--_hover-state-layer-opacity);
+    }
+
+    .root[data-elevated]:has(> .main:enabled:hover, > .main[href]:hover) {
+      --_shadow: var(--_elevated-hover-elevation);
+    }
+
+    .root[data-variant='filter'][data-selected]:not([data-elevated]):has(> .main:enabled:hover) {
+      --_shadow: var(--_flat-selected-hover-elevation);
+    }
+
+    .root:has(> .main:enabled:hover) .leading {
+      color: var(--_icon-color-active);
+    }
+  }
+
+  .main:focus-visible ~ [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  /* The ring surrounds the whole chip, so the inner button must not draw its own. */
+  .main:focus-visible {
+    outline: none;
+  }
+
+  .root:has(> .main:focus-visible) {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  .root[data-elevated]:has(> .main:focus-visible) {
+    --_shadow: var(--_elevated-focus-elevation);
+  }
+
+  .root:not([data-selected], [data-elevated]):has(> .main:focus-visible) {
+    --_outline-color: var(--_focus-outline-color);
+  }
+
+  .root:has(> .main:focus-visible) .leading {
+    color: var(--_icon-color-active);
+  }
+
+  /* While a pointer press ripples, the layer takes the pressed colour. */
+  .root [data-wisp-state-layer][data-pressed] {
+    --_state-layer-color: var(--_pressed-state-layer-color);
+  }
+
+  .root[data-elevated]:has(> .main:enabled:active, > .main[href]:active) {
+    --_shadow: var(--_elevated-pressed-elevation);
+  }
+
+  /* Pressing squares the corners a little, whatever the selection. */
+  .root:has(> .main:enabled:active, > .main[href]:active) {
+    border-radius: var(--_pressed-shape);
+  }
+
+  .root:has(> .main:enabled:active, > .main[href]:active) .leading {
+    color: var(--_icon-color-active);
+  }
+
+  .remove:focus-visible {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: 0;
+  }
+
+  /* Disabled: Material fades the container, label and icons to fixed opacities. */
+  .root[data-disabled] {
+    --_container-color: transparent;
+    --_outline-color: color-mix(
+      in srgb,
+      var(--_disabled-outline-color) calc(var(--_disabled-outline-opacity) * 100%),
+      transparent
+    );
+
+    color: color-mix(
+      in srgb,
+      var(--_disabled-label-color) calc(var(--_disabled-label-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-disabled][data-selected] {
+    --_container-color: color-mix(
+      in srgb,
+      var(--_disabled-selected-container-color)
+        calc(var(--_disabled-selected-container-opacity) * 100%),
+      transparent
+    );
+    --_outline-width: 0px;
+  }
+
+  .root[data-disabled][data-elevated] {
+    --_container-color: color-mix(
+      in srgb,
+      var(--_disabled-elevated-container-color)
+        calc(var(--_disabled-elevated-container-opacity) * 100%),
+      transparent
+    );
+    --_shadow: var(--_disabled-elevated-elevation);
+  }
+
+  .root[data-disabled] .main,
+  .root[data-disabled] .remove {
+    cursor: default;
+  }
+
+  .root[data-disabled] .leading,
+  .root[data-disabled] .trailing,
+  .root[data-disabled] .remove {
+    color: color-mix(
+      in srgb,
+      var(--_disabled-icon-color) calc(var(--_disabled-icon-opacity) * 100%),
+      transparent
+    );
+  }
+
+  .root[data-disabled] [data-wisp-state-layer],
+  .main[aria-disabled='true'] ~ [data-wisp-state-layer] {
+    display: none;
+  }
+
+  .root[data-disabled][data-leading='avatar'] .leading {
+    opacity: var(--_disabled-avatar-opacity);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root,
+    .main,
+    .leading,
+    .tick,
+    .icon {
+      transition: none;
+    }
+  }
+
+  /* Forced colours drop backgrounds and shadows, so draw the boundary. */
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid ButtonBorder;
+    }
+
+    .root[data-selected] {
+      border-color: Highlight;
+      background-color: Highlight;
+      color: HighlightText;
+    }
+
+    .root[data-disabled] {
+      border-color: GrayText;
+      color: GrayText;
+    }
+  }
+}
