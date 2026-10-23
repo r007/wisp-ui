@@ -215,10 +215,12 @@ test.describe('primary', () => {
   test('slides the indicator to the selected tab', async () => {
     await render(<Sample />);
     await userEvent.click(tab('Hotels'));
+    // Within a pixel, not equal once rounded: two positions a fraction apart can round either way
+    // across a .5, and where that falls depends on how wide the page the test runs in is.
     await expect
-      .poll(() => Math.round(rect(indicator()).left))
-      .toBe(Math.round(rect(content('Hotels')).left));
-    expect(Math.round(rect(indicator()).width)).toBe(Math.round(rect(content('Hotels')).width));
+      .poll(() => Math.abs(rect(indicator()).left - rect(content('Hotels')).left))
+      .toBeLessThan(1);
+    expect(Math.abs(rect(indicator()).width - rect(content('Hotels')).width)).toBeLessThan(1);
   });
 
   test('stacks an icon above the label in a 64px tab', async () => {

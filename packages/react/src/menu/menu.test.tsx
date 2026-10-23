@@ -445,7 +445,7 @@ test.describe('groups', () => {
   test('line up with the trigger, in spite of the gutter that holds their shadows', async () => {
     await render(<Grouped />);
     await ready();
-    expect(Math.round(rect(group('Clipboard')).left)).toBe(Math.round(rect(trigger()).left));
+    expect(Math.abs(rect(group('Clipboard')).left - rect(trigger()).left)).toBeLessThan(1);
     expect(Math.round(rect(group('Clipboard')).top - rect(trigger()).bottom)).toBe(2);
   });
 
