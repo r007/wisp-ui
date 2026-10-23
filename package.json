@@ -1,7 +1,7 @@
 {
   "name": "wisp-ui-monorepo",
   "private": true,
-  "description": "Wisp \u2014 Material Design 3 Expressive for the modern web. Lightweight React components, zero-runtime CSS, no shadow DOM.",
+  "description": "Wisp: expressive React components with plain CSS. Shapes that morph, springs that feel alive, dynamic colour and dark mode. Zero-runtime, no shadow DOM.",
   "type": "module",
   "packageManager": "pnpm@12.15.0",
   "engines": {
@@ -12,7 +12,7 @@
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
     "test:dark": "pnpm --filter @wisp-ui/react test:dark",
-    "lint": "biome check . && stylelint \"packages/**/*.css\" \"tools/**/*.css\"",
+    "lint": "biome check . && stylelint \"packages/**/*.css\" \"apps/**/*.css\" \"tools/**/*.css\"",
     "format": "biome check --write .",
     "codegen": "node tools/codegen/src/cli.ts",
     "storybook": "pnpm --filter @wisp-ui/react storybook",

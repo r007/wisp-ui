@@ -60,7 +60,7 @@
   },
   "overrides": [
     {
-      "includes": ["packages/*/.storybook/**"],
+      "includes": ["packages/*/.storybook/**", "apps/docs/src/main.tsx"],
       "linter": { "rules": { "correctness": { "useImportExtensions": "off" } } }
     },
     {

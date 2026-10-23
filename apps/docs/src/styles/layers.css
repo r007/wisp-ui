@@ -1,0 +1,6 @@
+/*
+ * The site's element-level styles (links, paragraphs, lists) go in a layer below the library's, so
+ * a Wisp component, which sets its own colours and spacing in `@layer wisp`, is never restyled by
+ * the page around it. This must come before the library's stylesheet.
+ */
+@layer docs-base, wisp;

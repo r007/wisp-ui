@@ -12,26 +12,37 @@ The repository starts **private**. Before making it public:
   GitHub's no-reply address instead, set it and rewrite history _before_ going public.
 - Then: `gh repo edit r007/wisp-ui --visibility public --accept-visibility-change-consequences`
 
-## Publish Storybook (GitHub Pages)
+## Documentation site (GitHub Pages)
 
+The site is `apps/docs` (Vite and React, built with the library's own components), with
+Storybook under `/storybook/`. The _Documentation_ workflow builds both and deploys them
+on every push to `main`, and from Actions → Documentation → Run workflow.
+
+One-time setup:
 1. Pages needs a public repository (or a plan with private Pages).
-2. Settings → Pages → Source: **GitHub Actions**.
-3. Run the _Storybook_ workflow once (Actions → Storybook → Run workflow).
-4. To deploy on every push to `main`, add the `push` trigger shown in
-   `.github/workflows/storybook.yml`.
+2. Settings → Pages → Source: **GitHub Actions**. (`gh api -X POST repos/<owner>/wisp-ui/pages -f build_type=workflow` does the same.)
+
+The site is served from `https://<owner>.github.io/wisp-ui/`. For another base path or a
+custom domain, set `DOCS_BASE` (and `DOCS_SITE`, for canonical links) in the workflow.
+Locally: `pnpm --filter @wisp-ui/docs dev`. The component pages are generated from the
+components' own doc comments and stories (`apps/docs/scripts/extract.ts`), so keep a
+`/** … */` comment, with a ```tsx example, on every exported component.
 
 ## Release to npm
 
 1. Create the `wisp-ui` organisation on npm (the packages are `@wisp-ui/react` and
    `@wisp-ui/tokens`). If the scope is unavailable, rename the packages; the name
    appears in `package.json` files, docs and the changeset config.
-2. Add an npm automation token as the repository secret `NPM_TOKEN`.
-3. Settings → Actions → General → **Allow GitHub Actions to create and approve pull
-   requests** (the release workflow opens a "Version packages" PR).
-4. Add the `push` trigger shown in `.github/workflows/release.yml`.
-
-Day to day: contributors add a changeset (`pnpm changeset`); the workflow keeps a
-"Version packages" PR up to date; merging it publishes.
+2. Version: `pnpm changeset version` (consumes the changesets, bumps the packages and
+   writes their changelogs), review, commit and tag (`git tag v0.1.0`).
+3. Publish: `pnpm release` builds and runs `changeset publish`. Publishing needs an npm
+   login, or a token that may publish (set `NODE_AUTH_TOKEN`).
+4. Day to day, the release workflow can do 2 and 3 from CI instead: add an npm automation
+   token as the repository secret `NPM_TOKEN`; Settings → Actions → General → **Allow
+   GitHub Actions to create and approve pull requests** (it opens a "Version packages" PR);
+   then add the `push` trigger shown in `.github/workflows/release.yml`. Contributors add a
+   changeset (`pnpm changeset`) with their change; merging the "Version packages" PR
+   publishes.
 
 ## Dependabot
 

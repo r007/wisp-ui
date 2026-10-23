@@ -1,0 +1,60 @@
+/* Code: highlighted at build time in both colour themes, shown in the page's. */
+
+.codeblock {
+  position: relative;
+  margin-block: 1.2em;
+}
+
+.codeblock pre,
+.shiki {
+  margin: 0;
+  padding: 16px 20px;
+  overflow-x: auto;
+  border: 1px solid var(--site-hairline);
+  border-radius: var(--md-sys-shape-corner-large);
+  background-color: var(--md-sys-color-surface-container-low);
+  font: 0.8125rem / 1.65 var(--site-mono);
+  tab-size: 2;
+  scrollbar-width: thin;
+}
+
+.shiki,
+.shiki span {
+  color: light-dark(var(--shiki-light), var(--shiki-dark));
+  font-style: light-dark(
+    var(--shiki-light-font-style, normal),
+    var(--shiki-dark-font-style, normal)
+  );
+  font-weight: light-dark(var(--shiki-light-font-weight, 400), var(--shiki-dark-font-weight, 400));
+}
+
+.shiki code {
+  display: block;
+  inline-size: max-content;
+  min-inline-size: 100%;
+  font: inherit;
+}
+
+.copy-button {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
+  opacity: 0;
+  transition: opacity var(--md-sys-motion-spring-fast-effects);
+}
+
+.codeblock:hover .copy-button,
+.codeblock:focus-within .copy-button,
+.copy-button[data-copied] {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .copy-button {
+    opacity: 1;
+  }
+}
+
+.codeblock[data-language='bash'] .shiki {
+  padding-inline-end: 56px;
+}

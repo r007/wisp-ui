@@ -1,0 +1,184 @@
+/* Running text: the guides, and the text around the examples. */
+@layer docs-base {
+  .prose > :first-child {
+    margin-block-start: 0;
+  }
+
+  .page-title {
+    margin: 0 0 8px;
+    font: var(--md-sys-typescale-display-small);
+    letter-spacing: var(--md-sys-typescale-display-small-tracking);
+  }
+
+  .page-lede {
+    margin: 0 0 24px;
+    color: var(--md-sys-color-on-surface-variant);
+    font: var(--md-sys-typescale-title-large);
+    letter-spacing: var(--md-sys-typescale-title-large-tracking);
+    text-wrap: balance;
+  }
+
+  .prose h1 {
+    margin: 0 0 16px;
+    font: var(--md-sys-typescale-display-small);
+    letter-spacing: var(--md-sys-typescale-display-small-tracking);
+  }
+
+  .prose h2 {
+    margin: 2.2em 0 0.6em;
+    padding-block-start: 1em;
+    border-block-start: 1px solid var(--site-hairline);
+    font: var(--md-sys-typescale-headline-medium);
+    letter-spacing: var(--md-sys-typescale-headline-medium-tracking);
+  }
+
+  .prose h2:first-child {
+    margin-block-start: 0;
+    padding-block-start: 0;
+    border-block-start: 0;
+  }
+
+  .prose h3 {
+    margin: 2em 0 0.5em;
+    font: var(--md-sys-typescale-title-large);
+    letter-spacing: var(--md-sys-typescale-title-large-tracking);
+  }
+
+  .prose h4 {
+    margin: 1.6em 0 0.4em;
+    font: var(--md-sys-typescale-title-medium);
+  }
+
+  .prose :is(h2, h3) .anchor {
+    margin-inline-start: 0.4em;
+    color: var(--md-sys-color-outline);
+    font-weight: 400;
+    text-decoration: none;
+    opacity: 0;
+  }
+
+  .prose :is(h2, h3):hover .anchor,
+  .prose .anchor:focus-visible {
+    opacity: 1;
+  }
+
+  .prose p,
+  .prose ul,
+  .prose ol {
+    margin-block: 0 1.1em;
+    line-height: 1.7;
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-inline-start: 1.4em;
+  }
+
+  .prose li + li {
+    margin-block-start: 0.35em;
+  }
+
+  .prose li > p {
+    margin-block-end: 0.5em;
+  }
+
+  .prose hr {
+    margin-block: 2.5em;
+    border: 0;
+    border-block-start: 1px solid var(--site-hairline);
+  }
+
+  .prose blockquote {
+    margin: 1.4em 0;
+    padding: 0.2em 1.2em;
+    border-inline-start: 3px solid var(--md-sys-color-outline-variant);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  :is(.prose, .props-table, .demo-description, .page-lede) :not(pre) > code:not(.demo *) {
+    padding: 0.12em 0.4em;
+    border-radius: 6px;
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    font: 0.88em / 1.4 var(--site-mono);
+    overflow-wrap: anywhere;
+  }
+
+  .prose .table-scroll {
+    margin-block: 1.4em;
+    overflow-x: auto;
+    border: 1px solid var(--site-hairline);
+    border-radius: var(--md-sys-shape-corner-medium);
+  }
+
+  .prose .table-scroll table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font: var(--md-sys-typescale-body-medium);
+  }
+
+  .prose .table-scroll :is(th, td) {
+    padding: 10px 14px;
+    border-block-end: 1px solid var(--site-hairline);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .prose .table-scroll th {
+    background-color: var(--md-sys-color-surface-container-low);
+    font: var(--md-sys-typescale-label-large);
+  }
+
+  .prose .table-scroll tr:last-child td {
+    border-block-end: 0;
+  }
+
+  .callout {
+    margin: 1.6em 0;
+    padding: 14px 18px;
+    border-radius: var(--md-sys-shape-corner-large);
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-primary-container) 55%,
+      var(--md-sys-color-surface)
+    );
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .callout > p {
+    margin-block: 0.4em 0;
+  }
+
+  .callout > p.callout-title {
+    margin: 0;
+    color: var(--md-sys-color-primary);
+    font: var(--md-sys-typescale-label-large);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .callout[data-kind='warning'],
+  .callout[data-kind='important'] {
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-error-container) 60%,
+      var(--md-sys-color-surface)
+    );
+  }
+
+  .callout[data-kind='warning'] .callout-title,
+  .callout[data-kind='important'] .callout-title {
+    color: var(--md-sys-color-error);
+  }
+
+  .page-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-block-start: 48px;
+    padding-block-start: 20px;
+    border-block-start: 1px solid var(--site-hairline);
+    color: var(--md-sys-color-on-surface-variant);
+    font: var(--md-sys-typescale-body-medium);
+  }
+}

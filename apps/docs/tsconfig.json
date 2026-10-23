@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["vite/client", "node"],
+    // The library from source, so neither typechecking nor the dev server needs a build first.
+    "paths": {
+      "@wisp-ui/react": ["../../packages/react/src/index.ts"],
+      "@wisp-ui/react/*": ["../../packages/react/src/*/index.ts"],
+      "@wisp-ui/tokens": ["../../packages/tokens/src/index.ts"]
+    }
+  },
+  "include": ["src", "scripts", "vite.config.ts"]
+}

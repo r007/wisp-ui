@@ -1,0 +1,51 @@
+name: Documentation
+
+# Publishes the documentation site, with Storybook under /storybook/, to GitHub Pages:
+# https://r007.github.io/wisp-ui/. It runs on every push to main, and by hand.
+#
+# Needs Settings → Pages → Source: "GitHub Actions" (see docs/maintaining.md).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build the documentation site
+        run: pnpm --filter @wisp-ui/docs build
+
+      - name: Build Storybook, into the site
+        run: |
+          pnpm build-storybook
+          mkdir -p apps/docs/dist/storybook
+          cp -R packages/react/storybook-static/. apps/docs/dist/storybook/
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: apps/docs/dist
+      - id: deployment
+        uses: actions/deploy-pages@v5

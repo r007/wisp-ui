@@ -53,6 +53,9 @@ jobs:
       - name: Package metadata (publint, Are The Types Wrong?)
         run: pnpm check:packages
 
+      - name: Build the documentation site
+        run: pnpm --filter @wisp-ui/docs build
+
       - name: Install Chromium
         run: pnpm --filter @wisp-ui/react exec playwright install --with-deps chromium
 
