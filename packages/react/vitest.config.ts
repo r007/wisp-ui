@@ -10,11 +10,16 @@ type Engine = 'chromium' | 'firefox' | 'webkit';
 // same suite on more engines (browsers come from `playwright install`).
 const engines = (process.env.WISP_BROWSERS ?? 'chromium').split(',').map((name) => name.trim());
 
-// Headless Firefox, with several browsers and files running at once, sometimes starves
-// `requestAnimationFrame` in a background page, so Playwright's "stable" check on a click times
-// out after 15 s. A test that fails for that reason passes when run again; one that is wrong
-// fails twice. CI runs Chromium only and keeps no retries.
-const retry = engines.some((name) => name !== 'chromium') ? 1 : 0;
+// Headless Firefox (and WebKit), with several browsers and files running at once, sometimes
+// starves `requestAnimationFrame` and paints in a background page, so a spring has not finished
+// when `expect.poll` gives up after its 1 s default, and Playwright's "stable" check on a click can
+// time out after 15 s. A test that fails for that reason passes when run again or given longer;
+// one that is wrong fails every time. So a run that includes another engine allows `expect.poll`
+// five seconds (it returns as soon as the condition holds, so passing tests cost nothing) and
+// retries a failed test twice. CI runs Chromium only, with the default timeout and no retries.
+const multiEngine = engines.some((name) => name !== 'chromium');
+const retry = multiEngine ? 2 : 0;
+const pollTimeout = multiEngine ? 5000 : 1000;
 
 // A factory, not a shared object: Vitest names browser instances by mutating them.
 const browser = () => ({
@@ -32,6 +37,7 @@ export default mergeConfig(
     resolve: { alias: workspaceAliases },
     test: {
       retry,
+      expect: { poll: { timeout: pollTimeout } },
       projects: [
         {
           extends: true,

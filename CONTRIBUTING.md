@@ -31,8 +31,8 @@ pnpm check:packages
 ```
 
 The tests run in Chromium. If you touched an overlay, animation or anything layout-sensitive,
-run them in Firefox too (`playwright install firefox`, then
-`WISP_BROWSERS=chromium,firefox pnpm test`); see [Cross-browser testing](docs/porting-guide.md#cross-browser-testing).
+run them in Firefox and WebKit too (`playwright install firefox webkit`, then
+`WISP_BROWSERS=chromium,firefox,webkit pnpm test`); see [Cross-browser testing](docs/porting-guide.md#cross-browser-testing).
 
 CI runs the same. Also:
 - **Look at your component** in Storybook: light and dark, a non-baseline seed

@@ -177,17 +177,20 @@ Material spec and Flutter's rendering.
 
 ## Cross-browser testing
 
-The suite runs in Chromium by default. Run it on more engines by naming them:
+The suite runs in Chromium by default. Run it on all three engines by naming them:
 
 ```bash
 pnpm --filter @wisp-ui/react exec playwright install firefox webkit   # once
-WISP_BROWSERS=chromium,firefox pnpm test
-WISP_BROWSERS=firefox pnpm --filter @wisp-ui/react exec vitest run src/menu
+WISP_BROWSERS=chromium,firefox,webkit pnpm test
+WISP_BROWSERS=webkit pnpm --filter @wisp-ui/react exec vitest run src/menu
 ```
 
 `WISP_BROWSERS` takes `chromium`, `firefox` and `webkit`, comma separated, and applies to
 both the unit and the Storybook (axe) projects. WebKit on Linux also needs system
-libraries (`sudo pnpm --filter @wisp-ui/react exec playwright install-deps webkit`).
+libraries (`sudo pnpm --filter @wisp-ui/react exec playwright install-deps webkit`; on Ubuntu
+the two that are usually missing are `libmanette-0.2-0` and `libbacktrace0`). Run a component
+on all three before committing it: the engines disagree about small things (below), and the
+disagreement is usually a real bug in one of them for a user.
 
 Things Firefox taught us, which apply to every component:
 - **Overlays must not rely on `transition-behavior: allow-discrete` for their exit.** Firefox
@@ -202,14 +205,30 @@ Things Firefox taught us, which apply to every component:
 - Firefox supports popover, CSS anchor positioning, `@starting-style`, `:has()` and
   `color-mix()`, but not `interpolate-size`, `corner-shape`, scroll-driven animations or
   interest invokers. Use those only as enhancements.
-- A multi-engine run (`WISP_BROWSERS` with anything but Chromium) retries a failed test once,
-  because a busy headless Firefox sometimes starves `requestAnimationFrame` and a click's
-  "stable" check times out after 15 s. A wrong test fails both times. CI is Chromium only,
-  with no retries.
+- A multi-engine run (`WISP_BROWSERS` with anything but Chromium) gives `expect.poll` five
+  seconds instead of one and retries a failed test twice, because a busy headless Firefox
+  sometimes starves `requestAnimationFrame` (a spring has not finished when a poll gives up) or
+  drops a click altogether. A wrong test fails every time. Even so, about one full three-engine
+  run in six fails a test that passes on its own; run that file alone before suspecting the
+  change. CI is Chromium only, with the defaults and no retries.
 - Under a parallel run Firefox may not paint frames for a background page, so a fade-in
   can still be at opacity 0 when a one-second wait expires. Give `waitFor` in stories a
   generous timeout, and never assert in a story's `play` function on something that is
   still animating when axe runs.
+- **WebKit scrolls a newly focused element into view after the `focus` event**, Chromium before
+  it. A scroll you start from a focus handler is then cancelled by WebKit's own. Start it a task
+  later (`setTimeout(…, 0)`), as `Carousel` does.
+- **An `<svg>` that has only a `viewBox` is 0 wide in WebKit** when its size is left to the
+  box it stretches to (Chromium and Firefox use the aspect ratio). Give every icon an explicit
+  `inline-size` and `block-size`, and `fill: currentColor`, on the svg itself: a nested glyph
+  gets neither from the icon slot, which styles only its direct child. (Skipping `fill` leaves a
+  black glyph on every variant, in every browser.)
+- A React `onPointerMove` renders in a scheduled task rather than synchronously as a press
+  does, which Firefox and WebKit may run after a test's `setTimeout(0)`. Read what a synthetic
+  move changed with `expect.poll`.
+- **Firefox puts a scroll container in the tab order even when it holds focusable items**, as
+  one more stop before them; Chromium goes straight to the items. A scrolling region whose
+  items are focusable should set `tabindex="-1"` on the container, as `Carousel` does.
 - The pointer stays where the last test left it. `test-setup.ts` parks it in a corner after
   any test that moved it; a test that needs hover does it itself.
 

@@ -97,6 +97,7 @@ grouped menus.
 ## Browser support
 
 The components rely on modern CSS (`@layer`, `:has()`, `color-mix()`, `@starting-style`,
-anchor positioning, `popover`). The suite runs in Chromium in CI, and in **Firefox** on
-request (`WISP_BROWSERS=chromium,firefox pnpm test`). See "Cross-browser testing" in the
+anchor positioning, `popover`). The suite runs in Chromium in CI, and in **Firefox** and
+**WebKit** (Safari's engine) on request (`WISP_BROWSERS=chromium,firefox,webkit pnpm test`); all
+three are green. See "Cross-browser testing" in the
 [porting guide](porting-guide.md).
