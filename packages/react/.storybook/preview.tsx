@@ -4,7 +4,7 @@ import '@fontsource/roboto/700.css';
 import '@wisp-ui/tokens/theme.css';
 import './canvas.css';
 import type { Decorator, Preview } from '@storybook/react-vite';
-import { applyTheme } from '@wisp-ui/tokens';
+import { applyColorScheme, applyTheme, type ColorScheme } from '@wisp-ui/tokens';
 import { useEffect } from 'react';
 
 const SEEDS = {
@@ -20,8 +20,7 @@ const withTheme: Decorator = (Story, { globals }) => {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.colorScheme =
-      colorScheme === 'system' ? 'light dark' : (colorScheme ?? 'light dark');
+    applyColorScheme((colorScheme ?? 'system') as ColorScheme, root);
     root.dataset.wispMotion = motion ?? 'expressive';
     if (contrast && contrast !== 'standard') root.dataset.wispContrast = contrast;
     else delete root.dataset.wispContrast;
@@ -45,7 +44,8 @@ const toolbar = (title: string, icon: string, items: Record<string, string>) => 
 const preview: Preview = {
   decorators: [withTheme],
   initialGlobals: {
-    colorScheme: 'light',
+    // `VITE_WISP_SCHEME=dark pnpm test:dark` runs every story's checks in the dark scheme.
+    colorScheme: import.meta.env.VITE_WISP_SCHEME === 'dark' ? 'dark' : 'light',
     seed: 'baseline',
     motion: 'expressive',
     contrast: 'standard',

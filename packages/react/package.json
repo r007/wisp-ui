@@ -52,6 +52,7 @@
     "check:treeshake": "node scripts/check-treeshake.ts",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:dark": "VITE_WISP_SCHEME=dark vitest run --project stories",
     "check:types": "node scripts/check-consumer-types.ts"
   },
   "dependencies": {

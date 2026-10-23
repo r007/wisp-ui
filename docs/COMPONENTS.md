@@ -67,17 +67,18 @@ candidates are anything Flutter has that Material publishes no tokens for.
 
 Built and reused:
 
-| Piece                               | Used by                          | Notes                                                                                                 |
-| ----------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `usePressable`, state layer, ripple | every pressable control          | Button-or-link semantics, disabled handling, toggle state, press ripple                               |
-| `useModalDialog`                    | Dialog, NavigationDrawer         | Native `<dialog>` with an exit animation in every browser (`data-closing`), scrim and Escape handling |
-| `useMenuNavigation`                 | Menu, FabMenu                    | The menu button keyboard pattern: arrows, Home/End, typeahead, Tab closes, choosing closes            |
-| `useWheelScroll`                    | Tabs                             | A vertical mouse wheel scrolls a row that only scrolls sideways; the page scrolls at the ends         |
-| `useMediaQuery`                     | TimePicker                       | Whether a media query matches, for a layout a container cannot decide                                 |
-| `usePopover`                        | Menu, Tooltip, Snackbar, FabMenu | Native manual popover placed by CSS anchor positioning; script-driven dismissal and exit animation    |
-| The list-item contract              | List, Menu                       | One set of private variables an item reads; a container supplies them from its own tokens             |
-| `ButtonGroupContext`                | ButtonGroup, SplitButton         | Sizes the Buttons inside and tells a connected group's buttons to draw shared corners                 |
-| Snackbar queue                      | Snackbar                         | `SnackbarProvider` and `useSnackbar`                                                                  |
+| Piece                                | Used by                          | Notes                                                                                                                       |
+| ------------------------------------ | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `usePressable`, state layer, ripple  | every pressable control          | Button-or-link semantics, disabled handling, toggle state, press ripple                                                     |
+| `useModalDialog`                     | Dialog, NavigationDrawer         | Native `<dialog>` with an exit animation in every browser (`data-closing`), scrim and Escape handling                       |
+| `useMenuNavigation`                  | Menu, FabMenu                    | The menu button keyboard pattern: arrows, Home/End, typeahead, Tab closes, choosing closes                                  |
+| `useWheelScroll`                     | Tabs                             | A vertical mouse wheel scrolls a row that only scrolls sideways; the page scrolls at the ends                               |
+| `useMediaQuery`                      | TimePicker                       | Whether a media query matches, for a layout a container cannot decide                                                       |
+| `usePopover`                         | Menu, Tooltip, Snackbar, FabMenu | Native manual popover placed by CSS anchor positioning; script-driven dismissal and exit animation                          |
+| The list-item contract               | List, Menu                       | One set of private variables an item reads; a container supplies them from its own tokens                                   |
+| `ButtonGroupContext`                 | ButtonGroup, SplitButton         | Sizes the Buttons inside and tells a connected group's buttons to draw shared corners                                       |
+| Snackbar queue                       | Snackbar                         | `SnackbarProvider` and `useSnackbar`                                                                                        |
+| `useColorScheme`, `applyColorScheme` | every component                  | Light, dark or system for a page: `color-scheme` on `<html>`, remembered, applied before first paint by `colorSchemeScript` |
 
 Still to build:
 

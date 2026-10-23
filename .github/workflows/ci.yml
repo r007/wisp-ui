@@ -58,3 +58,7 @@ jobs:
 
       - name: Test
         run: pnpm test
+
+      # Every story's accessibility checks (axe, with colour contrast), again in the dark scheme.
+      - name: Test stories in dark mode
+        run: pnpm test:dark
