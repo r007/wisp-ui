@@ -33,6 +33,8 @@ const CSS_GZIP_BUDGET_KB = 4;
 const COMPOSED_OF: Record<string, readonly string[]> = {
   'fab-menu': ['fab'],
   search: ['search-bar', 'icon-button'],
+  // A TextField that opens a menu's popup.
+  select: ['text-field', 'menu'],
   'split-button': ['button', 'menu'],
   // The month arrows are IconButtons. (The dialog's Button and TextField are in its own module,
   // which the picker does not import.)

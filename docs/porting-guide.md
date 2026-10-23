@@ -151,6 +151,9 @@ Pitfalls found the hard way:
   selectors such as `span > span > span` match the state layer first.
 - Springs animate colour too: a computed colour read right after a re-render is
   still the old one. Use `expect.poll`.
+- **Render once per test.** Calling `unmount()` and then `render()` again in the same test leaves
+  the harness with an empty page, and every test after it in the file fails with "cannot find
+  element" (or, for a dialog, finds a stale `<dialog>` that is not open). Split it into two tests.
 - A real `<a href>` navigates the test page when clicked; `preventDefault()` in the
   handler under test.
 - Storybook's `userEvent` fires _synthetic_ events: they do not trigger native

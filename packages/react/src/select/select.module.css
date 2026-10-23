@@ -1,0 +1,82 @@
+/*
+ * A select is a read-only TextField that opens a listbox. The field's visual box
+ * (`[data-slot='field']`) is what the list is anchored to, and the list is as wide as it. The
+ * list is a menu's popup (menu.module.css) and its options are a menu's items (list-item contract),
+ * except that the focus never leaves the field, so the option that has it is marked `data-active`
+ * and drawn as a focused item is. Colours and type come from the text field's and the menu's tokens.
+ */
+@layer wisp {
+  .root {
+    --_anchor: none;
+
+    position: relative;
+    display: block;
+    min-inline-size: 0;
+  }
+
+  .root [data-slot='field'] {
+    anchor-name: var(--_anchor);
+  }
+
+  /* The text is chosen from a list, not typed: no caret, and a pointer over the whole field. */
+  .root input {
+    cursor: pointer;
+    caret-color: transparent;
+    text-overflow: ellipsis;
+  }
+
+  .root[data-disabled] input {
+    cursor: default;
+  }
+
+  .arrow {
+    display: flex;
+    inline-size: 24px;
+    block-size: 24px;
+    transition: rotate var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .root[data-open] .arrow {
+    rotate: 180deg;
+  }
+
+  .arrow > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  /* The list is as wide as the field, and may be wider for its options. */
+  .panel {
+    position-anchor: var(--_anchor);
+    min-inline-size: 112px;
+    max-inline-size: none;
+    max-block-size: min(320px, calc(100dvh - 16px));
+  }
+
+  @supports (min-inline-size: anchor-size(width)) {
+    .panel {
+      min-inline-size: anchor-size(width);
+    }
+  }
+
+  /* The option the arrow keys are on: a focused item, though the focus is on the field. */
+  .option[data-active] {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  .option[data-active] > [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .option[data-disabled] {
+    cursor: default;
+  }
+
+  @media (forced-colors: active) {
+    .option[data-active] {
+      outline-color: Highlight;
+    }
+  }
+}

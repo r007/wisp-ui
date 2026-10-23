@@ -25,6 +25,7 @@ export * from './radio/index.js';
 export * from './search/index.js';
 export * from './search-bar/index.js';
 export * from './segmented-button/index.js';
+export * from './select/index.js';
 export * from './sheet/index.js';
 export * from './slider/index.js';
 export * from './snackbar/index.js';
