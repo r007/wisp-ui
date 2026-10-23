@@ -1,0 +1,25 @@
+/*
+ * The surface of a standalone date picker: a rounded, filled box of the picker's width around a
+ * calendar. A dialog draws its own (date-picker-dialog.module.css) with the same tokens.
+ */
+@layer wisp {
+  .root {
+    box-sizing: border-box;
+    inline-size: var(--_container-width);
+    max-inline-size: 100%;
+    padding-block-end: 12px;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .root[data-elevated] {
+    box-shadow: var(--_container-elevation);
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+    }
+  }
+}

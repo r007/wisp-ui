@@ -34,6 +34,9 @@ const COMPOSED_OF: Record<string, readonly string[]> = {
   'fab-menu': ['fab'],
   search: ['search-bar', 'icon-button'],
   'split-button': ['button', 'menu'],
+  // The month arrows are IconButtons. (The dialog's Button and TextField are in its own module,
+  // which the picker does not import.)
+  'date-picker': ['icon-button'],
   // The mode toggle is an IconButton. (The dialog's Button is in its own module, which the picker
   // does not import.)
   'time-picker': ['icon-button'],

@@ -19,6 +19,7 @@ them to components, the Flutter widget to read, and the archetype to copy from
 | ✅ **Carousel**           | `carousel-item`                                                        | Multi-browse, hero, centre hero, uncontained; native scroll with snap points, items that resize as they pass the slots (`weights`); arrow keys; links or buttons                                                  |
 | ✅ **Checkbox**           | `checkbox`                                                             | Native input; indeterminate (controlled), error, drawn tick                                                                                                                                                       |
 | ✅ **Chip / ChipGroup**   | `chips`, `assist-chip`, `filter-chip`, `input-chip`, `suggestion-chip` | One component, four variants; the shared `chips` tokens carry the Expressive shape morph; input chips get a sibling remove button                                                                                 |
+| ✅ **DatePicker**         | `date-picker`, `date-input`                                            | `DatePicker` (docked or modal) and `DatePickerDialog`: an ARIA-grid calendar (arrows, Page Up/Down, Home/End), a year grid, `min`/`max`/`isDateDisabled`, locale names and week start; typed input per locale     |
 | ✅ **Dialog**             | `dialog`, `full-screen-dialog`                                         | Native `<dialog>` modal; basic and full-screen; exit animation in every browser (`useModalDialog`)                                                                                                                |
 | ✅ **Divider**            | `divider`                                                              | Horizontal or vertical `<hr>`, optional inset                                                                                                                                                                     |
 | ✅ **Fab**                | `fab`, `extended-fab`                                                  | 7 colour sets, 4 sizes, extended with a label that can collapse into a square                                                                                                                                     |
@@ -54,9 +55,9 @@ them to components, the Flutter widget to read, and the archetype to copy from
 
 Ordered by how much of the remaining set each unlocks.
 
-| Component              | Tokens                                                   | Flutter widget                     | Archetype | Unlocks / notes                           |
-| ---------------------- | -------------------------------------------------------- | ---------------------------------- | --------- | ----------------------------------------- |
-| ⬜ Date pickers        | `date-picker`, `date-input`                              | `showDatePicker`                   | complex   | a calendar, years, a range; 158 tokens    |
+| Component            | Tokens                | Flutter widget        | Archetype | Unlocks / notes                      |
+| -------------------- | --------------------- | --------------------- | --------- | ------------------------------------ |
+| ⬜ Date range picker | `date-picker` (range) | `showDateRangePicker` | complex   | months in a scroll; the range tokens |
 
 ## Foundation
 

@@ -8,6 +8,7 @@ export * from './card/index.js';
 export * from './carousel/index.js';
 export * from './checkbox/index.js';
 export * from './chip/index.js';
+export * from './date-picker/index.js';
 export * from './dialog/index.js';
 export * from './divider/index.js';
 export * from './fab/index.js';

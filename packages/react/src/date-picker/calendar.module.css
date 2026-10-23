@@ -1,0 +1,288 @@
+/*
+ * A calendar is a toolbar (the month, with the button that opens the years, and the arrows) over
+ * a table of days or a grid of years. Both are as tall as seven rows of days, so swapping them or
+ * turning to a month of five weeks instead of six does not resize the picker. A day is a button
+ * of the state layer's size (40px) in a cell of the date's size (48px docked, 40px modal), with
+ * its touch target stretched to the cell. A month slides in from the side it was turned to.
+ * Colours, sizes and type come from date-picker.tokens.generated.module.css, which a picker puts
+ * on an element around the calendar.
+ */
+@layer wisp {
+  .calendar {
+    --_direction: 1;
+
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .calendar:dir(rtl) {
+    --_direction: -1;
+  }
+
+  .toolbar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-inline: 12px;
+  }
+
+  /* Docked: the toolbar's height is the token's; in a dialog it is the button's plus 8px each side. */
+  .calendar[data-variant='docked'] .toolbar {
+    block-size: var(--_toolbar-height);
+  }
+
+  .calendar[data-variant='modal'] .toolbar {
+    block-size: calc(var(--_menu-button-height) + 16px);
+  }
+
+  /* The month, which opens the years. */
+  .monthButton {
+    --_state-layer-color: var(--_menu-button-state-layer-color);
+
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    box-sizing: border-box;
+    block-size: var(--_menu-button-height);
+    margin: 0;
+    padding-block: 0;
+    padding-inline: 12px 8px;
+    border: 0;
+    border-radius: var(--md-sys-shape-corner-full);
+    background: none;
+    color: var(--_menu-button-label-color);
+    font: var(--_menu-button-font);
+    letter-spacing: var(--_menu-button-font-tracking);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .monthIcon {
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_menu-button-icon-size);
+    block-size: var(--_menu-button-icon-size);
+    color: var(--_menu-button-icon-color);
+    transition: rotate var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .monthButton[aria-expanded='true'] .monthIcon {
+    rotate: 180deg;
+  }
+
+  .monthIcon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  .arrows {
+    display: flex;
+    gap: 0;
+  }
+
+  .monthButton:focus-visible,
+  .day:focus-visible,
+  .year:focus-visible {
+    outline: var(--md-sys-state-focus-indicator-thickness) solid var(--md-sys-color-secondary);
+    outline-offset: var(--md-sys-state-focus-indicator-outer-offset);
+  }
+
+  /* The days and the years take the same room, so one can stand in for the other. */
+  .month,
+  .years {
+    box-sizing: border-box;
+    block-size: calc(7 * var(--_date-size));
+    padding-inline: 12px;
+  }
+
+  .month {
+    transition:
+      opacity var(--md-sys-motion-spring-default-effects),
+      translate var(--md-sys-motion-spring-default-spatial);
+  }
+
+  @starting-style {
+    .month {
+      opacity: 0;
+      translate: calc(var(--_direction) * 24px) 0;
+    }
+
+    .month[data-direction='previous'] {
+      translate: calc(var(--_direction) * -24px) 0;
+    }
+  }
+
+  .grid {
+    inline-size: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .weekday {
+    block-size: var(--_date-size);
+    padding: 0;
+    color: var(--_weekday-color);
+    font: var(--_weekday-font);
+    letter-spacing: var(--_weekday-font-tracking);
+    text-align: center;
+  }
+
+  .cell {
+    block-size: var(--_date-size);
+    padding: 0;
+    text-align: center;
+  }
+
+  .day {
+    --_state-layer-color: var(--_date-state-layer-color);
+
+    position: relative;
+    isolation: isolate;
+    display: inline-grid;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: var(--_date-layer-size);
+    block-size: var(--_date-layer-size);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--_date-label-color);
+    font: var(--_date-font);
+    letter-spacing: var(--_date-font-tracking);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* The touch target is the whole cell, not just the circle. */
+  .day::after {
+    content: '';
+    position: absolute;
+    inset: calc((var(--_date-layer-size) - var(--_date-size)) / 2);
+  }
+
+  /* Today is outlined, and in the primary colour. */
+  .day[data-today] {
+    --_state-layer-color: var(--_today-state-layer-color);
+
+    box-shadow: inset 0 0 0 var(--_today-outline-width) var(--_today-outline-color);
+    color: var(--_today-label-color);
+  }
+
+  .day[data-selected] {
+    --_state-layer-color: var(--_selected-state-layer-color);
+
+    background-color: var(--_selected-container-color);
+    box-shadow: none;
+    color: var(--_selected-label-color);
+  }
+
+  /* A day of a neighbouring month: there to fill the row, so dimmed. */
+  .day[data-outside]:not([data-selected]) {
+    color: var(--_outside-month-color);
+    opacity: var(--_outside-month-opacity);
+  }
+
+  .day[data-disabled] {
+    cursor: default;
+    opacity: var(--_disabled-opacity);
+  }
+
+  /* The state layer shows on a day that can be chosen only. */
+  .day[data-disabled] > [data-wisp-state-layer] {
+    display: none;
+  }
+
+  /* The years. */
+  /* Positioned, so the years' `offsetTop` is from this list and the selected one can be centred. */
+  .years {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px 0;
+    align-content: start;
+    justify-items: center;
+    padding-block: 8px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .year {
+    --_label: var(--_year-label-color);
+    --_state-layer-color: var(--_year-state-layer-color);
+
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: var(--_year-width);
+    block-size: var(--_year-height);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: calc(var(--_year-height) / 2);
+    background: none;
+    color: var(--_label);
+    font: var(--_year-font);
+    letter-spacing: var(--_year-font-tracking);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* This year is outlined, as today is. */
+  .year[data-current] {
+    box-shadow: inset 0 0 0 var(--_today-outline-width) var(--_today-outline-color);
+  }
+
+  .year[data-selected] {
+    --_label: var(--_year-selected-label-color);
+    --_state-layer-color: var(--_year-selected-state-layer-color);
+
+    background-color: var(--_year-selected-container-color);
+    box-shadow: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .month,
+    .monthIcon,
+    .day,
+    .year {
+      transition: none;
+    }
+
+    @starting-style {
+      .month {
+        translate: 0 0;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .day[data-selected],
+    .year[data-selected] {
+      background-color: Highlight;
+      color: HighlightText;
+    }
+
+    .day[data-today],
+    .year[data-current] {
+      box-shadow: inset 0 0 0 1px CanvasText;
+    }
+  }
+}
