@@ -100,7 +100,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {
+export const Playground: Story = {};
+
+/** The `Playground` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const PlaygroundInteraction: Story = {
+  ...Playground,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const search = canvas.getByRole('button', { name: 'Search' });

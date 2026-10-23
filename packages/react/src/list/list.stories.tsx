@@ -101,6 +101,12 @@ export const Interactive: Story = {
       <ListItem headline="Disabled" leading={<SettingsIcon />} onClick={fn()} disabled />
     </List>
   ),
+};
+
+/** The `Interactive` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const InteractiveInteraction: Story = {
+  ...Interactive,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Button' }));
@@ -129,6 +135,12 @@ export const Selection: Story = {
       </List>
     );
   },
+};
+
+/** The `Selection` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const SelectionInteraction: Story = {
+  ...Selection,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Sent' }));

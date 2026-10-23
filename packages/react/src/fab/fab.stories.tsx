@@ -93,6 +93,12 @@ export const Collapsible: Story = {
       </div>
     );
   },
+};
+
+/** The `Collapsible` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const CollapsibleInteraction: Story = {
+  ...Collapsible,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Collapse' }));

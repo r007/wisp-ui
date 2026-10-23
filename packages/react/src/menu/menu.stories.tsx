@@ -45,6 +45,12 @@ export const Playground: Story = {
       </MenuItem>
     </Menu>
   ),
+};
+
+/** The `Playground` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const PlaygroundInteraction: Story = {
+  ...Playground,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Options' }));
     const edit = await within(document.body).findByRole('menuitem', { name: 'Edit' });

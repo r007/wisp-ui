@@ -90,6 +90,12 @@ export const Toggle: Story = {
     children: <FavoriteIcon />,
     selectedIcon: <FavoriteFilledIcon />,
   },
+};
+
+/** The `Toggle` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const ToggleInteraction: Story = {
+  ...Toggle,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement, args }) => {
     const button = within(canvasElement).getByRole('button', { name: 'Favourite' });
     await expect(button).toHaveAttribute('aria-pressed', 'false');

@@ -31,6 +31,12 @@ function Demo(props: Partial<React.ComponentProps<typeof Snackbar>>) {
 
 export const Playground: Story = {
   render: (args) => <Demo {...args} />,
+};
+
+/** The `Playground` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const PlaygroundInteraction: Story = {
+  ...Playground,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Show snackbar' }));
     const status = await within(document.body).findByRole('status');

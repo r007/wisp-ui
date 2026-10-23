@@ -87,6 +87,12 @@ export const Toggle: Story = {
       ))}
     </div>
   ),
+};
+
+/** The `Toggle` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const ToggleInteraction: Story = {
+  ...Toggle,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement, args }) => {
     const [button] = within(canvasElement).getAllByRole('button');
     await expect(button).toHaveAttribute('aria-pressed', 'false');

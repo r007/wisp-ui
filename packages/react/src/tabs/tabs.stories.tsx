@@ -45,6 +45,12 @@ export const Primary: Story = {
       <Panels />
     </Tabs>
   ),
+};
+
+/** The `Primary` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const PrimaryInteraction: Story = {
+  ...Primary,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('tab', { name: 'Hotels' }));

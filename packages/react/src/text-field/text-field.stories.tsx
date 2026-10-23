@@ -125,6 +125,12 @@ export const PasswordToggle: Story = {
       />
     );
   },
+};
+
+/** The `PasswordToggle` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const PasswordToggleInteraction: Story = {
+  ...PasswordToggle,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Show password' }));
@@ -151,6 +157,12 @@ export const Validation: Story = {
       />
     );
   },
+};
+
+/** The `Validation` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const ValidationInteraction: Story = {
+  ...Validation,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const field = canvas.getByRole('textbox', { name: /Email/ });

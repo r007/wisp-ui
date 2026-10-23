@@ -91,6 +91,12 @@ export const AsButton: Story = {
       ))}
     </div>
   ),
+};
+
+/** The `AsButton` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const AsButtonInteraction: Story = {
+  ...AsButton,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement, args }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'elevated button' }));
     await expect(args.onClick).toHaveBeenCalled();

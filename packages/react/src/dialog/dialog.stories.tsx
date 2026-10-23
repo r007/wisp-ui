@@ -58,6 +58,12 @@ function Demo(props: Partial<React.ComponentProps<typeof Dialog>> & { label?: st
 
 export const Playground: Story = {
   render: (args) => <Demo {...args} />,
+};
+
+/** The `Playground` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const PlaygroundInteraction: Story = {
+  ...Playground,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Open dialog' }));

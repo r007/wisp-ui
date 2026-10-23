@@ -77,6 +77,12 @@ export const Modal: Story = {
       </div>
     );
   },
+};
+
+/** The `Modal` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const ModalInteraction: Story = {
+  ...Modal,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Open navigation' }));

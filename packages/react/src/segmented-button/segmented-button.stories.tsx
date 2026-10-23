@@ -21,6 +21,12 @@ export const SingleSelect: Story = {
       <SegmentedButtonItem value="month">Month</SegmentedButtonItem>
     </SegmentedButton>
   ),
+};
+
+/** The `SingleSelect` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const SingleSelectInteraction: Story = {
+  ...SingleSelect,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByText('Month'));

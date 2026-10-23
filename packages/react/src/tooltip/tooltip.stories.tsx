@@ -35,6 +35,12 @@ export const Plain: Story = {
       </IconButton>
     </Tooltip>
   ),
+};
+
+/** The `Plain` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const PlainInteraction: Story = {
+  ...Plain,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     await userEvent.hover(within(canvasElement).getByRole('button', { name: 'Favourite' }));
     await expect(await within(document.body).findByRole('tooltip')).toBeVisible();

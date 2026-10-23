@@ -114,6 +114,12 @@ export const Filters: Story = {
       </ChipGroup>
     );
   },
+};
+
+/** The `Filters` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const FiltersInteraction: Story = {
+  ...Filters,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const blues = canvas.getByRole('button', { name: 'Blues' });
@@ -142,6 +148,12 @@ export const Inputs: Story = {
       </ChipGroup>
     );
   },
+};
+
+/** The `Inputs` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const InputsInteraction: Story = {
+  ...Inputs,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Blues' }));

@@ -41,6 +41,12 @@ function Demo(props: Partial<React.ComponentProps<typeof Sheet>> & { label: stri
 
 export const Bottom: Story = {
   render: (args) => <Demo {...args} label="Open bottom sheet" headline="Share" />,
+};
+
+/** The `Bottom` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const BottomInteraction: Story = {
+  ...Bottom,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open bottom sheet' }));
     const dialog = await within(document.body).findByRole('dialog', { name: 'Share' });

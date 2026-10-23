@@ -46,6 +46,12 @@ export const WithLabel: Story = {
       Remember me
     </label>
   ),
+};
+
+/** The `WithLabel` story's interaction, run by the tests but hidden from the sidebar, so the story stays as you left it. */
+export const WithLabelInteraction: Story = {
+  ...WithLabel,
+  tags: ['!dev', '!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const box = canvas.getByRole('checkbox', { name: 'Remember me' });
@@ -97,4 +103,6 @@ export const KeyboardOperable: Story = {
     await userEvent.keyboard(' ');
     await expect(box).toBeChecked();
   },
+
+  tags: ['!dev', '!autodocs'],
 };

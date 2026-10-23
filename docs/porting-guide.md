@@ -132,6 +132,12 @@ Checklist:
 `<component>.stories.tsx` documents it (every variant, state and size) and runs as a
 test with an **axe accessibility check set to fail**.
 
+A story's `play` function runs whenever the story is opened, including by someone browsing
+Storybook, so one that clicks things changes what they are looking at (an open dialog would flash
+and close by itself). Keep the visible story as it should be found, and put the interaction in a
+sibling `<Name>Interaction` story tagged `['!dev', '!autodocs']`: the tests still run it (axe too, on
+the state it leaves), and the sidebar and docs page do not show it.
+
 `<component>.test.tsx` runs in real Chromium. Assert on what users get:
 - semantics: roles, names, `aria-*`
 - behaviour: click, keyboard, controlled/uncontrolled, disabled
