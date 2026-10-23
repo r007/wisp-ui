@@ -8,7 +8,7 @@ import { applyColorScheme, applyTheme, type ColorScheme } from '@wisp-ui/tokens'
 import { useEffect } from 'react';
 
 const SEEDS = {
-  baseline: 'Baseline (Material purple)',
+  baseline: 'Baseline (violet)',
   '#006a60': 'Teal',
   '#0061a4': 'Blue',
   '#9c4146': 'Rose',
