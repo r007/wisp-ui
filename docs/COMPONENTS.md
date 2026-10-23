@@ -45,6 +45,7 @@ them to components, the Flutter widget to read, and the archetype to copy from
 | ✅ **Switch**             | `switch`                                                               | Native `<input role="switch">`; optional icons; spring handle; RTL                                                                                                                                                |
 | ✅ **Tabs**               | `primary-navigation-tab`, `secondary-navigation-tab`                   | `Tabs`, `TabList`, `Tab`, `TabPanel`; sliding measured indicator; roving focus; automatic or manual activation; scrollable                                                                                        |
 | ✅ **TextField**          | `filled-text-field`, `outlined-text-field`                             | Native input/textarea; the label floats with CSS alone; outlined notch; supporting/error text, counter, icons, prefix/suffix                                                                                      |
+| ✅ **TimePicker**         | `time-picker`, `time-input`                                            | `TimePicker`, `TimePickerDialog`: a clock to turn (hours, then minutes; two rings for 24-hour) or fields to type in; AM/PM; the clock is a slider for keys and AT; landscape layout; translatable                 |
 | ✅ **Toolbar**            | `toolbar`                                                              | Docked bar or floating pill (horizontal or vertical), standard and vibrant; WAI-ARIA toolbar pattern (one tab stop, arrow keys); optional FAB                                                                     |
 | ✅ **Tooltip**            | `plain-tooltip`, `rich-tooltip`                                        | Popover on CSS anchor positioning; hover delay, keyboard focus, Escape; rich tooltips stay open under the pointer                                                                                                 |
 | ✅ **TopAppBar**          | `app-bar`                                                              | Small, medium, large (Expressive flexible heights), subtitle, collapse on scroll, sticky                                                                                                                          |
@@ -55,7 +56,7 @@ Ordered by how much of the remaining set each unlocks.
 
 | Component              | Tokens                                                   | Flutter widget                     | Archetype | Unlocks / notes                           |
 | ---------------------- | -------------------------------------------------------- | ---------------------------------- | --------- | ----------------------------------------- |
-| ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex   | 147 + 71 tokens; consider a headless base |
+| ⬜ Date pickers        | `date-picker`, `date-input`                              | `showDatePicker`                   | complex   | a calendar, years, a range; 158 tokens    |
 
 ## Foundation
 
@@ -67,6 +68,7 @@ Built and reused:
 | `useModalDialog`                    | Dialog, NavigationDrawer         | Native `<dialog>` with an exit animation in every browser (`data-closing`), scrim and Escape handling |
 | `useMenuNavigation`                 | Menu, FabMenu                    | The menu button keyboard pattern: arrows, Home/End, typeahead, Tab closes, choosing closes            |
 | `useWheelScroll`                    | Tabs                             | A vertical mouse wheel scrolls a row that only scrolls sideways; the page scrolls at the ends         |
+| `useMediaQuery`                     | TimePicker                       | Whether a media query matches, for a layout a container cannot decide                                 |
 | `usePopover`                        | Menu, Tooltip, Snackbar, FabMenu | Native manual popover placed by CSS anchor positioning; script-driven dismissal and exit animation    |
 | The list-item contract              | List, Menu                       | One set of private variables an item reads; a container supplies them from its own tokens             |
 | `ButtonGroupContext`                | ButtonGroup, SplitButton         | Sizes the Buttons inside and tells a connected group's buttons to draw shared corners                 |

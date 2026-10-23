@@ -1,0 +1,481 @@
+/*
+ * The picker is a grid of four areas: the headline (`head`), the time (hour and minute, and AM or
+ * PM), the clock (`dial`) and a row of buttons (`foot`). In a short, wide window (`data-layout='horizontal'`) the clock moves
+ * beside the first two. The clock is plain CSS: the numbers sit on a ring by `sin()` and `cos()` of
+ * their slot, and the handle is a bar turned about the centre, so only its angle (`--_angle`) is
+ * set from script. Colours, sizes and type come from time-picker.tokens.generated.module.css; the
+ * dialog is the transparent, padding-free box of Dialog, with the picker as its surface.
+ */
+@layer wisp {
+  .root {
+    --_ring: calc(var(--_dial-size) / 2 - 28px);
+
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas: 'head' 'time' 'dial' 'foot';
+    grid-template-columns: auto;
+    justify-items: start;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    padding: 24px;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .root[data-elevated] {
+    box-shadow: var(--_container-elevation);
+  }
+
+  .headline {
+    grid-area: head;
+    margin-block-end: 20px;
+    color: var(--_headline-color);
+    font: var(--_headline-font);
+    letter-spacing: var(--_headline-font-tracking);
+  }
+
+  .time {
+    grid-area: time;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-block-end: 36px;
+  }
+
+  .units {
+    display: flex;
+    align-items: center;
+  }
+
+  .separator {
+    flex: none;
+    inline-size: 24px;
+    color: var(--_separator-color);
+    font: var(--_separator-font);
+    letter-spacing: var(--_separator-font-tracking);
+    text-align: center;
+  }
+
+  /* The hour and the minute: large buttons that choose what the clock turns. */
+  .unit {
+    --_label: var(--_selector-unselected-label-color);
+    --_state-layer-color: var(--_selector-unselected-state-layer-color);
+
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    flex: none;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: var(--_selector-width);
+    block-size: var(--_selector-height);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--_selector-shape);
+    background-color: var(--_selector-unselected-container-color);
+    color: var(--_label);
+    font: var(--_selector-font);
+    letter-spacing: var(--_selector-font-tracking);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .unit[data-selected] {
+    --_label: var(--_selector-selected-label-color);
+    --_state-layer-color: var(--_selector-selected-state-layer-color);
+
+    background-color: var(--_selector-selected-container-color);
+  }
+
+  /* Without AM and PM beside it there is room for a wider box. */
+  .root[data-cycle='24'][data-layout='vertical'] .unit {
+    inline-size: var(--_selector-width-24h);
+  }
+
+  .unit:focus-visible,
+  .option:has(.optionInput:focus-visible) {
+    outline: var(--md-sys-state-focus-indicator-thickness) solid var(--md-sys-color-secondary);
+    outline-offset: var(--md-sys-state-focus-indicator-outer-offset);
+  }
+
+  /* AM and PM: two radios in one outlined box, side by side when there is room, else stacked. */
+  .period {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    box-sizing: border-box;
+    inline-size: var(--_period-vertical-width);
+    block-size: var(--_period-vertical-height);
+    overflow: hidden;
+    border: var(--_period-outline-width) solid var(--_period-outline-color);
+    border-radius: var(--_period-shape);
+  }
+
+  .option {
+    --_label: var(--_period-unselected-label-color);
+    --_state-layer-color: var(--_period-unselected-state-layer-color);
+
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    flex: 1;
+    place-items: center;
+    color: var(--_label);
+    font: var(--_period-font);
+    letter-spacing: var(--_period-font-tracking);
+    cursor: pointer;
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .option + .option {
+    border-block-start: var(--_period-outline-width) solid var(--_period-outline-color);
+  }
+
+  .option[data-selected] {
+    --_label: var(--_period-selected-label-color);
+    --_state-layer-color: var(--_period-selected-state-layer-color);
+
+    background-color: var(--_period-selected-container-color);
+  }
+
+  /* The input covers the option, so every pointer and keyboard event lands on it. */
+  .optionInput {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  .optionInput:focus-visible ~ [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .optionLabel {
+    pointer-events: none;
+  }
+
+  /* Text fields, for typing a time instead of turning the clock. */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: stretch;
+  }
+
+  .fieldInput {
+    box-sizing: border-box;
+    inline-size: var(--_field-width);
+    block-size: var(--_field-height);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--_field-shape);
+    background-color: var(--_field-container-color);
+    color: var(--_field-label-color);
+    font: var(--_field-font);
+    letter-spacing: var(--_field-font-tracking);
+    text-align: center;
+    outline: 0 solid transparent;
+    transition: background-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  @media (hover: hover) {
+    .fieldInput:hover:not(:focus) {
+      color: var(--_field-hover-label-color);
+      background-image: linear-gradient(
+        color-mix(
+          in srgb,
+          var(--_field-hover-state-layer-color) calc(var(--_field-hover-state-layer-opacity) * 100%),
+          transparent
+        ),
+        color-mix(
+          in srgb,
+          var(--_field-hover-state-layer-color) calc(var(--_field-hover-state-layer-opacity) * 100%),
+          transparent
+        )
+      );
+    }
+  }
+
+  .fieldInput:focus {
+    outline: var(--_field-focus-outline-width) solid var(--_field-focus-outline-color);
+    background-color: var(--_field-focus-container-color);
+    color: var(--_field-focus-label-color);
+  }
+
+  .fieldInput[aria-invalid='true'] {
+    outline: var(--_field-focus-outline-width) solid var(--md-sys-color-error);
+  }
+
+  .fieldLabel {
+    color: var(--_supporting-color);
+    font: var(--_supporting-font);
+    letter-spacing: var(--_supporting-font-tracking);
+  }
+
+  .root[data-mode='input'] .period {
+    inline-size: var(--_input-period-width);
+    block-size: var(--_input-period-height);
+  }
+
+  /* The period box lines up with the top of the fields, not the middle of their labels, and with
+     no clock under the fields the row is not pushed down so far. */
+  .root[data-mode='input'] .time {
+    align-items: flex-start;
+    margin-block-end: 24px;
+  }
+
+  /* The colon is centred on the fields, not on the fields and their labels. */
+  .root[data-mode='input'] .units {
+    align-items: flex-start;
+  }
+
+  .root[data-mode='input'] .separator {
+    display: grid;
+    place-items: center;
+    block-size: var(--_field-height);
+  }
+
+  /* The clock. */
+  .dial {
+    position: relative;
+    grid-area: dial;
+    justify-self: center;
+    box-sizing: border-box;
+    inline-size: var(--_dial-size);
+    block-size: var(--_dial-size);
+    margin-block-end: 24px;
+    border-radius: 50%;
+    background-color: var(--_dial-color);
+    cursor: pointer;
+    /* A drag on the clock is the clock's, not the page's. */
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .dial:focus-visible {
+    outline: var(--md-sys-state-focus-indicator-thickness) solid var(--md-sys-color-secondary);
+    outline-offset: var(--md-sys-state-focus-indicator-outer-offset);
+  }
+
+  /* The handle's bar and ball, turned about the centre; the ring they reach out to is the outer
+     one, or the inner one for the afternoon hours of a 24-hour clock. */
+  .selector {
+    --_reach: var(--_ring);
+
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inline-size: 0;
+    block-size: 0;
+    rotate: var(--_angle);
+    transition: rotate var(--md-sys-motion-spring-default-spatial);
+    pointer-events: none;
+  }
+
+  .selector[data-ring='inner'] {
+    --_reach: calc(var(--_ring) - 28px);
+  }
+
+  .dial[data-dragging] .selector,
+  .dial[data-dragging] .track,
+  .dial[data-dragging] .handle {
+    transition: none;
+  }
+
+  .track {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: calc(var(--_dial-track-width) / -2);
+    inline-size: var(--_dial-track-width);
+    block-size: var(--_reach);
+    background-color: var(--_dial-track-color);
+    transition: block-size var(--md-sys-motion-spring-default-spatial);
+  }
+
+  .handle {
+    position: absolute;
+    inset-block-start: calc(-1 * var(--_reach));
+    inset-inline-start: 0;
+    display: grid;
+    place-items: center;
+    inline-size: var(--_dial-handle-size);
+    block-size: var(--_dial-handle-size);
+    border-radius: 50%;
+    background-color: var(--_dial-handle-color);
+    translate: -50% -50%;
+    transition: inset-block-start var(--md-sys-motion-spring-default-spatial);
+  }
+
+  /* Between two numbers, the handle shows no number: a dot marks where it is. */
+  .mark {
+    inline-size: 4px;
+    block-size: 4px;
+    border-radius: 50%;
+    background-color: var(--_dial-selected-label-color);
+  }
+
+  .centre {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inline-size: var(--_dial-center-size);
+    block-size: var(--_dial-center-size);
+    border-radius: 50%;
+    background-color: var(--_dial-center-color);
+    translate: -50% -50%;
+    pointer-events: none;
+  }
+
+  .numbers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .number {
+    --_r: var(--_ring);
+    --_theta: calc(var(--_slot) * 30deg);
+
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    color: var(--_dial-unselected-label-color);
+    font: var(--_dial-label-font);
+    letter-spacing: var(--_dial-label-font-tracking);
+    translate: calc(-50% + var(--_r) * sin(var(--_theta)))
+      calc(-50% - var(--_r) * cos(var(--_theta)));
+    transition:
+      color var(--md-sys-motion-spring-fast-effects),
+      opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .number[data-ring='inner'] {
+    --_r: calc(var(--_ring) - 28px);
+  }
+
+  .number[data-selected] {
+    color: var(--_dial-selected-label-color);
+  }
+
+  /* Hours and minutes swap places: the new numbers fade in. */
+  @starting-style {
+    .number {
+      opacity: 0;
+    }
+  }
+
+  /* The bottom row: the switch between clock and fields at one end, the buttons at the other. */
+  .footer {
+    grid-area: foot;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    inline-size: 100%;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+    margin-inline-start: auto;
+  }
+
+  /* A short, wide window: the clock goes beside the time. */
+  .root[data-layout='horizontal'] {
+    /* biome-ignore lint/correctness/noInvalidGridAreas: an area that spans two rows is valid; the rule reads the repeated name as a row of a different length. */
+    grid-template-areas: 'head dial' 'time dial' 'foot foot';
+    grid-template-columns: auto auto;
+    column-gap: 48px;
+  }
+
+  .root[data-layout='horizontal'][data-mode='input'] {
+    grid-template-areas: 'head' 'time' 'foot';
+    grid-template-columns: auto;
+  }
+
+  .root[data-layout='horizontal'] .time {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    margin-block-end: 0;
+  }
+
+  .root[data-layout='horizontal'][data-mode='input'] .time {
+    flex-direction: row;
+    gap: 12px;
+    margin-block-end: 24px;
+  }
+
+  .root[data-layout='horizontal'] .dial {
+    align-self: center;
+    margin-block-end: 0;
+  }
+
+  .root[data-layout='horizontal'][data-mode='dial'] .period {
+    flex-direction: row;
+    inline-size: var(--_period-horizontal-width);
+    block-size: var(--_period-horizontal-height);
+  }
+
+  .root[data-layout='horizontal'][data-mode='dial'] .option + .option {
+    border-block-start: 0;
+    border-inline-start: var(--_period-outline-width) solid var(--_period-outline-color);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .unit,
+    .option,
+    .fieldInput,
+    .selector,
+    .track,
+    .handle,
+    .number {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+    }
+
+    .dial,
+    .unit,
+    .period,
+    .fieldInput {
+      border: 1px solid CanvasText;
+    }
+
+    .unit[data-selected],
+    .option[data-selected] {
+      background-color: Highlight;
+      color: HighlightText;
+    }
+
+    .handle,
+    .track,
+    .centre {
+      background-color: Highlight;
+    }
+
+    .number[data-selected] {
+      color: HighlightText;
+    }
+  }
+}

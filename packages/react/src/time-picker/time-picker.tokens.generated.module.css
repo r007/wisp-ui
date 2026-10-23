@@ -1,0 +1,81 @@
+/* TimePicker token defaults.
+ *
+ * Generated from time-picker.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-time-picker-container-color, var(--md-sys-color-surface-container-high));
+    --_container-shape: var(--md-comp-time-picker-container-shape, 28px);
+    --_container-elevation: var(--md-comp-time-picker-container-elevation, var(--md-sys-elevation-level3));
+    --_headline-color: var(--md-comp-time-picker-headline-color, var(--md-sys-color-on-surface-variant));
+    --_headline-font: var(--md-comp-time-picker-headline-type, var(--md-sys-typescale-label-medium));
+    --_headline-font-tracking: var(--md-comp-time-picker-headline-type-tracking, var(--md-sys-typescale-label-medium-tracking));
+    --_selector-width: var(--md-comp-time-picker-time-selector-container-width, 96px);
+    --_selector-width-24h: var(--md-comp-time-picker-time-selector-24h-vertical-container-width, 114px);
+    --_selector-height: var(--md-comp-time-picker-time-selector-container-height, 80px);
+    --_selector-shape: var(--md-comp-time-picker-time-selector-container-shape, 8px);
+    --_selector-font: var(--md-comp-time-picker-time-selector-label-text-type, var(--md-sys-typescale-display-large));
+    --_selector-font-tracking: var(--md-comp-time-picker-time-selector-label-text-type-tracking, var(--md-sys-typescale-display-large-tracking));
+    --_selector-selected-container-color: var(--md-comp-time-picker-time-selector-selected-container-color, var(--md-sys-color-primary-container));
+    --_selector-selected-label-color: var(--md-comp-time-picker-time-selector-selected-label-text-color, var(--md-sys-color-on-primary-container));
+    --_selector-selected-state-layer-color: var(--md-comp-time-picker-time-selector-selected-hover-state-layer-color, var(--md-sys-color-on-primary-container));
+    --_selector-unselected-container-color: var(--md-comp-time-picker-time-selector-unselected-container-color, var(--md-sys-color-surface-container-highest));
+    --_selector-unselected-label-color: var(--md-comp-time-picker-time-selector-unselected-label-text-color, var(--md-sys-color-on-surface));
+    --_selector-unselected-state-layer-color: var(--md-comp-time-picker-time-selector-unselected-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_separator-color: var(--md-comp-time-picker-time-selector-separator-color, var(--md-sys-color-on-surface));
+    --_separator-font: var(--md-comp-time-picker-time-selector-separator-type, var(--md-sys-typescale-display-large));
+    --_separator-font-tracking: var(--md-comp-time-picker-time-selector-separator-type-tracking, var(--md-sys-typescale-display-large-tracking));
+    --_period-shape: var(--md-comp-time-picker-period-selector-container-shape, 8px);
+    --_period-vertical-width: var(--md-comp-time-picker-period-selector-vertical-container-width, 52px);
+    --_period-vertical-height: var(--md-comp-time-picker-period-selector-vertical-container-height, 80px);
+    --_period-horizontal-width: var(--md-comp-time-picker-period-selector-horizontal-container-width, 216px);
+    --_period-horizontal-height: var(--md-comp-time-picker-period-selector-horizontal-container-height, 38px);
+    --_period-font: var(--md-comp-time-picker-period-selector-label-text-type, var(--md-sys-typescale-title-medium));
+    --_period-font-tracking: var(--md-comp-time-picker-period-selector-label-text-type-tracking, var(--md-sys-typescale-title-medium-tracking));
+    --_period-outline-color: var(--md-comp-time-picker-period-selector-outline-color, var(--md-sys-color-outline));
+    --_period-outline-width: var(--md-comp-time-picker-period-selector-outline-width, 1px);
+    --_period-selected-container-color: var(--md-comp-time-picker-period-selector-selected-container-color, var(--md-sys-color-tertiary-container));
+    --_period-selected-label-color: var(--md-comp-time-picker-period-selector-selected-label-text-color, var(--md-sys-color-on-tertiary-container));
+    --_period-selected-state-layer-color: var(--md-comp-time-picker-period-selector-selected-hover-state-layer-color, var(--md-sys-color-on-tertiary-container));
+    --_period-unselected-label-color: var(--md-comp-time-picker-period-selector-unselected-label-text-color, var(--md-sys-color-on-surface-variant));
+    --_period-unselected-state-layer-color: var(--md-comp-time-picker-period-selector-unselected-hover-state-layer-color, var(--md-sys-color-on-surface-variant));
+    --_hover-state-layer-opacity: var(--md-comp-time-picker-time-selector-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-time-picker-time-selector-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-time-picker-time-selector-pressed-state-layer-opacity, 0.1);
+    --_dial-color: var(--md-comp-time-picker-clock-dial-color, var(--md-sys-color-surface-container-highest));
+    --_dial-size: var(--md-comp-time-picker-clock-dial-container-size, 256px);
+    --_dial-label-font: var(--md-comp-time-picker-clock-dial-label-text-type, var(--md-sys-typescale-body-large));
+    --_dial-label-font-tracking: var(--md-comp-time-picker-clock-dial-label-text-type-tracking, var(--md-sys-typescale-body-large-tracking));
+    --_dial-selected-label-color: var(--md-comp-time-picker-clock-dial-selected-label-text-color, var(--md-sys-color-on-primary));
+    --_dial-unselected-label-color: var(--md-comp-time-picker-clock-dial-unselected-label-text-color, var(--md-sys-color-on-surface));
+    --_dial-center-color: var(--md-comp-time-picker-clock-dial-selector-center-container-color, var(--md-sys-color-primary));
+    --_dial-center-size: var(--md-comp-time-picker-clock-dial-selector-center-container-size, 8px);
+    --_dial-handle-color: var(--md-comp-time-picker-clock-dial-selector-handle-container-color, var(--md-sys-color-primary));
+    --_dial-handle-size: var(--md-comp-time-picker-clock-dial-selector-handle-container-size, 48px);
+    --_dial-track-color: var(--md-comp-time-picker-clock-dial-selector-track-container-color, var(--md-sys-color-primary));
+    --_dial-track-width: var(--md-comp-time-picker-clock-dial-selector-track-container-width, 2px);
+  }
+
+  .input {
+    --_field-width: var(--md-comp-time-input-time-input-field-container-width, 96px);
+    --_field-height: var(--md-comp-time-input-time-input-field-container-height, 72px);
+    --_field-shape: var(--md-comp-time-input-time-input-field-container-shape, 8px);
+    --_field-font: var(--md-comp-time-input-time-input-field-label-text-type, var(--md-sys-typescale-display-medium));
+    --_field-font-tracking: var(--md-comp-time-input-time-input-field-label-text-type-tracking, var(--md-sys-typescale-display-medium-tracking));
+    --_field-container-color: var(--md-comp-time-input-time-input-field-container-color, var(--md-sys-color-surface-container-highest));
+    --_field-label-color: var(--md-comp-time-input-time-input-field-label-text-color, var(--md-sys-color-on-surface));
+    --_field-hover-label-color: var(--md-comp-time-input-time-input-field-hover-label-text-color, var(--md-sys-color-on-surface));
+    --_field-hover-state-layer-color: var(--md-comp-time-input-time-input-field-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_field-hover-state-layer-opacity: var(--md-comp-time-input-time-input-field-hover-state-layer-opacity, 0.08);
+    --_field-focus-container-color: var(--md-comp-time-input-time-input-field-focus-container-color, var(--md-sys-color-primary-container));
+    --_field-focus-label-color: var(--md-comp-time-input-time-input-field-focus-label-text-color, var(--md-sys-color-on-primary-container));
+    --_field-focus-outline-color: var(--md-comp-time-input-time-input-field-focus-outline-color, var(--md-sys-color-primary));
+    --_field-focus-outline-width: var(--md-comp-time-input-time-input-field-focus-outline-width, 2px);
+    --_supporting-color: var(--md-comp-time-input-time-input-field-supporting-text-color, var(--md-sys-color-on-surface-variant));
+    --_supporting-font: var(--md-comp-time-input-time-input-field-supporting-text-type, var(--md-sys-typescale-body-small));
+    --_supporting-font-tracking: var(--md-comp-time-input-time-input-field-supporting-text-type-tracking, var(--md-sys-typescale-body-small-tracking));
+    --_input-period-width: var(--md-comp-time-input-period-selector-container-width, 52px);
+    --_input-period-height: var(--md-comp-time-input-period-selector-container-height, 72px);
+  }
+}

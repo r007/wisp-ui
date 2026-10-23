@@ -34,6 +34,9 @@ const COMPOSED_OF: Record<string, readonly string[]> = {
   'fab-menu': ['fab'],
   search: ['search-bar', 'icon-button'],
   'split-button': ['button', 'menu'],
+  // The mode toggle is an IconButton. (The dialog's Button is in its own module, which the picker
+  // does not import.)
+  'time-picker': ['icon-button'],
 };
 /** Folders in dist that are not components. */
 const NOT_COMPONENTS = new Set(['foundation', 'theme']);

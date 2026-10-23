@@ -31,5 +31,6 @@ export * from './split-button/index.js';
 export * from './switch/index.js';
 export * from './tabs/index.js';
 export * from './text-field/index.js';
+export * from './time-picker/index.js';
 export * from './toolbar/index.js';
 export * from './tooltip/index.js';
