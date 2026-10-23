@@ -35,7 +35,7 @@ export interface SplitButtonProps {
   className?: string;
 }
 
-/** A downward chevron, 24px, in the Material Symbols box. */
+/** A downward chevron, 24px, in a 24px icon box. */
 const Chevron = () => (
   <span className={styles.chevron}>
     <svg viewBox="0 -960 960 960" aria-hidden="true" focusable="false">

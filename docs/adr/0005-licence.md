@@ -17,12 +17,13 @@ Files with substantial adapted code carry a header saying where from and what ch
 ## Name
 
 **Wisp**: "a thin, delicate trace", fitting a deliberately lightweight library. It
-avoids "Material" in the name (a Google trademark) while the README says plainly
-what it implements. Checked for collisions on npm and GitHub (no established
-project); the `@wisp-ui` npm scope still has to be created by the maintainer.
+avoids borrowing a trademarked term as a brand, and the public documentation
+describes the library by what it is and does. Where the work of others is used, the
+credits page, `NOTICE` and `THIRD_PARTY_LICENSES.md` say so, as the licences require.
+Checked for collisions on npm and GitHub (no established project).
 
 ## Consequences
 
-- The README and `NOTICE` state that the project is independent of Google.
+- The credits page and `NOTICE` state that the project is independent of the projects it credits.
 - If the name changes, it appears in package names, the `wisp` cascade layer, CSS
   class prefixes, and `data-wisp-*` attributes; a repository-wide rename covers it.

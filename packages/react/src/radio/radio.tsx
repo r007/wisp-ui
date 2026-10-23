@@ -26,7 +26,7 @@ export interface RadioProps
 }
 
 /**
- * A Material radio button. It is a native `<input type="radio">`: radios sharing a
+ * A radio button. It is a native `<input type="radio">`: radios sharing a
  * `name` form a group, and arrow keys move between them without extra wiring.
  * Inside a `RadioGroup` the group supplies `name`, `checked` and `onChange`:
  *

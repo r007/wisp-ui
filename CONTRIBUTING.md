@@ -59,8 +59,8 @@ These are enforced by tooling where possible, and are what review looks for:
 
 ## Reporting bugs and requesting components
 
-Use the issue templates. For a visual problem, a screenshot beside Flutter's or the
-Material spec's rendering helps a lot. For security issues see [SECURITY.md](SECURITY.md).
+Use the issue templates. For a visual problem, a screenshot, with what you expected beside it,
+helps a lot. For security issues see [SECURITY.md](SECURITY.md).
 
 ## Licence
 

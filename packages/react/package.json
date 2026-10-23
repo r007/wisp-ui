@@ -1,16 +1,23 @@
 {
   "name": "@wisp-ui/react",
   "version": "0.0.0",
-  "description": "Material 3 Expressive components for React. Zero-runtime CSS, tree-shakeable, no shadow DOM.",
+  "description": "Expressive React components with plain CSS: native elements, per-component styles, dark mode and dynamic colour. Zero-runtime, tree-shakeable, no shadow DOM.",
   "keywords": [
     "react",
     "react-components",
-    "material-design",
-    "material-3",
-    "material-3-expressive",
-    "design-system",
+    "ui",
     "ui-kit",
-    "css-modules"
+    "component-library",
+    "design-system",
+    "css-modules",
+    "dark-mode",
+    "theming",
+    "design-tokens",
+    "dynamic-color",
+    "accessibility",
+    "spring-animation",
+    "shape-morphing",
+    "expressive"
   ],
   "license": "Apache-2.0",
   "author": "Sergey Monin <moninsergei@gmail.com>",
@@ -19,7 +26,7 @@
     "url": "git+https://github.com/r007/wisp-ui.git",
     "directory": "packages/react"
   },
-  "homepage": "https://github.com/r007/wisp-ui#readme",
+  "homepage": "https://r007.github.io/wisp-ui/",
   "bugs": "https://github.com/r007/wisp-ui/issues",
   "type": "module",
   "sideEffects": [
@@ -42,7 +49,10 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "THIRD_PARTY_LICENSES.md"
   ],
   "scripts": {
     "storybook": "storybook dev --port 6006 --no-open",
@@ -53,7 +63,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:dark": "VITE_WISP_SCHEME=dark vitest run --project stories",
-    "check:types": "node scripts/check-consumer-types.ts"
+    "check:types": "node scripts/check-consumer-types.ts",
+    "prepack": "node ../../tools/copy-legal.mjs"
   },
   "dependencies": {
     "@wisp-ui/tokens": "workspace:*"

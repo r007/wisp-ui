@@ -17,6 +17,10 @@ export interface DividerProps extends Omit<ComponentPropsWithRef<'hr'>, 'childre
  * A thin rule that separates content. It renders an `<hr>`, which assistive
  * technology announces as a separator; pass `role="presentation"` when the rule
  * is purely decorative.
+ *
+ * ```tsx
+ * <Divider inset="both" />
+ * ```
  */
 export function Divider({ vertical = false, inset, className, ...rest }: DividerProps) {
   return (

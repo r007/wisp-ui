@@ -12,4 +12,4 @@
 - [ ] Updated `docs/COMPONENTS.md` if a component's status changed
 - [ ] No hand-edits to `*.generated.*` files
 
-<!-- For visual changes, a screenshot next to Flutter's / the Material spec's rendering helps. -->
+<!-- For visual changes, before and after screenshots help. -->

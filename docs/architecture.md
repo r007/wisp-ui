@@ -1,13 +1,13 @@
 # Architecture
 
 Wisp has one idea at its core: **design values are data, and components are thin.**
-Material's colours, sizes, shapes and motion are imported as tokens and compiled to
+Colours, sizes, shapes and motion are imported as tokens and compiled to
 CSS; the hand-written code only describes structure and behaviour.
 
 ```mermaid
 flowchart LR
   subgraph upstream["Upstream (not ours)"]
-    dart["flutter/packages<br/>material_ui token data<br/>(Dart, v38.2.83)"]
+    dart["upstream token data<br/>(Dart, v38.2.83)"]
   end
 
   subgraph codegen["tools/codegen (build-time only)"]
@@ -32,7 +32,7 @@ flowchart LR
 
 ### 1. Tokens (`tools/codegen`, `packages/tokens`)
 
-`pnpm codegen import --source <flutter-packages checkout>` parses Material's Dart
+`pnpm codegen import --source <upstream checkout>` parses the Dart
 token files into `tools/codegen/data/tokens.json`. The parser is deliberately
 strict: an unknown value shape throws instead of being skipped, and a count check
 fails if any documented token is not parsed. The JSON records the repository, commit
@@ -78,9 +78,9 @@ That emits:
 }
 ```
 
-- The first `var()` is the **public override**: the Material token's own name, which
+- The first `var()` is the **public override**: the token's own name, which
   a consumer can set on any ancestor.
-- The fallback is the Material default, expressed in system tokens, so theming,
+- The fallback is the default, expressed in system tokens, so theming,
   dark mode and contrast still flow through.
 - Arrays are **generation-time invariants.** The hand-written CSS simplifies (one
   label colour for rest/hover/press); if an upstream update ever makes those
@@ -111,7 +111,7 @@ Shared building blocks live in `foundation/`:
 | ----------------------------------- | ---------------------------------------------------------------------------------------- |
 | `usePressable`                      | button-or-link semantics, disabled links, toggle state, press ripple                     |
 | `StateLayer` + `RippleController`   | hover/focus tint and the press ripple (hover and focus are CSS; only the press needs JS) |
-| `focus-ring.module.css`             | the 3px/2px Material focus indicator                                                     |
+| `focus-ring.module.css`             | the 3px/2px focus indicator                                                              |
 | `renderElement` / `RenderProp`      | the `render` prop, for router links                                                      |
 | `useControllableState`, `mergeRefs` | controlled/uncontrolled state and ref merging                                            |
 
@@ -163,4 +163,4 @@ component alone and fails if another component's CSS appears or the budget
 ## What is deliberately not here yet
 
 See [COMPONENTS.md](COMPONENTS.md) for the full status. Notable gaps in the
-foundation: shape morphing (`MaterialShapes`/`RoundedPolygon`).
+foundation: a stepper and a data table.

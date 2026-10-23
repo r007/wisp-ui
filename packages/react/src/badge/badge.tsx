@@ -11,6 +11,10 @@ export interface BadgeProps extends ComponentPropsWithRef<'span'> {}
  *
  * A dot carries no text, so give it a text alternative where it matters, for
  * example with a visually hidden label inside the element it decorates.
+ *
+ * ```tsx
+ * <Badge>3</Badge>
+ * ```
  */
 export function Badge({ children, className, ...rest }: BadgeProps) {
   const hasLabel =

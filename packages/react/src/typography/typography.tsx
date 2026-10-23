@@ -3,7 +3,7 @@ import { cx } from '../foundation/cx.js';
 import { type RenderProp, type RootProps, renderElement } from '../foundation/merge-props.js';
 import styles from './typography.module.css';
 
-/** The 15 styles of the Material type scale: five roles, each in three sizes. */
+/** The 15 styles of the type scale: five roles, each in three sizes. */
 export const TYPOGRAPHY_VARIANTS = [
   'display-large',
   'display-medium',
@@ -41,7 +41,7 @@ const defaultTag = (variant: TypographyVariant): ElementType =>
   variant.startsWith('body') ? 'p' : variant.startsWith('label') ? 'span' : 'div';
 
 /**
- * Text in one of the Material type styles. It sets the font and the tracking from the system
+ * Text in one of the type styles. It sets the font and the tracking from the system
  * tokens and nothing else, so the colour is the one it sits in. Choosing the element is up to
  * you, because a style is not a heading level:
  *

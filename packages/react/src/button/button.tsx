@@ -23,7 +23,7 @@ interface ButtonOwnProps {
   shape?: ButtonShape;
   /**
    * Makes this a toggle button. Controlled when defined; a selected toggle
-   * morphs its shape, as Material 3 Expressive specifies. Not available on
+   * morphs its shape, in the expressive style. Not available on
    * `text` buttons.
    */
   selected?: boolean;
@@ -49,6 +49,19 @@ type AnchorElementProps = Omit<ComponentPropsWithRef<'a'>, keyof ButtonOwnProps>
 
 export type ButtonProps = ButtonOwnProps & (ButtonElementProps | AnchorElementProps);
 
+/**
+ * A button for an action, or a link that looks like one. It renders a native `<button>`, or an
+ * `<a>` when given an `href`, so the keyboard, forms and assistive technology work without extra
+ * wiring. There are five variants (elevated, filled, tonal, outlined and text), five sizes, round
+ * or square corners and an optional icon on either side; as a toggle it morphs its shape when it
+ * is selected.
+ *
+ * ```tsx
+ * <Button variant="filled" icon={<SendIcon />} onClick={send}>
+ *   Send
+ * </Button>
+ * ```
+ */
 export function Button(props: ButtonProps) {
   const {
     variant = 'filled',

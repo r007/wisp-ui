@@ -19,7 +19,7 @@ export interface SwitchProps
 }
 
 /**
- * A Material switch. It is a native `<input type="checkbox" role="switch">`, so
+ * A switch. It is a native `<input type="checkbox" role="switch">`, so
  * forms, labels, keyboard and assistive technology work without extra wiring:
  *
  * ```tsx

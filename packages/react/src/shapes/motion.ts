@@ -10,7 +10,7 @@ export const MORPH_SPRING = { dampingRatio: 0.6, stiffness: 200 } as const;
 
 /**
  * Where a damped spring is `seconds` after it was let go, when it starts at 0 and comes to rest at
- * 1 (a unit mass, as in Material's spring tokens). With a damping ratio under 1 it overshoots.
+ * 1 (a unit mass, as in the system's spring tokens). With a damping ratio under 1 it overshoots.
  */
 export function springPosition(
   seconds: number,

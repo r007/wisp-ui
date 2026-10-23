@@ -161,7 +161,7 @@ function Artwork() {
             <span className="brand">
               <Mark /> WISP UI
             </span>
-            <span>MATERIAL 3 EXPRESSIVE / REACT</span>
+            <span>EXPRESSIVE COMPONENTS / REACT</span>
           </header>
           <div className="hero-copy">
             <h1>
@@ -173,7 +173,7 @@ function Artwork() {
               Light by design.
             </h2>
             <p>
-              The joy of Material.
+              The joy of expression.
               <br />
               The simplicity of the web.
             </p>

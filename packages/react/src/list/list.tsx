@@ -18,7 +18,7 @@ export interface ListProps extends ComponentPropsWithRef<'ul'> {
 }
 
 /**
- * A Material list: items stacked in a `<ul>`. Name a list that is a landmark or a widget
+ * A list: items stacked in a `<ul>`. Name a list that is a landmark or a widget
  * with `aria-label`; use `role` for patterns such as `listbox`.
  *
  * ```tsx

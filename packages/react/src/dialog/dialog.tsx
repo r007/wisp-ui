@@ -50,7 +50,7 @@ export interface DialogProps
 }
 
 /**
- * A Material dialog, on the native `<dialog>`: focus is trapped, the page behind it
+ * A dialog, on the native `<dialog>`: focus is trapped, the page behind it
  * is inert, and Escape asks to close. It stays controlled, so the parent decides:
  *
  * ```tsx

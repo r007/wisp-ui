@@ -133,6 +133,6 @@ export const Disabled: Story = {
 
 /** With `href` the button renders an anchor. Use `render` to use a router's link instead. */
 export const AsLink: Story = {
-  args: { href: 'https://m3.material.io', variant: 'outlined' },
-  render: (args) => <Button {...args}>Material Design</Button>,
+  args: { href: 'https://github.com/r007/wisp-ui', variant: 'outlined' },
+  render: (args) => <Button {...args}>Wisp on GitHub</Button>,
 };

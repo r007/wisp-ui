@@ -46,7 +46,7 @@ type CardElementProps = Omit<ComponentPropsWithRef<'div'>, keyof CardOwnProps | 
 export type CardProps = CardOwnProps & CardElementProps;
 
 /**
- * A Material card: a surface that groups related content.
+ * A card: a surface that groups related content.
  *
  * Without `onClick` or `href` it is a plain `<div>`. With one it becomes a button or
  * link covering the whole card, with hover, focus and press states. A `<button>`

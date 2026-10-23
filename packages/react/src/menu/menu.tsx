@@ -49,7 +49,7 @@ export interface MenuProps {
 }
 
 /**
- * A Material menu: a list of actions in a popup opened by a trigger. It follows the WAI-ARIA
+ * A menu: a list of actions in a popup opened by a trigger. It follows the WAI-ARIA
  * menu button pattern: Arrow keys, Home, End and typing a letter move between items, Escape
  * closes and returns focus to the trigger, and choosing an item closes the menu.
  *
@@ -249,7 +249,7 @@ export interface MenuGroupProps extends ComponentPropsWithRef<'div'> {
 
 /**
  * A group of items that is its own rounded surface, a couple of pixels from the next group:
- * Material's segmented menu. Put only groups in the `Menu` (a divider is not needed between
+ * The expressive segmented menu. Put only groups in the `Menu` (a divider is not needed between
  * them). Give each a name with `aria-label` when it has a meaning of its own.
  *
  * ```tsx

@@ -57,7 +57,7 @@ export interface NavigationDrawerProps
 }
 
 /**
- * The Material navigation drawer. Compose it from `NavigationDrawerSection`s
+ * The navigation drawer. Compose it from `NavigationDrawerSection`s
  * holding `NavigationDrawerItem`s:
  *
  * ```tsx
@@ -188,6 +188,10 @@ type AnchorProps = Omit<ComponentPropsWithRef<'a'>, keyof NavigationDrawerItemOw
 
 export type NavigationDrawerItemProps = NavigationDrawerItemOwnProps & (ButtonProps | AnchorProps);
 
+/**
+ * One destination of a `NavigationDrawer`: an icon, a label and an optional count at the end, as a
+ * link (with an `href`) or a button.
+ */
 export function NavigationDrawerItem(props: NavigationDrawerItemProps) {
   const context = useContext(NavigationDrawerContext);
   if (!context)

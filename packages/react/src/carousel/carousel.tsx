@@ -67,7 +67,7 @@ const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)'
 /**
  * A carousel: a row of items, usually images, that scrolls and snaps one item at a time. With
  * a weighted layout the items grow and shrink as they pass through the slots of the viewport,
- * as Material's multi-browse and hero carousels do. It is a native scroll container, so touch,
+ * as multi-browse and hero carousels do. It is a native scroll container, so touch,
  * trackpad and keyboard scrolling just work; the arrow keys also move between items.
  *
  * ```tsx

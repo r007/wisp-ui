@@ -59,7 +59,7 @@ type ChipAnchorProps = Omit<ComponentPropsWithRef<'a'>, keyof ChipOwnProps> & { 
 export type ChipProps = ChipOwnProps & (ChipButtonProps | ChipAnchorProps);
 
 /**
- * A Material chip: a compact element for an action, a filter, an input or a suggestion.
+ * A chip: a compact element for an action, a filter, an input or a suggestion.
  *
  * ```tsx
  * <ChipGroup aria-label="Genre">

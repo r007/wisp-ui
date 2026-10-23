@@ -146,7 +146,7 @@ export const Disabled: Story = {
 
 export const AsLink: Story = {
   args: {
-    href: 'https://m3.material.io',
+    href: 'https://github.com/r007/wisp-ui',
     'aria-label': 'Share',
     children: <ShareIcon />,
     variant: 'outlined',

@@ -53,7 +53,7 @@ export interface NavigationBarProps
 }
 
 /**
- * The Material 3 Expressive navigation bar. Destinations are links or buttons
+ * The navigation bar. Destinations are links or buttons
  * in a list inside a `<nav>` landmark, and the current one is marked with
  * `aria-current="page"`.
  */
@@ -113,6 +113,10 @@ type AnchorProps = Omit<ComponentPropsWithRef<'a'>, keyof NavigationBarItemOwnPr
 
 export type NavigationBarItemProps = NavigationBarItemOwnProps & (ButtonProps | AnchorProps);
 
+/**
+ * One destination of a `NavigationBar`: an icon and a label, as a link (with an `href`) or a
+ * button. The selected one is marked with `aria-current` and a pill behind its icon.
+ */
 export function NavigationBarItem(props: NavigationBarItemProps) {
   const context = useContext(NavigationBarContext);
   if (!context) throw new Error('<NavigationBarItem> must be rendered inside a <NavigationBar>.');

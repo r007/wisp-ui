@@ -1,5 +1,5 @@
 name: Component request
-description: Ask for a Material component to be ported
+description: Ask for a component to be added
 labels: [component]
 body:
   - type: markdown

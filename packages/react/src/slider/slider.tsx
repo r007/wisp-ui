@@ -41,7 +41,7 @@ export interface SliderProps
 }
 
 /**
- * A Material slider, on a native `<input type="range">`: keyboard, forms, touch and assistive
+ * A slider, on a native `<input type="range">`: keyboard, forms, touch and assistive
  * technology work without extra wiring. Name it with `aria-label`:
  *
  * ```tsx

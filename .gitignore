@@ -6,6 +6,11 @@ coverage/
 test-results/
 playwright-report/
 *.tsbuildinfo
+
+# Copied into each package when it is packed (tools/copy-legal.mjs).
+packages/*/LICENSE
+packages/*/NOTICE
+packages/*/THIRD_PARTY_LICENSES.md
 .DS_Store
 .env
 .env.*

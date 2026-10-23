@@ -58,7 +58,7 @@ export type TextFieldProps = TextFieldOwnProps &
   Omit<ComponentPropsWithRef<'input'>, keyof TextFieldOwnProps | 'size' | 'prefix' | 'children'>;
 
 /**
- * A Material text field, on the native `<input>` (or `<textarea>`), so forms, autofill,
+ * A text field, on the native `<input>` (or `<textarea>`), so forms, autofill,
  * validation and assistive technology work without extra wiring:
  *
  * ```tsx

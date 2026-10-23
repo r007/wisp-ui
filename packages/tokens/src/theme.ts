@@ -1,8 +1,8 @@
 /**
  * Dynamic colour: derive the full set of `--md-sys-color-*` roles from a seed
- * colour at runtime. This is Material You's "theme from a colour".
+ * colour at runtime: a whole theme from one colour.
  *
- * The static `theme.css` carries Material's fixed *baseline* palette. A seed
+ * The static `theme.css` carries the fixed *baseline* palette. A seed
  * run through the modern algorithm is intentionally not identical to it: the
  * baseline predates the current palette generator.
  */
@@ -26,7 +26,7 @@ import {
 } from '@material/material-color-utilities';
 import { COLOR_ROLES } from './color-roles.generated.js';
 
-/** Palette strategies, named as in Material Theme Builder. */
+/** Palette strategies: how a seed colour is spread across the palette. */
 export type ThemeVariant =
   | 'tonal-spot'
   | 'vibrant'
@@ -63,10 +63,10 @@ const VARIANTS: Record<ThemeVariant, SchemeConstructor> = {
 };
 
 export interface ThemeOptions {
-  /** Palette strategy. Defaults to `tonal-spot`, Material's default. */
+  /** Palette strategy. Defaults to `tonal-spot`, the usual choice. */
   variant?: ThemeVariant;
   /**
-   * -1 (reduced) to 1 (high). 0 is standard and 0.5 is Material's "medium".
+   * -1 (reduced) to 1 (high). 0 is standard and 0.5 is "medium".
    * Baked into the generated colours, unlike the `data-wisp-contrast` switch,
    * which only works on the static baseline theme.
    */

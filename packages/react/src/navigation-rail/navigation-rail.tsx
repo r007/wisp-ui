@@ -53,7 +53,7 @@ export interface NavigationRailProps
 }
 
 /**
- * The Material 3 Expressive navigation rail. Destinations are links or buttons in a list
+ * The navigation rail. Destinations are links or buttons in a list
  * inside a `<nav>` landmark, and the current one is marked with `aria-current="page"`:
  *
  * ```tsx

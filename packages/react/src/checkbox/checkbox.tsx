@@ -24,7 +24,7 @@ export interface CheckboxProps
 }
 
 /**
- * A Material checkbox. It is a native `<input type="checkbox">`, so forms,
+ * A checkbox. It is a native `<input type="checkbox">`, so forms,
  * labels, keyboard and assistive technology work without extra wiring:
  *
  * ```tsx

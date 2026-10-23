@@ -61,7 +61,7 @@ function useScrolled(target: TopAppBarProps['scrollTarget']): boolean {
 }
 
 /**
- * The Material 3 Expressive top app bar: navigation, a title and actions at the top of a screen.
+ * The top app bar: navigation, a title and actions at the top of a screen.
  *
  * ```tsx
  * <TopAppBar

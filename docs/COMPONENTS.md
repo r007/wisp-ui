@@ -1,9 +1,9 @@
 # Component status
 
-Wisp ports Flutter's Material library, using the Material 3 **Expressive** tokens
-(release 38.2.83). The token data has **54 component namespaces**; this table maps
-them to components, the Flutter widget to read, and the archetype to copy from
-(see the [porting guide](porting-guide.md)).
+Wisp's design values come from an open token dataset (release 38.2.83, kept in
+`tools/codegen/data/tokens.json` with its provenance). The data has **54 component
+namespaces**; this table maps them to components, the reference implementation to read,
+and the archetype to copy from (see the [porting guide](porting-guide.md)).
 
 ✅ ported · ⬜ not started
 
@@ -59,9 +59,10 @@ them to components, the Flutter widget to read, and the archetype to copy from
 
 ## Next up
 
-Every Material 3 Expressive component that has tokens is ported (the chips, cards and text
-fields share one component each). What is left is the foundation below. Beyond the token set,
-candidates are anything Flutter has that Material publishes no tokens for.
+Every component that has tokens is ported (the chips, cards and text fields share one
+component each), and the components that have none: Autocomplete, Accordion and the shapes
+toolkit. What is left is the foundation below. Candidates beyond that are a stepper and a data
+table.
 
 ## Foundation
 

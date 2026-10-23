@@ -25,7 +25,7 @@ interface IconButtonOwnProps {
   shape?: IconButtonShape;
   /**
    * Makes this a toggle button. Controlled when defined; a selected toggle
-   * morphs its shape, as Material 3 Expressive specifies.
+   * morphs its shape, in the expressive style.
    */
   selected?: boolean;
   defaultSelected?: boolean;
@@ -51,6 +51,17 @@ type AnchorElementProps = Omit<ComponentPropsWithRef<'a'>, keyof IconButtonOwnPr
 
 export type IconButtonProps = IconButtonOwnProps & (ButtonElementProps | AnchorElementProps);
 
+/**
+ * A button that is only an icon, for a compact action such as "more" or "favourite". It needs an
+ * `aria-label`, since there is no text to name it. There are four variants and five sizes; as a
+ * toggle it can swap to a `selectedIcon` and morphs its shape as it is selected.
+ *
+ * ```tsx
+ * <IconButton aria-label="Favourite" variant="tonal">
+ *   <FavoriteIcon />
+ * </IconButton>
+ * ```
+ */
 export function IconButton(props: IconButtonProps) {
   const {
     variant = 'standard',

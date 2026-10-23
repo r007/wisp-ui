@@ -2,7 +2,7 @@ import type { Ref } from 'react';
 import styles from './state-layer.module.css';
 
 /**
- * The Material state layer: a tinted overlay for hover, focus and press, plus
+ * The state layer: a tinted overlay for hover, focus and press, plus
  * the press ripple. Render it as the first child of a control that is
  * `position: relative; isolation: isolate`. The control supplies these private
  * variables:

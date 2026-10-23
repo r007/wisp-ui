@@ -1,5 +1,5 @@
 /**
- * Press ripple for Material state layers.
+ * Press ripple for state layers.
  *
  * Adapted from material-web (https://github.com/material-components/material-web,
  * `ripple/internal/ripple.ts`), Copyright 2022 Google LLC, Apache-2.0.

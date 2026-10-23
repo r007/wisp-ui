@@ -4,7 +4,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Wisp
 
-**Material Design 3 Expressive for React.** Zero-runtime CSS, tree-shakeable, no shadow DOM.
+**Expressive components for React.** Zero-runtime CSS, tree-shakeable, no shadow DOM.
 
 ```tsx
 import '@wisp-ui/react/theme.css'; // system tokens, once at the app root
@@ -13,29 +13,31 @@ import { Button } from '@wisp-ui/react/button';
 <Button variant="filled">Save</Button>;
 ```
 
-Import a component and you get **only that component's CSS**.
+Import a component and you get **only that component's CSS**. The
+[documentation site](https://r007.github.io/wisp-ui/) has guides, every component's API and
+live examples.
 
 ## Try the theme controls
 
 The toolbar above this page changes the whole explorer:
 
 - **Colour scheme**: light, dark, or follow the system. Colour follows CSS `color-scheme`.
-- **Seed colour**: generates a full palette at runtime (Material You dynamic colour).
+- **Seed colour**: generates a full palette at runtime.
 - **Motion**: Expressive springs (bouncier, the default) or Standard springs.
 - **Contrast**: standard, medium or high.
 
-Every story is also an accessibility test (axe) and, where it has a `play` function, an
-interaction test.
+Every story is also an accessibility test (axe, including colour contrast, in the light and
+the dark scheme) and, where it has a `play` function, an interaction test.
 
 ## Where the values come from
 
-Colours, sizes, shapes and timings are **not hand-copied**. They are imported from Flutter's
-Material library (token release 38.2.83, including Expressive) and compiled to CSS, so the
-components match the Material specification, and update when it does.
+Colours, sizes, shapes and timings are **not hand-copied**. They are imported from an open
+token dataset and compiled to CSS, and the generator checks its own assumptions, so an update
+that changes what a component relies on fails loudly instead of drifting.
 
 ## Customising
 
-Override any component through its Material token, on any ancestor:
+Override any component through its token, on any ancestor:
 
 ```css
 .checkout {
