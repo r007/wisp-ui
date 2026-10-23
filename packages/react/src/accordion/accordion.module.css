@@ -1,0 +1,203 @@
+/*
+ * A stack of items, each a header button over a panel that folds away (a grid row from 0fr to 1fr,
+ * as in the banner) rather than being removed. In the segmented variant each item is its own
+ * surface: small gaps and corners between them, large at the ends of the group, and the open item
+ * rounds all of its own, which animates as a spring. Colours, type and shapes are the system's.
+ */
+@layer wisp {
+  .root {
+    --_gap: 2px;
+    --_inner-radius: var(--md-sys-shape-corner-extra-small);
+    --_outer-radius: var(--md-sys-shape-corner-large);
+
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    inline-size: 100%;
+    gap: var(--_gap);
+  }
+
+  .item {
+    border-radius: var(--_inner-radius);
+    background-color: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-surface);
+    transition:
+      border-radius var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .item:first-child {
+    border-start-start-radius: var(--_outer-radius);
+    border-start-end-radius: var(--_outer-radius);
+  }
+
+  .item:last-child {
+    border-end-start-radius: var(--_outer-radius);
+    border-end-end-radius: var(--_outer-radius);
+  }
+
+  .item[data-open] {
+    border-radius: var(--_outer-radius);
+    background-color: var(--md-sys-color-surface-container-high);
+  }
+
+  /* No surface: a rule between items, and nothing to round. */
+  .root[data-variant='flat'] {
+    --_gap: 0;
+  }
+
+  .root[data-variant='flat'] .item,
+  .root[data-variant='flat'] .item:first-child,
+  .root[data-variant='flat'] .item:last-child,
+  .root[data-variant='flat'] .item[data-open] {
+    border-radius: 0;
+    background-color: transparent;
+  }
+
+  .root[data-variant='flat'] .item:not(:last-child) {
+    border-block-end: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  .heading {
+    margin: 0;
+    font: inherit;
+  }
+
+  .header {
+    --_state-layer-color: var(--md-sys-color-on-surface);
+    --_hover-state-layer-opacity: var(--md-sys-state-hover-state-layer-opacity);
+    --_focus-state-layer-opacity: var(--md-sys-state-focus-state-layer-opacity);
+    --_pressed-state-layer-opacity: var(--md-sys-state-pressed-state-layer-opacity);
+    /* The ring goes inside: the items are two pixels apart, so one outside would run into the next. */
+    --_focus-indicator-outline-offset: var(--md-sys-state-focus-indicator-inner-offset);
+
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: 56px;
+    margin: 0;
+    padding-block: 12px;
+    padding-inline: 16px;
+    gap: 16px;
+    border: 0;
+    border-radius: inherit;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* The panel below takes the open item's lower corners, so the header keeps square ones. */
+  .item[data-open] .header {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .header:disabled {
+    cursor: default;
+    opacity: var(--md-sys-state-disabled-state-layer-opacity);
+  }
+
+  .leading {
+    display: flex;
+    flex: none;
+    inline-size: 24px;
+    block-size: 24px;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .leading > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentcolor;
+  }
+
+  .text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-inline-size: 0;
+  }
+
+  .title {
+    font: var(--md-sys-typescale-title-medium);
+    letter-spacing: var(--md-sys-typescale-title-medium-tracking);
+  }
+
+  .supporting {
+    color: var(--md-sys-color-on-surface-variant);
+    font: var(--md-sys-typescale-body-medium);
+    letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+  }
+
+  .chevron {
+    flex: none;
+    inline-size: 24px;
+    block-size: 24px;
+    fill: currentcolor;
+    transition: transform var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .item[data-open] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .item[data-open] .panel {
+    grid-template-rows: 1fr;
+  }
+
+  .clip {
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .content {
+    padding-block: 0 16px;
+    padding-inline: 16px;
+    color: var(--md-sys-color-on-surface-variant);
+    font: var(--md-sys-typescale-body-large);
+    letter-spacing: var(--md-sys-typescale-body-large-tracking);
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-spring-fast-effects);
+  }
+
+  .item[data-open] .content {
+    opacity: 1;
+  }
+
+  /* The text lines up with the title, not the icon. */
+  .item[data-leading] .content {
+    padding-inline-start: 56px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .item,
+    .chevron,
+    .panel,
+    .content {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .item {
+      border: 1px solid CanvasText;
+    }
+
+    .chevron,
+    .leading {
+      fill: CanvasText;
+    }
+  }
+}
