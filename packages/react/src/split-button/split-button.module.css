@@ -25,9 +25,22 @@
     --_icon-size: var(--_menu-icon-size);
   }
 
+  /*
+   * The Button's icon slot sizes an svg that is its direct child; the chevron is one level
+   * deeper, so it sizes and colours its own. Left to the viewBox's aspect ratio the svg is 0
+   * wide in WebKit, and left to the default fill it is black on every variant.
+   */
   .chevron {
     display: inline-flex;
+    inline-size: 100%;
+    block-size: 100%;
     transition: rotate var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .chevron > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    fill: currentColor;
   }
 
   .root [aria-expanded='true'] .chevron {

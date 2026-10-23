@@ -90,6 +90,17 @@ test.describe('appearance', () => {
     expect(Math.round(rect(chevron().querySelector('svg') as Element).width)).toBe(22);
   });
 
+  test('draws the chevron in the colour of the button’s content, not the default black', async () => {
+    const { rerender } = await render(<Split variant="filled" />);
+    const glyph = () => chevron().querySelector('svg') as SVGElement;
+    // `on-primary` on a filled button.
+    expect(style(glyph()).fill).toBe('rgb(255, 255, 255)');
+    expect(style(glyph()).fill).toBe(style(chevron()).color);
+    await rerender(<Split variant="elevated" />);
+    expect(style(glyph()).fill).toBe(style(chevron()).color);
+    expect(style(glyph()).fill).not.toBe('rgb(0, 0, 0)');
+  });
+
   test('rounds the outer ends fully and the touching corners to 4px', async () => {
     await render(<Split />);
     expect(px(style(action()).borderTopLeftRadius)).toBe(20);
