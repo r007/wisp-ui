@@ -19,6 +19,7 @@ import { useMergedRef } from '../foundation/merge-refs.js';
 import { StateLayer } from '../foundation/state-layer.js';
 import { useControllableState } from '../foundation/use-controllable-state.js';
 import { useStateLayer } from '../foundation/use-state-layer.js';
+import { useWheelScroll } from '../foundation/use-wheel-scroll.js';
 import styles from './tabs.module.css';
 import tokens from './tabs.tokens.generated.module.css';
 
@@ -138,6 +139,8 @@ export function TabList({
   const { value, select, activation } = useTabs();
   const listRef = useRef<HTMLDivElement>(null);
   const mergedRef = useMergedRef(listRef, ref);
+  // A mouse wheel only turns vertically, and the scrollbar is hidden.
+  useWheelScroll(listRef);
 
   /** The tab with this value, found by its `data-value` (values may hold any characters). */
   const find = useCallback((selected: string | undefined) => {

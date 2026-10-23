@@ -279,6 +279,48 @@ test('scrollable tabs take their content’s width, at least 90px, and the list 
   expect(list().scrollWidth).toBeGreaterThan(list().clientWidth);
 });
 
+test.describe('mouse wheel', () => {
+  /** Dispatches a wheel event; `false` means the handler took it (called `preventDefault`). */
+  const wheel = (init: WheelEventInit) =>
+    list().dispatchEvent(new WheelEvent('wheel', { bubbles: true, cancelable: true, ...init }));
+
+  const renderNarrow = () =>
+    render(
+      <div style={{ inlineSize: 200 }}>
+        <Sample list={{ scrollable: true }} />
+      </div>,
+    );
+
+  test('a vertical wheel scrolls a scrollable list sideways', async () => {
+    await renderNarrow();
+    list().scrollLeft = 0;
+    expect(wheel({ deltaY: 100 })).toBe(false);
+    await expect.poll(() => list().scrollLeft).toBe(100);
+    expect(wheel({ deltaY: -40 })).toBe(false);
+    await expect.poll(() => list().scrollLeft).toBe(60);
+  });
+
+  test('leaves the wheel to the page at either end of the list', async () => {
+    await renderNarrow();
+    list().scrollLeft = 0;
+    expect(wheel({ deltaY: -100 })).toBe(true);
+    list().scrollLeft = list().scrollWidth;
+    expect(wheel({ deltaY: 100 })).toBe(true);
+  });
+
+  test('leaves a horizontal gesture to the browser', async () => {
+    await renderNarrow();
+    list().scrollLeft = 0;
+    expect(wheel({ deltaX: 100, deltaY: 10 })).toBe(true);
+    expect(list().scrollLeft).toBe(0);
+  });
+
+  test('leaves the wheel alone when everything fits', async () => {
+    await render(<Sample />);
+    expect(wheel({ deltaY: 100 })).toBe(true);
+  });
+});
+
 test('shows the press ripple', async () => {
   await render(<Sample />);
   tab('Hotels').dispatchEvent(
