@@ -1,0 +1,164 @@
+/*
+ * One rule per type style of the Material scale, and one more for its emphasised form. Each sets
+ * only the font (size, weight, line height and family in one shorthand) and its tracking, from
+ * the system tokens, so a theme or an override of those tokens carries through. The colour is
+ * not set: text takes the colour it is in. A test fails if a token is added with no rule here.
+ */
+@layer wisp {
+  .root {
+    margin: 0;
+    padding: 0;
+    font: var(--_font);
+    letter-spacing: var(--_tracking);
+  }
+
+  .root[data-variant='display-large'] {
+    --_font: var(--md-sys-typescale-display-large);
+    --_tracking: var(--md-sys-typescale-display-large-tracking);
+  }
+
+  .root[data-variant='display-large'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-display-large);
+    --_tracking: var(--md-sys-typescale-emphasized-display-large-tracking);
+  }
+
+  .root[data-variant='display-medium'] {
+    --_font: var(--md-sys-typescale-display-medium);
+    --_tracking: var(--md-sys-typescale-display-medium-tracking);
+  }
+
+  .root[data-variant='display-medium'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-display-medium);
+    --_tracking: var(--md-sys-typescale-emphasized-display-medium-tracking);
+  }
+
+  .root[data-variant='display-small'] {
+    --_font: var(--md-sys-typescale-display-small);
+    --_tracking: var(--md-sys-typescale-display-small-tracking);
+  }
+
+  .root[data-variant='display-small'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-display-small);
+    --_tracking: var(--md-sys-typescale-emphasized-display-small-tracking);
+  }
+
+  .root[data-variant='headline-large'] {
+    --_font: var(--md-sys-typescale-headline-large);
+    --_tracking: var(--md-sys-typescale-headline-large-tracking);
+  }
+
+  .root[data-variant='headline-large'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-headline-large);
+    --_tracking: var(--md-sys-typescale-emphasized-headline-large-tracking);
+  }
+
+  .root[data-variant='headline-medium'] {
+    --_font: var(--md-sys-typescale-headline-medium);
+    --_tracking: var(--md-sys-typescale-headline-medium-tracking);
+  }
+
+  .root[data-variant='headline-medium'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-headline-medium);
+    --_tracking: var(--md-sys-typescale-emphasized-headline-medium-tracking);
+  }
+
+  .root[data-variant='headline-small'] {
+    --_font: var(--md-sys-typescale-headline-small);
+    --_tracking: var(--md-sys-typescale-headline-small-tracking);
+  }
+
+  .root[data-variant='headline-small'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-headline-small);
+    --_tracking: var(--md-sys-typescale-emphasized-headline-small-tracking);
+  }
+
+  .root[data-variant='title-large'] {
+    --_font: var(--md-sys-typescale-title-large);
+    --_tracking: var(--md-sys-typescale-title-large-tracking);
+  }
+
+  .root[data-variant='title-large'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-title-large);
+    --_tracking: var(--md-sys-typescale-emphasized-title-large-tracking);
+  }
+
+  .root[data-variant='title-medium'] {
+    --_font: var(--md-sys-typescale-title-medium);
+    --_tracking: var(--md-sys-typescale-title-medium-tracking);
+  }
+
+  .root[data-variant='title-medium'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-title-medium);
+    --_tracking: var(--md-sys-typescale-emphasized-title-medium-tracking);
+  }
+
+  .root[data-variant='title-small'] {
+    --_font: var(--md-sys-typescale-title-small);
+    --_tracking: var(--md-sys-typescale-title-small-tracking);
+  }
+
+  .root[data-variant='title-small'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-title-small);
+    --_tracking: var(--md-sys-typescale-emphasized-title-small-tracking);
+  }
+
+  .root[data-variant='body-large'] {
+    --_font: var(--md-sys-typescale-body-large);
+    --_tracking: var(--md-sys-typescale-body-large-tracking);
+  }
+
+  .root[data-variant='body-large'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-body-large);
+    --_tracking: var(--md-sys-typescale-emphasized-body-large-tracking);
+  }
+
+  .root[data-variant='body-medium'] {
+    --_font: var(--md-sys-typescale-body-medium);
+    --_tracking: var(--md-sys-typescale-body-medium-tracking);
+  }
+
+  .root[data-variant='body-medium'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-body-medium);
+    --_tracking: var(--md-sys-typescale-emphasized-body-medium-tracking);
+  }
+
+  .root[data-variant='body-small'] {
+    --_font: var(--md-sys-typescale-body-small);
+    --_tracking: var(--md-sys-typescale-body-small-tracking);
+  }
+
+  .root[data-variant='body-small'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-body-small);
+    --_tracking: var(--md-sys-typescale-emphasized-body-small-tracking);
+  }
+
+  .root[data-variant='label-large'] {
+    --_font: var(--md-sys-typescale-label-large);
+    --_tracking: var(--md-sys-typescale-label-large-tracking);
+  }
+
+  .root[data-variant='label-large'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-label-large);
+    --_tracking: var(--md-sys-typescale-emphasized-label-large-tracking);
+  }
+
+  .root[data-variant='label-medium'] {
+    --_font: var(--md-sys-typescale-label-medium);
+    --_tracking: var(--md-sys-typescale-label-medium-tracking);
+  }
+
+  .root[data-variant='label-medium'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-label-medium);
+    --_tracking: var(--md-sys-typescale-emphasized-label-medium-tracking);
+  }
+
+  .root[data-variant='label-small'] {
+    --_font: var(--md-sys-typescale-label-small);
+    --_tracking: var(--md-sys-typescale-label-small-tracking);
+  }
+
+  .root[data-variant='label-small'][data-emphasized] {
+    --_font: var(--md-sys-typescale-emphasized-label-small);
+    --_tracking: var(--md-sys-typescale-emphasized-label-small-tracking);
+  }
+}

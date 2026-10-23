@@ -35,3 +35,4 @@ export * from './text-field/index.js';
 export * from './time-picker/index.js';
 export * from './toolbar/index.js';
 export * from './tooltip/index.js';
+export * from './typography/index.js';

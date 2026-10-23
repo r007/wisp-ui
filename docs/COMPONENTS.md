@@ -51,6 +51,7 @@ them to components, the Flutter widget to read, and the archetype to copy from
 | ✅ **Toolbar**            | `toolbar`                                                              | Docked bar or floating pill (horizontal or vertical), standard and vibrant; WAI-ARIA toolbar pattern (one tab stop, arrow keys); optional FAB                                                                     |
 | ✅ **Tooltip**            | `plain-tooltip`, `rich-tooltip`                                        | Popover on CSS anchor positioning; hover delay, keyboard focus, Escape; rich tooltips stay open under the pointer                                                                                                 |
 | ✅ **TopAppBar**          | `app-bar`                                                              | Small, medium, large (Expressive flexible heights), subtitle, collapse on scroll, sticky                                                                                                                          |
+| ✅ **Typography**         | `--md-sys-typescale-*` (30 styles)                                     | The 15 styles of the type scale, plain and emphasised, as a component (`variant`, `emphasized`, `render` for a heading); sets the font and tracking only, from the tokens                                         |
 
 ## Next up
 
@@ -79,7 +80,6 @@ Still to build:
 | Piece                                                 | Needed by                       | Notes                                                                                                                                                     |
 | ----------------------------------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Material Shapes** (exact `RoundedPolygon` morphing) | FAB and other expressive shapes | `loading-indicator/shapes.ts` approximates the seven loading shapes as radial functions; Flutter 1.8.0 ships `MaterialShapes` with feature-matched morphs |
-| **Typography** component / utility classes            | everything                      | The `--md-sys-typescale-*` tokens exist; no component yet                                                                                                 |
 | **Docs site**                                         | adoption                        | Storybook is the component explorer; a marketing/docs site is planned                                                                                     |
 
 ## Expressive features used so far
@@ -88,10 +88,10 @@ Springs (fast spatial for shape morphing, fast effects for colour) · shape morp
 press and toggle (buttons, chips, list segments, connected button groups, split
 buttons) · five button/icon-button/slider sizes · the Expressive `nav-bar`, `nav-rail`,
 `menus` and `chips` tokens · wavy progress indicators · the Expressive slider with its
-handle pill · flexible app bars · connected button groups · the Standard/Expressive
+handle pill · flexible app bars · connected button groups · the emphasised type scale · the Standard/Expressive
 motion switch.
 
-Not yet used: exact `MaterialShapes` morphing, emphasised type scale (tokens exist).
+Not yet used: exact `MaterialShapes` morphing.
 
 ## Browser support
 

@@ -10,4 +10,4 @@ DateRangePicker and DateRangePickerDialog, Dialog, Divider, Fab, FabMenu, IconBu
 LoadingIndicator, Menu, NavigationBar, NavigationDrawer, NavigationRail, Progress (linear and
 circular), Radio, Search, SearchBar, SegmentedButton, Sheet and StandardSheet, Slider and
 RangeSlider, Snackbar, SplitButton, Switch, Tabs, TextField, TimePicker and TimePickerDialog,
-Toolbar, Tooltip and TopAppBar.
+Toolbar, Tooltip, TopAppBar and Typography.

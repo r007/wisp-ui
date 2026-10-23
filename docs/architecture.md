@@ -163,5 +163,4 @@ component alone and fails if another component's CSS appears or the budget
 ## What is deliberately not here yet
 
 See [COMPONENTS.md](COMPONENTS.md) for the full status. Notable gaps in the
-foundation: shape morphing (`MaterialShapes`/`RoundedPolygon`) and a typography
-component.
+foundation: shape morphing (`MaterialShapes`/`RoundedPolygon`).
