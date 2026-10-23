@@ -101,8 +101,49 @@ test.describe('LinearProgress', () => {
 
   test('draws a moving wave when wavy', async () => {
     await render(<LinearProgress aria-label="x" value={50} wavy />);
-    expect(style(part(BAR)).maskImage).toContain('svg');
+    expect(getComputedStyle(part(BAR), '::before').maskImage).toContain('svg');
     expect(animates(bar(), 'wave')).toBe(true);
+  });
+
+  test('draws the wave with no gap between its periods, wherever it has travelled to', async () => {
+    await render(
+      <div style={{ inlineSize: 400, background: 'white' }}>
+        <LinearProgress aria-label="x" value={100} wavy />
+      </div>,
+    );
+    // Freeze the wave part-way through a period, off the pixel grid.
+    for (const animation of bar().getAnimations({ subtree: true })) {
+      animation.pause();
+      animation.currentTime = 321;
+    }
+    // Not saved to disk, the screenshot comes back as base64 PNG.
+    const base64 = await page.screenshot({ element: bar(), save: false });
+    const image = new Image();
+    image.src = `data:image/png;base64,${base64}`;
+    await image.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+    context.drawImage(image, 0, 0);
+    const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    // How far each pixel is from the white page, so a pixel of the bar's colour counts as 1.
+    const ink = (x: number, y: number) => {
+      const at = (y * canvas.width + x) * 4;
+      return 3 * 255 - (pixels[at] ?? 0) - (pixels[at + 1] ?? 0) - (pixels[at + 2] ?? 0);
+    };
+    let solid = 0;
+    for (let y = 0; y < canvas.height; y++)
+      for (let x = 0; x < canvas.width; x++) solid = Math.max(solid, ink(x, y));
+    expect(solid).toBeGreaterThan(300);
+    // The stroke is 4px thick and never thinner than that vertically, so each column holds at
+    // least ~4px of ink. A wedge cut out of the stroke at a period's edge left only ~3.3.
+    const coverage = Array.from({ length: canvas.width }, (_, x) => {
+      let sum = 0;
+      for (let y = 0; y < canvas.height; y++) sum += ink(x, y) / solid;
+      return sum;
+    });
+    expect(Math.min(...coverage)).toBeGreaterThan(3.8);
   });
 
   test('sweeps a bar across while indeterminate, with no stop dot', async () => {

@@ -11,8 +11,13 @@
     box-sizing: border-box;
     inline-size: 100%;
     block-size: var(--_height);
+    --_direction: 1;
     /* The gap exists only once there is something to be apart from. */
     --_gap-now: calc(min(1, var(--_progress) * 1000) * var(--_gap));
+  }
+
+  .root:dir(rtl) {
+    --_direction: -1;
   }
 
   .root[data-wavy] {
@@ -54,11 +59,32 @@
     opacity: 0;
   }
 
-  /* Wavy: one period of a sine wave as a mask, repeated; the bar's own box clips it. */
+  /*
+   * Wavy: the bar is a clip, and its `::before` is one wave drawn as a repeating mask, a
+   * wavelength wider than the bar. Sliding that by one wavelength looks like a wave travelling
+   * along the bar, and starts over without a jump. The mask is rasterised once and only
+   * `translate` animates, so there is no seam where the tiles meet (re-tiling a mask at a
+   * fractional offset every frame leaves a faint line there) and the compositor does the work.
+   *
+   * The path runs half a period past each edge of the tile (x from -20 to 60 in a 40 wide
+   * viewBox), so the viewBox clips a continuous stroke. Ending the path at the edge would leave
+   * a slanted butt cap there, and a wedge-shaped gap between every pair of tiles.
+   */
   .root[data-wavy] .bar {
     inset-block: 0;
+    overflow: hidden;
     border-radius: 0;
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 10'%3E%3Cpath d='M0 5C5.5 2 14.5 2 20 5S34.5 8 40 5' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
+    background-color: transparent;
+  }
+
+  .root[data-wavy] .bar::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: calc(-1 * var(--_wavelength));
+    inline-size: calc(100% + var(--_wavelength));
+    background-color: var(--_active-color);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 10'%3E%3Cpath d='M-20 5C-14.5 8 -5.5 8 0 5C5.5 2 14.5 2 20 5S34.5 8 40 5S54.5 2 60 5' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
     mask-repeat: repeat-x;
     mask-size: var(--_wavelength) 100%;
     mask-position: 0 center;
@@ -67,7 +93,7 @@
 
   @keyframes wave {
     to {
-      mask-position: var(--_wavelength) center;
+      translate: calc(var(--_direction) * var(--_wavelength)) 0;
     }
   }
 
@@ -88,12 +114,6 @@
     inline-size: 0;
     transition: none;
     animation: sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  }
-
-  .root[data-indeterminate][data-wavy] .bar {
-    animation:
-      sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite,
-      wave 1s linear infinite;
   }
 
   @keyframes sweep {
@@ -125,12 +145,8 @@
     }
 
     /* The wave stops moving; the bar still sweeps, as it is the only sign that work continues. */
-    .root[data-wavy]:not([data-indeterminate]) .bar {
+    .root[data-wavy] .bar::before {
       animation: none;
-    }
-
-    .root[data-indeterminate][data-wavy] .bar {
-      animation: sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
   }
 
@@ -139,7 +155,8 @@
       background-color: GrayText;
     }
 
-    .bar {
+    .bar,
+    .root[data-wavy] .bar::before {
       background-color: Highlight;
     }
 
