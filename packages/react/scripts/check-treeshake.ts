@@ -31,6 +31,8 @@ const CSS_GZIP_BUDGET_KB = 4;
  * component is allowed to pull in another's styles.
  */
 const COMPOSED_OF: Record<string, readonly string[]> = {
+  // A TextField you type in, whose suggestions are a menu's popup.
+  autocomplete: ['text-field', 'menu'],
   'fab-menu': ['fab'],
   search: ['search-bar', 'icon-button'],
   // A TextField that opens a menu's popup.

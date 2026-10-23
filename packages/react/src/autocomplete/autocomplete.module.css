@@ -1,0 +1,135 @@
+/*
+ * An autocomplete is a TextField that you type in, which opens a listbox of the options that match.
+ * The field's visual box (`[data-slot='field']`) is what the list is anchored to, and the list is as
+ * wide as it. The list is a menu's popup (menu.module.css) and its options are a menu's items (the
+ * list-item contract), except that the focus never leaves the field, so the option that has it is
+ * marked `data-active` and drawn as a focused item is. Colours and type come from the text field's
+ * and the menu's tokens.
+ */
+@layer wisp {
+  .root {
+    --_anchor: none;
+
+    position: relative;
+    display: block;
+    min-inline-size: 0;
+  }
+
+  .root [data-slot='field'] {
+    anchor-name: var(--_anchor);
+  }
+
+  .root input {
+    text-overflow: ellipsis;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+  }
+
+  /* A 40px target for a 24px glyph, which the keyboard has no need of: it is a pointer shortcut. */
+  .action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    inline-size: 40px;
+    block-size: 40px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .action > svg {
+    inline-size: 24px;
+    block-size: 24px;
+    fill: currentcolor;
+  }
+
+  .action:disabled {
+    cursor: default;
+  }
+
+  @media (hover: hover) {
+    .action:not(:disabled):hover {
+      background-color: color-mix(
+        in srgb,
+        var(--md-sys-color-on-surface-variant)
+          calc(var(--md-sys-state-hover-state-layer-opacity) * 100%),
+        transparent
+      );
+    }
+  }
+
+  .arrow > svg {
+    transition: rotate var(--md-sys-motion-spring-fast-spatial);
+  }
+
+  .root[data-open] .arrow > svg {
+    rotate: 180deg;
+  }
+
+  /* The list is as wide as the field, and may be wider for its options. */
+  .panel {
+    position-anchor: var(--_anchor);
+    min-inline-size: 112px;
+    max-inline-size: none;
+    max-block-size: min(320px, calc(100dvh - 16px));
+  }
+
+  @supports (min-inline-size: anchor-size(width)) {
+    .panel {
+      min-inline-size: anchor-size(width);
+    }
+  }
+
+  /* The option the arrow keys are on: a focused item, though the focus is on the field. */
+  .option[data-active] {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: var(--_focus-indicator-outline-offset);
+  }
+
+  .option[data-active] > [data-wisp-state-layer]::before {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .option[data-disabled] {
+    cursor: default;
+  }
+
+  /* The part of an option that what was typed matched. */
+  .match {
+    font-weight: 700;
+  }
+
+  /* "Loading…" and "No results": a line of the list that is not an option. */
+  .status {
+    padding-block: 12px;
+    padding-inline: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+    font: var(--md-sys-typescale-body-medium);
+    letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .arrow > svg {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .option[data-active] {
+      outline-color: Highlight;
+    }
+
+    .action > svg {
+      fill: CanvasText;
+    }
+  }
+}
