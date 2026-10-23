@@ -1,6 +1,8 @@
 export {
   Menu,
   MenuDivider,
+  MenuGroup,
+  type MenuGroupProps,
   MenuItem,
   type MenuItemProps,
   type MenuPlacement,

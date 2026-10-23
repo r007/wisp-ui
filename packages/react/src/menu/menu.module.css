@@ -93,8 +93,63 @@
   }
 
   /* Menu items are not tab stops; the menu moves focus between them. */
-  .root > .item {
+  .root > .item,
+  .group > .item {
     cursor: pointer;
+  }
+
+  /*
+   * A grouped menu: each group is its own surface with its own shadow, a gap apart, and the popup
+   * itself has none. The popup scrolls (it is a popover with a maximum height), which would clip
+   * the groups' shadows, so it is padded by a gutter for them to fall in, and pulled back out by
+   * the same amount with a negative margin so the groups still line up with the anchor.
+   */
+  .root:has(> .group) {
+    --_gutter: 16px;
+
+    min-inline-size: calc(112px + 2 * var(--_gutter));
+    max-inline-size: calc(280px + 2 * var(--_gutter));
+    margin-block: calc(2px - var(--_gutter));
+    margin-inline: calc(-1 * var(--_gutter));
+    padding: var(--_gutter);
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    pointer-events: none;
+  }
+
+  /* The gutter is not part of the menu: presses fall through it to the page. */
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_panel-gap);
+    padding: var(--_panel-padding);
+    border-radius: var(--_group-shape);
+    background-color: var(--_panel-color);
+    box-shadow: var(--_panel-elevation);
+    pointer-events: auto;
+  }
+
+  /* The corners that face outwards are the popup's; the ones between groups are smaller. */
+  .root > .group:first-child {
+    border-start-start-radius: var(--_panel-shape);
+    border-start-end-radius: var(--_panel-shape);
+  }
+
+  .root > .group:last-child {
+    border-end-start-radius: var(--_panel-shape);
+    border-end-end-radius: var(--_panel-shape);
+  }
+
+  /* Within a group the first and last items round to 12px, as at the ends of an ungrouped menu. */
+  .group > .item:not(.item ~ .item) {
+    border-start-start-radius: var(--_end-shape);
+    border-start-end-radius: var(--_end-shape);
+  }
+
+  .group > .item:not(:has(~ .item)) {
+    border-end-start-radius: var(--_end-shape);
+    border-end-end-radius: var(--_end-shape);
   }
 
   .divider {
@@ -114,6 +169,16 @@
 
   @media (forced-colors: active) {
     .root {
+      border: 1px solid CanvasText;
+      background-color: Canvas;
+    }
+
+    .root:has(> .group) {
+      border: 0;
+      background-color: transparent;
+    }
+
+    .group {
       border: 1px solid CanvasText;
       background-color: Canvas;
     }

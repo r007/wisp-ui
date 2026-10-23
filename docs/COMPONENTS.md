@@ -26,7 +26,7 @@ them to components, the Flutter widget to read, and the archetype to copy from
 | ✅ **IconButton**         | `icon-button`                                                          | 4 variants; 5 sizes; narrow/default/wide; toggle with `selectedIcon`; requires `aria-label`                                                                                                                       |
 | ✅ **LoadingIndicator**   | `loading-indicator`                                                    | Indeterminate; a shape that morphs through seven others while turning (an animation frame loop over radial-function outlines, `loading-indicator/shapes.ts`); uncontained or contained; still with reduced motion |
 | ✅ **List**               | `list`                                                                 | `List`, `ListItem`, `ListDivider`; 1 to 3 lines, leading icon/avatar/image/video; the **list-item contract** that Menu reuses; segmented (Expressive)                                                             |
-| ✅ **Menu**               | `menus` (standard and vibrant)                                         | Popover on CSS anchor positioning; WAI-ARIA menu button pattern (arrows, typeahead, Escape returns focus); checkbox and radio items                                                                               |
+| ✅ **Menu**               | `menus` (standard and vibrant)                                         | Popover on CSS anchor positioning; WAI-ARIA menu button pattern (arrows, typeahead, Escape returns focus); checkbox and radio items; `MenuGroup` for the Expressive segmented menu                                |
 | ✅ **NavigationBar**      | `nav-bar`                                                              | Expressive 64px bar; vertical and horizontal items; label behaviours; badges. Uses the new `nav-bar` tokens, not the older `navigation-bar`                                                                       |
 | ✅ **NavigationDrawer**   | `navigation-drawer`                                                    | Standard and modal (native `<dialog>`); sections, dividers, trailing counts                                                                                                                                       |
 | ✅ **NavigationRail**     | `nav-rail`                                                             | Collapsed (96/80px, vertical items) and expanded (220 to 360px, horizontal items); header slot                                                                                                                    |
@@ -53,10 +53,9 @@ them to components, the Flutter widget to read, and the archetype to copy from
 
 Ordered by how much of the remaining set each unlocks.
 
-| Component              | Tokens                                                   | Flutter widget                     | Archetype | Unlocks / notes                                           |
-| ---------------------- | -------------------------------------------------------- | ---------------------------------- | --------- | --------------------------------------------------------- |
-| ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex   | 147 + 71 tokens; consider a headless base                 |
-| ⬜ Menu groups         | `menus`                                                  | `MenuAnchor`                       | composite | the Expressive grouped, segmented menu (`group.*` tokens) |
+| Component              | Tokens                                                   | Flutter widget                     | Archetype | Unlocks / notes                           |
+| ---------------------- | -------------------------------------------------------- | ---------------------------------- | --------- | ----------------------------------------- |
+| ⬜ Date / time pickers | `date-picker`, `date-input`, `time-picker`, `time-input` | `showDatePicker`, `showTimePicker` | complex   | 147 + 71 tokens; consider a headless base |
 
 ## Foundation
 
@@ -91,8 +90,7 @@ buttons) · five button/icon-button/slider sizes · the Expressive `nav-bar`, `n
 handle pill · flexible app bars · connected button groups · the Standard/Expressive
 motion switch.
 
-Not yet used: exact `MaterialShapes` morphing, emphasised type scale (tokens exist),
-grouped menus.
+Not yet used: exact `MaterialShapes` morphing, emphasised type scale (tokens exist).
 
 ## Browser support
 

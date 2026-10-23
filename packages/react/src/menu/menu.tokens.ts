@@ -5,6 +5,12 @@
  * round to 12px at the ends of a group and when selected. It has two colour schemes,
  * `standard` (a low surface, tertiary selection) and `vibrant` (a tertiary container).
  *
+ * A menu may be split into groups, each its own rounded surface a `gap` apart: the popup's
+ * 16px corners (`container.shape`) are the outer ones, and `group.shape` (8px) the ones where
+ * two groups face each other. Not used: `active.container.shape` and `inactive.container.shape`
+ * (the same 16 and 8, for a state no component here has) and the `horizontal.*` tokens, for a
+ * row of icon-only items.
+ *
  * A menu item is a list item, so the item variables are the *list-item contract* (see
  * `list.tokens.ts`), supplied here from the menu's own tokens. The menu publishes no type
  * tokens; its text uses the list item's.
@@ -102,6 +108,7 @@ export default {
         'panel-elevation': 'container.elevation',
         'panel-padding': 'group.padding',
         'panel-gap': 'gap',
+        'group-shape': 'group.shape',
 
         // The list-item contract: geometry. A menu item is always a single line.
         'one-line-height': `${ITEM}.height`,

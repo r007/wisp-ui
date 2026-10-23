@@ -33,7 +33,7 @@ export type MenuPlacement = 'bottom-start' | 'bottom-end' | 'top-start' | 'top-e
 export interface MenuProps {
   /** The element that opens the menu. It must accept a ref, a style and event handlers. */
   trigger: ReactElement;
-  /** `MenuItem`s and `MenuDivider`s. */
+  /** `MenuItem`s and `MenuDivider`s, or `MenuGroup`s. */
   children: ReactNode;
   /** `standard` is a low surface with a tertiary selection; `vibrant` a tertiary container. @default 'standard' */
   scheme?: MenuScheme;
@@ -239,6 +239,32 @@ export function MenuItem(props: MenuItemProps) {
       ),
     },
     render,
+  );
+}
+
+export interface MenuGroupProps extends ComponentPropsWithRef<'div'> {
+  /** The `MenuItem`s of the group. */
+  children: ReactNode;
+}
+
+/**
+ * A group of items that is its own rounded surface, a couple of pixels from the next group:
+ * Material's segmented menu. Put only groups in the `Menu` (a divider is not needed between
+ * them). Give each a name with `aria-label` when it has a meaning of its own.
+ *
+ * ```tsx
+ * <Menu trigger={<Button>Edit</Button>}>
+ *   <MenuGroup aria-label="Clipboard"><MenuItem>Cut</MenuItem><MenuItem>Copy</MenuItem></MenuGroup>
+ *   <MenuGroup aria-label="History"><MenuItem>Undo</MenuItem></MenuGroup>
+ * </Menu>
+ * ```
+ */
+export function MenuGroup({ className, children, ...rest }: MenuGroupProps) {
+  return (
+    // biome-ignore lint/a11y/useSemanticElements: a <fieldset> is a form control group, with a border, padding and a legend that this drawn surface would have to undo; role="group" has the same meaning.
+    <div {...rest} role="group" className={cx(styles.group, className)}>
+      {children}
+    </div>
   );
 }
 

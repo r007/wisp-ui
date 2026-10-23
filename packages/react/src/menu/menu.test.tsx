@@ -3,7 +3,7 @@ import { expect, test, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { Button } from '../button/button.js';
-import { Menu, MenuDivider, MenuItem, type MenuProps } from './menu.js';
+import { Menu, MenuDivider, MenuGroup, MenuItem, type MenuProps } from './menu.js';
 
 const px = (value: string) => Number.parseFloat(value);
 const rect = (el: Element) => el.getBoundingClientRect();
@@ -343,4 +343,179 @@ test('an item can be a link', async () => {
   );
   expect(item('Settings').tagName).toBe('A');
   expect(item('Settings')).toHaveAttribute('href', '/settings');
+});
+
+function Grouped(props: Partial<MenuProps> & { groups?: number }) {
+  const { groups = 3, ...menu } = props;
+  const all = [
+    <MenuGroup key="a" aria-label="Clipboard">
+      <MenuItem>Cut</MenuItem>
+      <MenuItem>Copy</MenuItem>
+      <MenuItem>Paste</MenuItem>
+    </MenuGroup>,
+    <MenuGroup key="b" aria-label="History">
+      <MenuItem>Undo</MenuItem>
+      <MenuItem disabled>Redo</MenuItem>
+    </MenuGroup>,
+    <MenuGroup key="c" aria-label="Danger">
+      <MenuItem>Delete</MenuItem>
+    </MenuGroup>,
+  ].slice(0, groups);
+  return (
+    <Spot>
+      <Menu trigger={<Button>Options</Button>} open {...menu}>
+        {all}
+      </Menu>
+    </Spot>
+  );
+}
+
+test.describe('groups', () => {
+  const group = (name: string) => page.getByRole('group', { name }).element() as HTMLElement;
+  const ready = () => expect.poll(() => style(panel()).opacity).toBe('1');
+
+  test('are named groups of items inside the menu', async () => {
+    await render(<Grouped />);
+    await ready();
+    expect(panel().querySelectorAll('[role="group"]')).toHaveLength(3);
+    expect(group('Clipboard').querySelectorAll('[role="menuitem"]')).toHaveLength(3);
+    await expect.element(page.getByRole('group', { name: 'History' })).toBeVisible();
+  });
+
+  test('are separate surfaces 2px apart, and the popup has none of its own', async () => {
+    await render(<Grouped />);
+    await ready();
+    // surface-container-low on each group, none on the popup, which only holds the gutter.
+    expect(style(group('Clipboard')).backgroundColor).toBe('rgb(247, 242, 250)');
+    expect(style(group('History')).backgroundColor).toBe('rgb(247, 242, 250)');
+    expect(style(panel()).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    expect(/[1-9]\d*(?:\.\d+)?px/.test(style(panel()).boxShadow)).toBe(false);
+    expect(/[1-9]\d*(?:\.\d+)?px/.test(style(group('Clipboard')).boxShadow)).toBe(true);
+    expect(Math.round(rect(group('History')).top - rect(group('Clipboard')).bottom)).toBe(2);
+    expect(Math.round(rect(group('Danger')).top - rect(group('History')).bottom)).toBe(2);
+    expect(px(style(group('Clipboard')).paddingLeft)).toBe(2);
+  });
+
+  test('round the corners that face outwards to 16px and the ones between groups to 8px', async () => {
+    await render(<Grouped />);
+    await ready();
+    const radii = (name: string) => {
+      const s = style(group(name));
+      return [
+        s.borderTopLeftRadius,
+        s.borderTopRightRadius,
+        s.borderBottomRightRadius,
+        s.borderBottomLeftRadius,
+      ].map(px);
+    };
+    expect(radii('Clipboard')).toEqual([16, 16, 8, 8]);
+    expect(radii('History')).toEqual([8, 8, 8, 8]);
+    expect(radii('Danger')).toEqual([8, 8, 16, 16]);
+  });
+
+  test('a lone group is rounded 16px all round', async () => {
+    await render(<Grouped groups={1} />);
+    await ready();
+    const s = style(group('Clipboard'));
+    expect(
+      [
+        s.borderTopLeftRadius,
+        s.borderTopRightRadius,
+        s.borderBottomRightRadius,
+        s.borderBottomLeftRadius,
+      ].map(px),
+    ).toEqual([16, 16, 16, 16]);
+  });
+
+  test('round each group’s first and last items to 12px, and the ones between to 4px', async () => {
+    await render(<Grouped />);
+    await ready();
+    const radius = (name: string, corner: 'borderTopLeftRadius' | 'borderBottomLeftRadius') =>
+      px(style(item(name))[corner]);
+    expect(radius('Cut', 'borderTopLeftRadius')).toBe(12);
+    expect(radius('Cut', 'borderBottomLeftRadius')).toBe(4);
+    expect(radius('Copy', 'borderTopLeftRadius')).toBe(4);
+    expect(radius('Paste', 'borderBottomLeftRadius')).toBe(12);
+    // The first item of the second group rounds too, and a lone item in a group is 12 both ways.
+    expect(radius('Undo', 'borderTopLeftRadius')).toBe(12);
+    expect(radius('Delete', 'borderTopLeftRadius')).toBe(12);
+    expect(radius('Delete', 'borderBottomLeftRadius')).toBe(12);
+  });
+
+  test('line up with the trigger, in spite of the gutter that holds their shadows', async () => {
+    await render(<Grouped />);
+    await ready();
+    expect(Math.round(rect(group('Clipboard')).left)).toBe(Math.round(rect(trigger()).left));
+    expect(Math.round(rect(group('Clipboard')).top - rect(trigger()).bottom)).toBe(2);
+  });
+
+  test('let a press in the gutter around them through to the page', async () => {
+    await render(<Grouped />);
+    await ready();
+    const box = rect(group('Clipboard'));
+    const inGutter = document.elementFromPoint(box.left - 8, box.top + box.height / 2);
+    expect(panel().contains(inGutter)).toBe(false);
+    const inGroup = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
+    expect(panel().contains(inGroup)).toBe(true);
+  });
+
+  test('are traversed in order by the arrow keys, across groups, skipping disabled items', async () => {
+    // Uncontrolled, so the trigger can open it.
+    await render(<Grouped open={undefined} />);
+    await open();
+    expect(focused()).toBe('Cut');
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowDown}');
+    expect(focused()).toBe('Undo');
+    // Redo is disabled, so it goes on to the next group.
+    await userEvent.keyboard('{ArrowDown}');
+    expect(focused()).toBe('Delete');
+    await userEvent.keyboard('{ArrowDown}');
+    expect(focused()).toBe('Cut');
+    await userEvent.keyboard('{End}');
+    expect(focused()).toBe('Delete');
+  });
+
+  test('choosing an item in one runs it and closes the menu', async () => {
+    const onClick = vi.fn();
+    await render(
+      <Spot>
+        <Menu trigger={<Button>Options</Button>}>
+          <MenuGroup aria-label="One">
+            <MenuItem onClick={onClick}>Cut</MenuItem>
+          </MenuGroup>
+        </Menu>
+      </Spot>,
+    );
+    await open();
+    await userEvent.click(item('Cut'));
+    expect(onClick).toHaveBeenCalledOnce();
+    await expect.poll(shown).toBe(false);
+  });
+
+  test('take the vibrant scheme’s colour, and a selected item the scheme’s selection', async () => {
+    await render(
+      <Spot>
+        <Menu trigger={<Button>Options</Button>} scheme="vibrant" open>
+          <MenuGroup aria-label="View">
+            <MenuItem role="menuitemcheckbox" checked>
+              Grid
+            </MenuItem>
+            <MenuItem role="menuitemcheckbox" checked={false}>
+              List
+            </MenuItem>
+          </MenuGroup>
+        </Menu>
+      </Spot>,
+    );
+    await ready();
+    // tertiary-container on the group; tertiary on the selected item.
+    expect(style(group('View')).backgroundColor).toBe('rgb(255, 216, 228)');
+    expect(style(item('Grid')).backgroundColor).toBe('rgb(125, 82, 96)');
+  });
+
+  test('stay out of the layout while the menu is closed', async () => {
+    await render(<Grouped open={false} />);
+    expect(shown()).toBe(false);
+    expect(style(panel()).display).toBe('none');
+  });
 });

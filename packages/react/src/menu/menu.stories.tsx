@@ -4,7 +4,7 @@ import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from '../button/button.js';
 import { IconButton } from '../icon-button/icon-button.js';
 import { DeleteIcon, EditIcon, MoreVertIcon, ShareIcon, StarIcon } from '../stories/icons.js';
-import { Menu, MenuDivider, MenuItem } from './menu.js';
+import { Menu, MenuDivider, MenuGroup, MenuItem } from './menu.js';
 
 const meta = {
   title: 'Components/Menu',
@@ -121,6 +121,55 @@ export const TrailingText: Story = {
       <MenuItem leading={<ShareIcon />} trailing="⌘⇧S" trailingKind="text">
         Share
       </MenuItem>
+    </Menu>
+  ),
+};
+
+/** The Expressive segmented menu: each group is its own surface, a couple of pixels from the next. */
+export const Groups: Story = {
+  render: (args) => (
+    <Menu {...args} defaultOpen aria-label="Edit">
+      <MenuGroup aria-label="Clipboard">
+        <MenuItem leading={<EditIcon />} trailing="⌘X" trailingKind="text">
+          Cut
+        </MenuItem>
+        <MenuItem leading={<ShareIcon />} trailing="⌘C" trailingKind="text">
+          Copy
+        </MenuItem>
+        <MenuItem leading={<StarIcon />} trailing="⌘V" trailingKind="text">
+          Paste
+        </MenuItem>
+      </MenuGroup>
+      <MenuGroup aria-label="History">
+        <MenuItem>Undo</MenuItem>
+        <MenuItem disabled>Redo</MenuItem>
+      </MenuGroup>
+      <MenuGroup aria-label="Danger">
+        <MenuItem leading={<DeleteIcon />}>Delete</MenuItem>
+      </MenuGroup>
+    </Menu>
+  ),
+};
+
+export const VibrantGroups: Story = {
+  render: (args) => (
+    <Menu {...args} scheme="vibrant" defaultOpen aria-label="View">
+      <MenuGroup aria-label="Layout">
+        <MenuItem role="menuitemradio" checked>
+          Grid
+        </MenuItem>
+        <MenuItem role="menuitemradio" checked={false}>
+          List
+        </MenuItem>
+      </MenuGroup>
+      <MenuGroup aria-label="Show">
+        <MenuItem role="menuitemcheckbox" checked keepOpen>
+          Toolbar
+        </MenuItem>
+        <MenuItem role="menuitemcheckbox" checked={false} keepOpen>
+          Sidebar
+        </MenuItem>
+      </MenuGroup>
     </Menu>
   ),
 };

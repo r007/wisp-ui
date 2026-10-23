@@ -9,6 +9,7 @@
     --_panel-elevation: var(--md-comp-menus-container-elevation, var(--md-sys-elevation-level2));
     --_panel-padding: var(--md-comp-menus-group-padding, 2px);
     --_panel-gap: var(--md-comp-menus-gap, 2px);
+    --_group-shape: var(--md-comp-menus-group-shape, 8px);
     --_one-line-height: var(--md-comp-menus-menu-item-height, 44px);
     --_two-line-height: var(--md-comp-menus-menu-item-height, 44px);
     --_three-line-height: var(--md-comp-menus-menu-item-height, 44px);
