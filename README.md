@@ -1,54 +1,123 @@
-# Wisp
+<h1 align="center">Wisp UI</h1>
 
-**Material Design 3 Expressive for the modern web.**
-Lightweight React components, zero-runtime CSS, no shadow DOM.
+![Wisp UI — Expressive by nature. Light by design. Real Wisp controls on a soft peach and teal gradient.](docs/brand/hero.png)
 
-> **Status: pre-alpha.** The architecture is settled and a first set of components
-> is ported (see [what's done](docs/COMPONENTS.md)). The API will change before 1.0.
+<p align="center">
+  <strong>Material Design 3 Expressive, made for React and the web.</strong><br />
+  Playful shapes. Thoughtful motion. Plain CSS. A lighter way to build.
+</p>
 
-## Why
+<p align="center">
+  <a href="#try-it">Try it locally</a> ·
+  <a href="docs/COMPONENTS.md">Component inventory</a> ·
+  <a href="docs/architecture.md">Under the hood</a> ·
+  <a href="CONTRIBUTING.md">Contribute</a>
+</p>
 
-Material Design on the web has been hard to adopt for a few reasons. Wisp is built
-around fixing them:
+> **Pre-alpha, and taking shape.** The Expressive token-backed component set is
+> ported; APIs and behaviour are still being refined. Expect changes before 1.0.
+> See the [component status](docs/COMPONENTS.md) for coverage and remaining work.
 
-|                  | Typical situation                                                               | Wisp                                                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **CSS you ship** | One global stylesheet (or all component styles) even if you use a single button | Every component owns its CSS. Import `Button` and you get **only** Button's styles (~2.6 kB gzipped), verified in CI |
-| **Shadow DOM**   | Web components isolate styling, hindering theming and SSR                       | Plain React and plain CSS: style it with your own classes, no `::part()`                                             |
-| **Coverage**     | Navigation bar, drawer, … missing                                               | Ported from Flutter's Material library, which has the full set                                                       |
-| **Expressive**   | Not available                                                                   | Tokens, spring motion and shape morphing from **Material 3 Expressive**                                              |
-| **Runtime cost** | CSS-in-JS injects styles at runtime                                             | Static CSS, no runtime, no provider, SSR-safe                                                                        |
+## The joy of Material. The simplicity of the web.
 
-## Use it
+Material 3 Expressive made us want to build things: soft shapes, colours with
+personality, motion that makes an interface feel alive. We wanted that feeling
+in a React app, from the first button to the navigation around it.
+
+Getting there meant filling in gaps. We wanted navigation bars, drawers and rails
+alongside the everyday controls. We wanted to use a handful of components without
+bringing along the rest of a kit's styles. And we wanted to work with the DOM and
+CSS we already knew.
+
+**That's why we built Wisp.** It brings Material's Expressive design language to
+ordinary React components, with static, per-component CSS and a preference for
+what the browser already does well. Native inputs. Native dialogs. Popovers.
+Scroll snapping. Small pieces that leave room for your application.
+
+The name is the idea: something light, with a little life of its own.
+
+## A little more personality
+
+![Real Wisp components in teal light mode and rose dark mode: buttons, a FAB, loading and progress indicators, switches, chips, a slider, a text field, a navigation bar and a navigation drawer.](docs/brand/components.png)
+
+These are **Wisp components rendered from this repository**, with Material You
+palettes generated from seed colours. The artwork's [React and CSS source](docs/brand/)
+is included, so the previews can grow with the library.
+
+Buttons that change shape. A loading indicator that morphs. Wavy progress.
+Navigation that belongs to the same family as your forms. Explore the variants,
+keyboard interactions, colours and motion in the local Storybook.
+
+## Light where it matters
+
+- **Import a component, bring its styles.** Each component owns its CSS. Composed
+  components include the pieces they use; the shared theme is loaded once.
+  [CI checks](packages/react/scripts/check-treeshake.ts) both barrel and subpath
+  imports for unrelated styles and a compressed CSS budget.
+- **Your DOM. Your CSS.** React elements, CSS Modules and custom properties.
+  No shadow DOM, Sass setup or CSS-in-JS runtime. Styles live in the `wisp`
+  cascade layer, ready for your own classes and tokens.
+- **Let the browser do its job.** Dialogs use `<dialog>`, form controls use native
+  inputs, menus use popovers and CSS anchor positioning, and carousels use native
+  scrolling. JavaScript handles the behaviour and motion that need it.
+- **Few dependencies, deliberately.** The React package depends on Wisp's tokens;
+  the token package uses Material's colour utilities. React 19 is a peer dependency.
+  Icons and fonts are yours to choose.
+- **Expressive all the way through.** Material tokens supply colour, type, shape,
+  elevation and motion. Seed-based palettes, light/dark schemes, contrast options,
+  reduced-motion support and a calmer spring set are part of the foundations.
+
+### Beyond the button
+
+| Build               | With Wisp                                                                      |
+| ------------------- | ------------------------------------------------------------------------------ |
+| A way around        | Navigation bar, rail and drawer; top and bottom app bars; tabs                 |
+| A way to act        | Buttons, button groups, split buttons, icon buttons, FABs and FAB menus        |
+| A way to enter      | Text fields, select, search, checkboxes, radios, switches and sliders          |
+| A way to choose     | Chips, menus, date pickers, date ranges and time pickers                       |
+| A way to respond    | Dialogs, sheets, snackbars, banners, tooltips, progress and loading indicators |
+| A place for content | Cards, lists, carousels, badges, dividers, toolbars and typography             |
+
+See the [full inventory and implementation notes](docs/COMPONENTS.md).
+
+## Try it
+
+Wisp is pre-alpha. Start with the source and explore the components in Storybook.
+Requires **Node ≥ 22.18** and **pnpm 12** (the repository pins the exact version).
 
 ```bash
-pnpm add @wisp-ui/react
+git clone https://github.com/r007/wisp-ui.git
+cd wisp-ui
+pnpm install
+pnpm storybook
 ```
+
+Open **http://localhost:6006/**. Change the colour scheme, seed colour, spring
+motion and contrast from the toolbar. Storybook runs from source; no package build
+is needed first.
+
+### A button is still a button
+
+The workspace package is `@wisp-ui/react`. Import the shared theme once at your
+app root, then import the components you use:
 
 ```tsx
-import '@wisp-ui/react/theme.css'; // system tokens: once, at the app root
-import { Button } from '@wisp-ui/react/button'; // or: import { Button } from '@wisp-ui/react'
+import '@wisp-ui/react/theme.css';
+import { Button } from '@wisp-ui/react/button';
 
 export function Save() {
-  return <Button variant="filled">Save</Button>;
+  return <Button variant="filled">Save something good</Button>;
 }
 ```
 
-Requires React 19. Components are ESM and work in client and server components
-(`"use client"` is preserved where needed).
+Barrel imports work too: `import { Button } from '@wisp-ui/react'`.
+Components ship as ESM with `"use client"` directives preserved where needed.
+Use a bundler that supports CSS imports. This is a React kit; its light footprint
+comes from the implementation, not from removing React.
 
-### Theme it
+## Make it feel like you
 
-Colour follows the CSS `color-scheme`, so dark mode is automatic. Switch any
-subtree by setting it:
-
-```css
-.reading-pane {
-  color-scheme: dark;
-}
-```
-
-Generate a full palette from a seed colour (Material You):
+Generate a palette from one seed colour:
 
 ```ts
 import { applyTheme } from '@wisp-ui/react/theme';
@@ -56,27 +125,35 @@ import { applyTheme } from '@wisp-ui/react/theme';
 applyTheme(document.documentElement, '#006a60', { variant: 'expressive' });
 ```
 
-Override a single component through its Material token, on any ancestor:
+Colour follows CSS `color-scheme`. Set it on the page or on a subtree:
 
 ```css
+.reading-pane {
+  color-scheme: dark;
+}
+
 .checkout {
   --md-comp-button-filled-container-color: var(--md-sys-color-tertiary);
 }
 ```
 
-Other switches are plain attributes: `data-wisp-motion="standard"` for the calmer
-spring set, and `data-wisp-contrast="medium" | "high"` for higher-contrast colour. A system
-that asks for more contrast (`prefers-contrast: more`) gets the high set without any of this;
-set the attribute on `<html>` (any value, `"standard"` included) and your choice wins.
+No theme provider is required. Dynamic colour is optional: `theme.css` includes
+the baseline palette.
 
-### Playing nicely with your CSS
+<details>
+<summary><strong>Motion, contrast and the CSS cascade</strong></summary>
 
-Wisp's CSS lives in a cascade layer called `wisp`, so **your styles always win**
-without specificity fights. If your app has a global reset, put it in an earlier
-layer so it cannot override components:
+Set `data-wisp-motion="standard"` for the calmer spring set. The baseline theme
+supports `data-wisp-contrast="medium"` or `"high"`; `prefers-contrast: more` selects
+high contrast automatically unless an explicit attribute overrides it. When
+generating a seed palette, pass a `contrast` value to `applyTheme` instead.
+
+Wisp's styles live in `@layer wisp`. Unlayered app styles take precedence. Put a
+global reset in an earlier layer so it does not accidentally override components:
 
 ```css
 @layer reset, wisp;
+
 @layer reset {
   button {
     font: inherit;
@@ -84,46 +161,59 @@ layer so it cannot override components:
 }
 ```
 
-## What's in this repository
+</details>
 
-```
-packages/
-  tokens/   @wisp-ui/tokens  Material 3 Expressive tokens as CSS variables + dynamic colour
-  react/    @wisp-ui/react   The components (and the Storybook that documents them)
-tools/
-  codegen/  Imports Material's token data and generates CSS from it. Never published
-docs/       Architecture, porting guide, component status, decisions (ADRs)
-```
+## Built with care, in the open
 
-The design values are not hand-copied: they are imported from Flutter's Material
-library (token release 38.2.83, which includes Expressive) and compiled to CSS.
-Read [docs/architecture.md](docs/architecture.md) for how, and
-[docs/porting-guide.md](docs/porting-guide.md) to port the next component.
+Wisp's design values are imported from Flutter's Material library, including the
+Material 3 Expressive token release **38.2.83**, and compiled into CSS. The
+components adapt that design and behaviour for React and browser primitives.
+Read the [architecture](docs/architecture.md), [platform-first decision](docs/adr/0004-platform-first.md)
+and [porting guide](docs/porting-guide.md) for the reasoning.
 
-## Develop
+| Package                              | Purpose                                                      |
+| ------------------------------------ | ------------------------------------------------------------ |
+| [`@wisp-ui/react`](packages/react)   | Components, per-component styles and Storybook               |
+| [`@wisp-ui/tokens`](packages/tokens) | CSS custom properties and dynamic colour                     |
+| [`tools/codegen`](tools/codegen)     | Build-time token importer and CSS generator; never published |
 
-Requires Node ≥ 22.18 and pnpm ≥ 12 (Node 26 no longer ships Corepack, so
-`npm i -g pnpm@latest`).
+### Help shape what comes next
+
+Try a component in a real layout. Test it with a keyboard. Find a rough edge.
+Tell us what feels good and what gets in the way. Pre-alpha is the time to make
+those details better together.
+
+[Report an issue](https://github.com/r007/wisp-ui/issues) or start with the
+[contributing guide](CONTRIBUTING.md).
+
+<details>
+<summary><strong>Development commands</strong></summary>
 
 ```bash
-pnpm install
-pnpm storybook          # component explorer with light/dark, seed colour, motion, contrast
-pnpm test               # real-browser tests (Vitest + Playwright) and story tests
-pnpm lint               # Biome + Stylelint
+pnpm test
+pnpm lint
 pnpm typecheck
-pnpm build              # packages, then: pnpm --filter @wisp-ui/react check:treeshake
+pnpm build
+pnpm --filter @wisp-ui/react check:treeshake
 ```
 
-Browser tests need Chromium: `pnpm --filter @wisp-ui/react exec playwright install chromium`.
-If your home disk is tight, point it elsewhere with `PLAYWRIGHT_BROWSERS_PATH`.
+Tests run in a real browser with Vitest and Playwright. Install Chromium first:
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+```bash
+pnpm --filter @wisp-ui/react exec playwright install chromium
+```
 
-## Licence
+If your home disk is tight, set `PLAYWRIGHT_BROWSERS_PATH` to another location.
+If pnpm is unavailable, install it separately; Node 26 no longer ships Corepack.
 
-[Apache-2.0](LICENSE). Material token data is derived from Flutter (BSD-3-Clause)
-and parts of the ripple and elevation logic from Material Web (Apache-2.0); see
-[NOTICE](NOTICE) and [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+</details>
+
+## Licence & credits
+
+[Apache-2.0](LICENSE). Material token data is derived from Flutter (BSD-3-Clause);
+parts of the ripple and elevation logic derive from
+[Material Web](https://github.com/material-components/material-web) (Apache-2.0).
+See [NOTICE](NOTICE) and [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
 
 Wisp is an independent project, not affiliated with or endorsed by Google.
 Material Design is a trademark of Google LLC.
