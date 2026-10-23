@@ -28,6 +28,20 @@ used under the Apache License 2.0:
     elevation shadow curves (elevation/internal/_elevation.scss).
 
 --------------------------------------------------------------------------------
+Shape geometry and morphing
+--------------------------------------------------------------------------------
+packages/react/src/shapes (the rounded polygon, cubic Bézier, feature, measuring, feature
+mapping and morph algorithms, and the numbers that define the catalogue of 35 shapes) is
+adapted from Flutter's material_ui package
+(https://github.com/flutter/packages, packages/material_ui/lib/src/shapes and
+material_shapes.dart), Copyright 2013 The Flutter Authors, used under the BSD 3-Clause
+licence (see THIRD_PARTY_LICENSES.md). That code is itself a Dart port of the AndroidX
+graphics-shapes library and of the Compose Material 3 shape catalogue, Copyright 2022 and
+2023 The Android Open Source Project, licensed under the Apache License 2.0. The tests in
+packages/react/src/shapes/shapes.test.ts are ported from Flutter's tests for the same code.
+Each adapted file says what changed.
+
+--------------------------------------------------------------------------------
 Trademarks
 --------------------------------------------------------------------------------
 Material Design is a trademark of Google LLC. Wisp is an independent project and

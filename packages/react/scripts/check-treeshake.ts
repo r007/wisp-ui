@@ -43,6 +43,11 @@ const COMPOSED_OF: Record<string, readonly string[]> = {
   // does not import.)
   'time-picker': ['icon-button'],
 };
+/**
+ * Entries whose first export is not the component to import (a geometry class, say), so the check
+ * names it. Everything else imports its first export.
+ */
+const ENTRY_EXPORT: Record<string, string> = { shapes: 'Shape' };
 /** Folders in dist that are not components. */
 const NOT_COMPONENTS = new Set(['foundation', 'theme']);
 
@@ -55,10 +60,12 @@ const components = readdirSync(dist, { withFileTypes: true })
   )
   .map((e) => ({
     name: e.name,
-    // The first export of the entry is a component to import.
-    exportName: /export \{\s*(\w+)/.exec(
-      readFileSync(join(dist, e.name, 'index.js'), 'utf8'),
-    )?.[1] as string,
+    // The first export of the entry is a component to import, unless the entry says otherwise.
+    exportName:
+      ENTRY_EXPORT[e.name] ??
+      (/export \{\s*(\w+)/.exec(
+        readFileSync(join(dist, e.name, 'index.js'), 'utf8'),
+      )?.[1] as string),
   }));
 
 /** Class names are `wisp-<component>__…` and `wisp-<component>-tokens__…`. */

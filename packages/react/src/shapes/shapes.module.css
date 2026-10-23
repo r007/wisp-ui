@@ -1,0 +1,23 @@
+/*
+ * An SVG square, filled with the text colour. The outline is set from script (shape.tsx), since it
+ * morphs, which CSS cannot do between paths in every browser.
+ */
+@layer wisp {
+  .root {
+    --_size: 1em;
+
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    flex: none;
+    /* A spring overshoots, and a shape at its widest is the edge of its box. */
+    overflow: visible;
+    fill: currentColor;
+    vertical-align: middle;
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      fill: CanvasText;
+    }
+  }
+}

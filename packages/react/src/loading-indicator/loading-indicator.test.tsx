@@ -1,8 +1,10 @@
 import { expect, test, vi } from 'vitest';
 import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { shapes } from '../shapes/catalog.js';
+import { cubicsToPath } from '../shapes/cubic.js';
 import { LoadingIndicator } from './loading-indicator.js';
-import { blend, POINTS, pathOf, SHAPES, spring } from './shapes.js';
+import { indicatorMorphs, indicatorScale, SEQUENCE } from './morphs.js';
 
 const px = (value: string) => Number.parseFloat(value);
 const rect = (el: Element) => el.getBoundingClientRect();
@@ -51,16 +53,28 @@ test('morphs and turns while it runs', async () => {
   await render(<LoadingIndicator />);
   const first = outline().getAttribute('d');
   const turned = () => outline().parentElement?.getAttribute('transform');
+  const placed = turned();
   await expect.poll(() => outline().getAttribute('d')).not.toBe(first);
-  await expect.poll(turned).toMatch(/^rotate\(/);
+  await expect.poll(turned).not.toBe(placed);
+  expect(turned()).toMatch(/rotate\(/);
   const a = outline().getAttribute('d');
   await expect.poll(() => outline().getAttribute('d')).not.toBe(a);
 });
 
-test('draws its first shape on the first render', async () => {
-  await render(<LoadingIndicator />);
-  expect(outline().getAttribute('d')?.startsWith('M')).toBe(true);
-  expect(outline().getAttribute('d')?.endsWith('Z')).toBe(true);
+test('draws its first shape on the first render, already scaled to fit', async () => {
+  // Not yet animated: the first frame is not there before the effect has run, so a still
+  // render (and server rendering) must already be the right size.
+  const original = window.requestAnimationFrame;
+  window.requestAnimationFrame = () => 0;
+  try {
+    await render(<LoadingIndicator />);
+    expect(outline().getAttribute('d')).toBe(cubicsToPath(shapes.softBurst.cubics));
+    expect(outline().parentElement?.getAttribute('transform')).toMatch(
+      /^translate\(0\.5 0\.5\) rotate\(0\) scale\(0\.\d+\)/,
+    );
+  } finally {
+    window.requestAnimationFrame = original;
+  }
 });
 
 test('stays still with reduced motion', async () => {
@@ -76,9 +90,10 @@ test('stays still with reduced motion', async () => {
   try {
     await render(<LoadingIndicator />);
     const still = outline().getAttribute('d');
+    const placed = outline().parentElement?.getAttribute('transform');
     await new Promise((resolve) => setTimeout(resolve, 900));
     expect(outline().getAttribute('d')).toBe(still);
-    expect(outline().parentElement?.getAttribute('transform')).toBeNull();
+    expect(outline().parentElement?.getAttribute('transform')).toBe(placed);
   } finally {
     matchMedia.mockRestore();
   }
@@ -96,7 +111,7 @@ test('survives a first frame stamped before it started', async () => {
     await expect.poll(() => outline().getAttribute('d')).toMatch(/^M/);
     await new Promise((resolve) => setTimeout(resolve, 50));
     // Still running: the frame it asked for next arrived and drew without throwing.
-    expect(outline().parentElement?.getAttribute('transform')).toMatch(/^rotate\(/);
+    expect(outline().parentElement?.getAttribute('transform')).toMatch(/rotate\(/);
   } finally {
     frame.mockRestore();
   }
@@ -125,42 +140,34 @@ test('forwards a ref and props', async () => {
 });
 
 test.describe('shapes', () => {
-  test('there are seven, each sampled at the same angles', () => {
-    expect(SHAPES).toHaveLength(7);
-    for (const s of SHAPES) expect(s).toHaveLength(POINTS);
+  test('there are seven, all different, from the catalogue', () => {
+    expect(SEQUENCE).toHaveLength(7);
+    expect(new Set(SEQUENCE.map((name) => cubicsToPath(shapes[name].cubics))).size).toBe(7);
   });
 
-  test('each fits the box, with room to overshoot, and is not a sliver', () => {
-    for (const s of SHAPES) {
-      expect(Math.max(...s)).toBeCloseTo(0.94, 5);
-      expect(Math.min(...s)).toBeGreaterThan(0.4);
+  test('each morph goes from one to the next, and the last back to the first', () => {
+    const morphs = indicatorMorphs();
+    expect(morphs).toHaveLength(7);
+    morphs.forEach((morph, i) => {
+      expect(morph.start).toBe(shapes[SEQUENCE[i] as (typeof SEQUENCE)[number]]);
+      expect(morph.end).toBe(shapes[SEQUENCE[(i + 1) % 7] as (typeof SEQUENCE)[number]]);
+    });
+    expect(indicatorMorphs()).toBe(morphs);
+  });
+
+  test('is scaled so that any shape, turned any way, stays inside the box', () => {
+    const scale = indicatorScale();
+    expect(scale).toBeLessThanOrEqual(1);
+    expect(scale).toBeGreaterThan(0.5);
+    for (const name of SEQUENCE) {
+      const polygon = shapes[name];
+      for (const cubic of polygon.cubics) {
+        for (const t of [0, 0.25, 0.5, 0.75]) {
+          const { x, y } = cubic.pointAt(t);
+          const reach = Math.hypot(x - polygon.center.x, y - polygon.center.y) * scale;
+          expect(reach, name).toBeLessThanOrEqual(0.5 + 1e-6);
+        }
+      }
     }
-  });
-
-  test('are all different', () => {
-    expect(new Set(SHAPES.map((s) => pathOf(s))).size).toBe(7);
-  });
-
-  test('blend is the first at 0 and the second at 1', () => {
-    const [a, b] = SHAPES as [(typeof SHAPES)[number], (typeof SHAPES)[number]];
-    expect(blend(a, b, 0)).toEqual([...a]);
-    expect(blend(a, b, 1)).toEqual([...b]);
-    expect(blend(a, b, 0.5)[3]).toBeCloseTo(((a[3] as number) + (b[3] as number)) / 2, 10);
-  });
-
-  test('a path is a closed curve of one segment per point', () => {
-    const d = pathOf(SHAPES[0] as (typeof SHAPES)[number]);
-    expect(d.startsWith('M')).toBe(true);
-    expect(d.endsWith('Z')).toBe(true);
-    expect(d.split('C')).toHaveLength(POINTS + 1);
-  });
-
-  test('the spring goes from 0 to 1 and overshoots on the way', () => {
-    expect(spring(0)).toBe(0);
-    expect(spring(1)).toBe(1);
-    expect(spring(-1)).toBe(0);
-    expect(spring(2)).toBe(1);
-    expect(Math.max(...Array.from({ length: 100 }, (_, i) => spring(i / 100)))).toBeGreaterThan(1);
-    expect(spring(0.99)).toBeCloseTo(1, 1);
   });
 });

@@ -4,7 +4,7 @@ Wisp's own code is licensed under the Apache License 2.0 (see `LICENSE`). It
 incorporates the following third-party material. See `NOTICE` for what is used
 and where.
 
-## flutter/packages (Material token data)
+## flutter/packages (token data, shape algorithms and their tests)
 
 Source: <https://github.com/flutter/packages>, `packages/material_ui`
 
@@ -35,6 +35,14 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
+
+## AndroidX graphics-shapes
+
+Source: <https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-main/graphics/graphics-shapes/>
+
+Licensed under the Apache License, Version 2.0, the same licence as this project; the full
+text is in `LICENSE`. Copyright 2022 The Android Open Source Project. Reached through
+Flutter's Dart port (above), from which Wisp's TypeScript port was made.
 
 ## Material Web
 

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { shapes } from '../shapes/catalog.js';
+import { Shape } from '../shapes/shape.js';
 import { LoadingIndicator } from './loading-indicator.js';
-import { pathOf, SHAPES } from './shapes.js';
+import { SEQUENCE } from './morphs.js';
 
 const meta = {
   title: 'Components/Loading indicator',
@@ -38,20 +40,12 @@ export const Shapes: Story = {
         margin: 0,
         padding: 0,
         listStyle: 'none',
+        color: 'var(--md-sys-color-primary)',
       }}
     >
-      {SHAPES.map((shape, i) => (
-        <li key={pathOf(shape)} style={{ textAlign: 'center' }}>
-          <svg
-            viewBox="-1 -1 2 2"
-            width={72}
-            height={72}
-            role="img"
-            aria-label={`Shape ${i + 1}`}
-            style={{ fill: 'var(--md-sys-color-primary)' }}
-          >
-            <path d={pathOf(shape)} />
-          </svg>
+      {SEQUENCE.map((name) => (
+        <li key={name} style={{ textAlign: 'center' }}>
+          <Shape shape={shapes[name]} size={72} aria-label={name} />
         </li>
       ))}
     </ol>
