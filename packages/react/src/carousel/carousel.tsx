@@ -205,11 +205,17 @@ export function Carousel({
       ?.focus({ preventScroll: true });
   };
 
-  // Tabbing to an item that is out of view brings it in.
+  // Tabbing to an item that is out of view brings it in. The browser scrolls a newly focused
+  // element into view itself, after the focus event in some engines (WebKit): a scroll started
+  // inside the event is then cancelled by that one, so wait a task and look again.
+  const focusTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(focusTimer.current), []);
   const handleFocus = (event: FocusEvent<HTMLElement>) => {
     onFocus?.(event);
     const index = indexOf(event.target);
-    if (index >= 0) reveal(index, false);
+    if (index < 0) return;
+    window.clearTimeout(focusTimer.current);
+    focusTimer.current = window.setTimeout(() => reveal(index, false));
   };
 
   return (

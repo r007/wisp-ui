@@ -317,7 +317,8 @@ test.describe('keyboard', () => {
   test('brings an item into view when focus reaches it out of view', async () => {
     await render(<Sample layout="multi-browse" />);
     (page.getByRole('link', { name: 'Tart' }).element() as HTMLElement).focus();
-    await expect.poll(settled).toBeGreaterThan(0);
+    // The fifth item, so four steps of 360px: it ends in the first slot, on a snap point.
+    await expect.poll(settled).toBe(4 * 360);
   });
 
   test('does not take the arrow keys from a text field inside an item', async () => {
