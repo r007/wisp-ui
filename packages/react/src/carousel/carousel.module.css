@@ -1,0 +1,183 @@
+/*
+ * A carousel is a native scroll container (touch, wheel, keyboard and scroll snapping all work)
+ * over a "stage" that is as wide as the whole scroll, and a sticky layer of items that stays
+ * put in the viewport while the stage scrolls beneath it. For the weighted layouts script sets
+ * each item's width and position from the scroll offset (see carousel.tsx), so the items
+ * grow and shrink as they pass the slots; the uncontained layout is plain flexbox. Colours,
+ * shapes and states come from carousel.tokens.generated.module.css.
+ */
+@layer wisp {
+  .root {
+    position: relative;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: var(--_height);
+  }
+
+  .viewport {
+    display: grid;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: auto hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* `100cqw` below is this element's width. */
+    container-type: inline-size;
+  }
+
+  .viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* The width of one scroll step: the slot the item in focus sits in. */
+  .stage,
+  .snap {
+    --_unit: calc(100cqw * var(--_focal) / var(--_sum));
+  }
+
+  /* As wide as the whole scroll: a viewport, plus a step for every item after the first. */
+  .stage {
+    position: relative;
+    grid-area: 1 / 1;
+    inline-size: calc(100cqw + (var(--_count) - 1) * var(--_unit));
+    block-size: 100%;
+    pointer-events: none;
+  }
+
+  /* One snap point per step; scrolling stops with an item in the first slot. */
+  .snap {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: calc(var(--_index) * var(--_unit));
+    inline-size: var(--_unit);
+    scroll-snap-align: start;
+  }
+
+  .items {
+    position: sticky;
+    inset-inline-start: 0;
+    grid-area: 1 / 1;
+    justify-self: start;
+    inline-size: 100cqw;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* `clip`, not `hidden`: a clipped box cannot be scrolled, even by focusing something in it. */
+    overflow: clip;
+  }
+
+  .item {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    overflow: hidden;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    color: var(--md-sys-color-on-surface);
+    /* Until script has laid the items out, they take no room. */
+    inline-size: 0;
+  }
+
+  .item[data-disabled] {
+    opacity: var(--_disabled-opacity);
+  }
+
+  /* An item that can be pressed is one link or button over the whole item. */
+  .press {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .press:disabled,
+  .press[aria-disabled='true'] {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* The tint sits over the content, since the content usually covers the whole item. */
+  .press::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--_state-layer-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--md-sys-motion-duration-short1) linear;
+  }
+
+  @media (hover: hover) {
+    .press:hover::after {
+      opacity: var(--_hover-state-layer-opacity);
+    }
+  }
+
+  .press:focus-visible::after {
+    opacity: var(--_focus-state-layer-opacity);
+  }
+
+  .press:active::after {
+    opacity: var(--_pressed-state-layer-opacity);
+  }
+
+  /* Inside the item, so the ring is not clipped by it. */
+  .press:focus-visible {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: calc(var(--_focus-indicator-thickness) * -1);
+  }
+
+  /* Uncontained: items of one size in a row, scrolled and snapped. */
+  .root[data-layout='uncontained'] .viewport {
+    display: block;
+  }
+
+  .root[data-layout='uncontained'] .stage {
+    display: none;
+  }
+
+  .root[data-layout='uncontained'] .items {
+    position: static;
+    display: flex;
+    gap: var(--_gap);
+    inline-size: max-content;
+    min-inline-size: 100%;
+    overflow: visible;
+  }
+
+  .root[data-layout='uncontained'] .item {
+    position: relative;
+    flex: none;
+    inset: auto;
+    inline-size: var(--_item-width);
+    scroll-snap-align: start;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .press::after {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .item {
+      border: 1px solid CanvasText;
+    }
+  }
+}

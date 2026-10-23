@@ -1,0 +1,19 @@
+/* Carousel token defaults.
+ *
+ * Generated from carousel.tokens.ts and Material tokens v38.2.83
+ * (https://github.com/flutter/packages @ 93baed910). Do not edit by hand. */
+
+@layer wisp {
+  .root {
+    --_container-color: var(--md-comp-carousel-item-container-color, var(--md-sys-color-surface));
+    --_container-shape: var(--md-comp-carousel-item-container-shape, 28px);
+    --_state-layer-color: var(--md-comp-carousel-item-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --_hover-state-layer-opacity: var(--md-comp-carousel-item-hover-state-layer-opacity, 0.08);
+    --_focus-state-layer-opacity: var(--md-comp-carousel-item-focus-state-layer-opacity, 0.1);
+    --_pressed-state-layer-opacity: var(--md-comp-carousel-item-pressed-state-layer-opacity, 0.1);
+    --_disabled-opacity: var(--md-comp-carousel-item-disabled-container-opacity, 0.38);
+    --_focus-indicator-color: var(--md-comp-carousel-item-focus-indicator-color, var(--md-sys-color-secondary));
+    --_focus-indicator-thickness: var(--md-comp-carousel-item-focus-indicator-thickness, 3px);
+    --_focus-indicator-outline-offset: var(--md-comp-carousel-item-focus-indicator-outline-offset, 2px);
+  }
+}
