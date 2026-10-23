@@ -202,12 +202,6 @@ test.describe('appearance', () => {
     await render(<Sample size="large" />);
     expect(rect(segments()[1] as HTMLElement).height).toBe(56);
   });
-
-  test('keeps the low handle reachable when both are at the end', async () => {
-    await render(<Sample defaultValue={[100, 100]} />);
-    expect(style(low()).zIndex).toBe('2');
-    expect(style(high()).zIndex).toBe('1');
-  });
 });
 
 test('moves the nearer handle when the track is pressed', async () => {
@@ -265,4 +259,175 @@ test('can drag the low handle back from the end, where both handles are', async 
     (v) => v > 28 && v < 38,
   );
   expect(high().value).toBe('100');
+});
+
+test.describe('pointer', () => {
+  // 300px wide with 4px handles: a handle's centre is at 2 + fraction * 296. At [20, 60] the high
+  // handle's is 179.6.
+  const HIGH_CENTRE = 179.6;
+  /** One unit of the 0 to 100 range, in pixels. */
+  const UNIT = 2.96;
+
+  /**
+   * A pointer event `x` pixels along the group. Synthetic, so a drag is driven step by step. React
+   * renders a press at once, but a move in a scheduled task that Firefox may run after this
+   * helper returns, so read a value a move changed with `expect.poll`.
+   */
+  const pointer = async (type: string, x: number, init: PointerEventInit = {}) => {
+    group().dispatchEvent(
+      new PointerEvent(type, {
+        pointerId: 7,
+        pointerType: 'mouse',
+        isPrimary: true,
+        button: 0,
+        buttons: type === 'pointerup' ? 0 : 1,
+        clientX: rect(group()).left + x,
+        clientY: rect(group()).top + 22,
+        bubbles: true,
+        cancelable: true,
+        ...init,
+      }),
+    );
+    await new Promise((resolve) => setTimeout(resolve));
+  };
+
+  test('grabs a handle from well away from its 4px width, and does not make it jump', async () => {
+    await render(<Sample defaultValue={[20, 60]} />);
+    // 20px beside the handle: more than the handle's width, within a 48px target.
+    await pointer('pointerdown', HIGH_CENTRE + 20);
+    expect(group()).toHaveAttribute('data-dragging', 'high');
+    expect(high().value).toBe('60');
+    // The handle keeps its place relative to the pointer: ten units on is ten units on.
+    await pointer('pointermove', HIGH_CENTRE + 20 + 10 * UNIT);
+    await expect.poll(() => high().value).toBe('70');
+    expect(low().value).toBe('20');
+    await pointer('pointerup', HIGH_CENTRE + 20 + 10 * UNIT);
+    expect(group()).not.toHaveAttribute('data-dragging');
+  });
+
+  test('puts the nearer handle where the bare track is pressed, and keeps dragging it', async () => {
+    await render(<Sample defaultValue={[20, 60]} />);
+    // 6 units along: far from either handle, but nearer the low one.
+    await pointer('pointerdown', 2 + 6 * UNIT);
+    expect(group()).toHaveAttribute('data-dragging', 'low');
+    expect(low().value).toBe('6');
+    await pointer('pointermove', 2 + 33 * UNIT);
+    await expect.poll(() => low().value).toBe('33');
+    expect(high().value).toBe('60');
+    await pointer('pointerup', 2 + 33 * UNIT);
+  });
+
+  test('follows the pointer past the ends of the control, and stops at the ends of the range', async () => {
+    await render(<Sample defaultValue={[20, 60]} />);
+    await pointer('pointerdown', HIGH_CENTRE);
+    await pointer('pointermove', 900);
+    await expect.poll(() => high().value).toBe('100');
+    await pointer('pointermove', -400);
+    // The high handle cannot pass the low one.
+    await expect.poll(() => high().value).toBe('20');
+    await pointer('pointerup', -400);
+  });
+
+  test('lets the high handle be pulled out of a pair that has met', async () => {
+    await render(<Sample defaultValue={[50, 50]} />);
+    const centre = 2 + 0.5 * 296;
+    // Within the grab radius, so the handle is taken where it is, not moved to the pointer.
+    await pointer('pointerdown', centre + 15);
+    await pointer('pointermove', centre + 15 + 10 * UNIT);
+    await pointer('pointerup', centre + 15 + 10 * UNIT);
+    expect([low().value, high().value]).toEqual(['50', '60']);
+  });
+
+  test('lets the low handle be pulled out of a pair that has met', async () => {
+    await render(<Sample defaultValue={[50, 50]} />);
+    const centre = 2 + 0.5 * 296;
+    await pointer('pointerdown', centre - 15);
+    await pointer('pointermove', centre - 15 - 10 * UNIT);
+    await pointer('pointerup', centre - 15 - 10 * UNIT);
+    expect([low().value, high().value]).toEqual(['40', '50']);
+  });
+
+  test('shows the bubble of the handle held, and no drag state once it is let go', async () => {
+    await render(<Sample formatValue={(v) => `$${v}`} />);
+    const [lowBubble, highBubble] = bubbles() as [HTMLElement, HTMLElement];
+    await pointer('pointerdown', HIGH_CENTRE);
+    await expect.poll(() => style(highBubble).opacity).toBe('1');
+    expect(style(lowBubble).opacity).toBe('0');
+    await pointer('pointerup', HIGH_CENTRE);
+    expect(group()).not.toHaveAttribute('data-dragging');
+    // The handle keeps focus, but this is not keyboard focus, so its bubble goes.
+    expect(document.activeElement).toBe(high());
+    await expect.poll(() => style(highBubble).opacity).toBe('0');
+  });
+
+  test('narrows only the held handle’s bar', async () => {
+    await render(<Sample />);
+    const bar = (which: 'low' | 'high') =>
+      px(getComputedStyle(handleOf(which), '::before').inlineSize);
+    const rest = bar('high');
+    await pointer('pointerdown', HIGH_CENTRE);
+    await expect.poll(() => bar('high')).toBeLessThan(rest);
+    expect(bar('low')).toBe(rest);
+    await pointer('pointerup', HIGH_CENTRE);
+    await expect.poll(() => bar('high')).toBe(rest);
+  });
+
+  test('snaps to the step', async () => {
+    await render(<Sample step={5} defaultValue={[20, 60]} />);
+    await pointer('pointerdown', 2 + 33 * UNIT);
+    expect(low().value).toBe('35');
+    await pointer('pointerup', 2 + 33 * UNIT);
+  });
+
+  test('does not report a change when a press leaves the value where it was', async () => {
+    const onValueChange = vi.fn();
+    await render(<Sample onValueChange={onValueChange} />);
+    await pointer('pointerdown', HIGH_CENTRE);
+    await pointer('pointermove', HIGH_CENTRE + 0.5);
+    await pointer('pointerup', HIGH_CENTRE + 0.5);
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  test('moves the focus to the held handle, so the arrow keys carry on from it', async () => {
+    await render(<Sample />);
+    await pointer('pointerdown', HIGH_CENTRE);
+    await pointer('pointerup', HIGH_CENTRE);
+    expect(document.activeElement).toBe(high());
+  });
+
+  test('measures from the right edge in a right-to-left layout', async () => {
+    await render(
+      <div dir="rtl" style={{ inlineSize: 300 }}>
+        <RangeSlider aria-label="Price" defaultValue={[20, 60]} />
+      </div>,
+    );
+    // 6 units from the right edge: the start of the range.
+    await pointer('pointerdown', 300 - (2 + 6 * UNIT));
+    expect(low().value).toBe('6');
+    await pointer('pointerup', 0);
+  });
+
+  test('ignores a press when disabled', async () => {
+    await render(<Sample disabled />);
+    await pointer('pointerdown', HIGH_CENTRE);
+    expect(group()).not.toHaveAttribute('data-dragging');
+  });
+
+  test('ignores a press with a secondary button', async () => {
+    await render(<Sample />);
+    await pointer('pointerdown', HIGH_CENTRE, { button: 2, buttons: 2 });
+    expect(group()).not.toHaveAttribute('data-dragging');
+  });
+
+  test('can be grabbed by a real mouse a little way from the handle', async () => {
+    await render(<Sample defaultValue={[20, 60]} />);
+    // 15px beside the handle's centre: nothing for the native 4px thumb to catch.
+    await dragUntil(
+      Math.round(HIGH_CENTRE) + 15,
+      Math.round(HIGH_CENTRE) + 15 + 30,
+      () => Number(high().value),
+      (v) => v > 65 && v < 75,
+    );
+    expect(low().value).toBe('20');
+  });
 });

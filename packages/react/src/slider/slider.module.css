@@ -190,41 +190,34 @@
   }
 
   /*
-   * The range slider: two inputs over one track. Neither input takes presses itself, except on
-   * its thumb, so the one underneath is not shadowed; a press on the track is handled in script.
-   * Each handle is placed from its own fraction, `--_lo` and `--_hi`.
+   * The range slider: two inputs over one track. The inputs never take presses (their thumbs are
+   * only as wide as the handle, 4px, which is too little to grab): the control as a whole does,
+   * and moves the nearer handle in script, setting `data-dragging` while it is held. The inputs
+   * keep the keyboard and the accessibility tree. Each handle is placed from its own fraction,
+   * `--_lo` and `--_hi`.
    */
   .range {
     --_pos-lo: calc(var(--_lo) * (100% - var(--_handle-width)));
     --_pos-hi: calc(var(--_hi) * (100% - var(--_handle-width)));
 
     cursor: pointer;
+    /* A sideways drag is the slider's; a vertical one still scrolls the page. */
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .range[data-disabled] {
     cursor: default;
   }
 
-  /* The bar narrows only in the handle that is held or focused. */
-  .range:has(.input:active),
+  /* The bar narrows only in the handle that is held or focused, not in both. */
   .range:has(.input:focus-visible) {
     --_bar: var(--_handle-width);
   }
 
   .rangeInput {
     pointer-events: none;
-  }
-
-  .rangeInput::-webkit-slider-thumb {
-    pointer-events: auto;
-  }
-
-  .rangeInput::-moz-range-thumb {
-    pointer-events: auto;
-  }
-
-  .rangeInput[data-front] {
-    z-index: 2;
   }
 
   .handleLow {
@@ -235,9 +228,9 @@
     --_pos: var(--_pos-hi);
   }
 
-  .range:has(.rangeInput:first-of-type:active) .handleLow,
+  .range[data-dragging='low'] .handleLow,
   .range:has(.rangeInput:first-of-type:focus-visible) .handleLow,
-  .range:has(.rangeInput:last-of-type:active) .handleHigh,
+  .range[data-dragging='high'] .handleHigh,
   .range:has(.rangeInput:last-of-type:focus-visible) .handleHigh {
     --_bar: var(--_handle-pressed-width);
   }
@@ -289,16 +282,15 @@
     --_pos: var(--_pos-hi);
   }
 
-  .range:has(.rangeInput:first-of-type:active) .valueLow,
+  .range[data-dragging='low'] .valueLow,
   .range:has(.rangeInput:first-of-type:focus-visible) .valueLow,
-  .range:has(.rangeInput:last-of-type:active) .valueHigh,
+  .range[data-dragging='high'] .valueHigh,
   .range:has(.rangeInput:last-of-type:focus-visible) .valueHigh {
     scale: 1;
     opacity: 1;
   }
 
   /* Only the bubble of the handle in use shows, not both. */
-  .range:has(.input:active) .value,
   .range:has(.input:focus-visible) .value {
     scale: 0.8;
     opacity: 0;
