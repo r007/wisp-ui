@@ -65,7 +65,9 @@ Override a single component through its Material token, on any ancestor:
 ```
 
 Other switches are plain attributes: `data-wisp-motion="standard"` for the calmer
-spring set, and `data-wisp-contrast="medium" | "high"` for higher-contrast colour.
+spring set, and `data-wisp-contrast="medium" | "high"` for higher-contrast colour. A system
+that asks for more contrast (`prefers-contrast: more`) gets the high set without any of this;
+set the attribute on `<html>` (any value, `"standard"` included) and your choice wins.
 
 ### Playing nicely with your CSS
 

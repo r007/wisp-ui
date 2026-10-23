@@ -36,7 +36,8 @@ applyTheme(document.documentElement, '#006a60', { variant: 'expressive' });
 ```
 
 Dark mode follows CSS `color-scheme`. Opt in to calmer motion with
-`data-wisp-motion="standard"`, and higher contrast with `data-wisp-contrast="high"`.
+`data-wisp-motion="standard"`, and higher contrast with `data-wisp-contrast="high"` (a system
+set to `prefers-contrast: more` gets it by itself, unless the attribute is set on `<html>`).
 Override any component through its Material token, e.g.
 `--md-comp-button-filled-container-color`.
 

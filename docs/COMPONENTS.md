@@ -80,7 +80,6 @@ Still to build:
 | ----------------------------------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Material Shapes** (exact `RoundedPolygon` morphing) | FAB and other expressive shapes | `loading-indicator/shapes.ts` approximates the seven loading shapes as radial functions; Flutter 1.8.0 ships `MaterialShapes` with feature-matched morphs |
 | **Typography** component / utility classes            | everything                      | The `--md-sys-typescale-*` tokens exist; no component yet                                                                                                 |
-| **`prefers-contrast` mapping**                        | accessibility                   | `data-wisp-contrast` exists; map the media query to it                                                                                                    |
 | **Docs site**                                         | adoption                        | Storybook is the component explorer; a marketing/docs site is planned                                                                                     |
 
 ## Expressive features used so far

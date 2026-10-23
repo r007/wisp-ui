@@ -34,6 +34,25 @@ describe('emitSystemCss', () => {
     expect(medium).not.toContain('--md-sys-color-scrim:');
   });
 
+  it('maps prefers-contrast: more onto the high scheme, unless the app chose a level', () => {
+    const media =
+      /@media \(prefers-contrast: more\) \{\s*:root:not\(\[data-wisp-contrast\]\) \{([^}]*)\}/.exec(
+        css,
+      )?.[1];
+    const high = /\[data-wisp-contrast='high'\] \{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(media).toBeDefined();
+    // The same roles with the same values as the high block, restated.
+    const roles = (text: string) =>
+      text
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
+    expect(roles(media ?? '')).toEqual(roles(high));
+    expect(media).toContain('--md-sys-color-primary:');
+    // It comes after the root's colours, so the same-origin cascade lets it win.
+    expect(css.indexOf('@media (prefers-contrast: more)')).toBeGreaterThan(css.indexOf(':root {'));
+  });
+
   it('uses rem for type so it follows user font-size preferences', () => {
     expect(css).toContain(
       '--md-sys-typescale-label-large: 500 0.875rem/1.25rem var(--md-ref-typeface-plain);',
@@ -44,7 +63,8 @@ describe('emitSystemCss', () => {
   });
 
   it('defines no custom property twice within a block', () => {
-    for (const block of css.split(/\n {2}(?=[:[])/)) {
+    // A block starts at a selector or an at-rule, two spaces in.
+    for (const block of css.split(/\n {2}(?=[:[@])/)) {
       const names = [...block.matchAll(/^\s+(--[\w-]+):/gm)].map((m) => m[1]);
       expect(new Set(names).size, block.slice(0, 60)).toBe(names.length);
     }

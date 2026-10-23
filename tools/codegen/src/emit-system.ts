@@ -103,19 +103,33 @@ function colorDeclarations(db: TokenDatabase): string[] {
 /**
  * Higher-contrast schemes only restate roles that change, so each block
  * overrides just those and inherits the rest.
+ *
+ * The operating system's preference maps onto the high scheme: `prefers-contrast: more` applies
+ * it to the root, unless the app has chosen a level itself (`data-wisp-contrast` on `<html>`,
+ * whatever its value, `standard` included), so an explicit choice always wins. The extra
+ * `:not()` also makes this rule more specific than the root's own colours, which come first.
  */
 function contrastBlocks(db: TokenDatabase): string[] {
-  return (['medium', 'high'] as const).map((level) => {
+  const declarations = (level: 'medium' | 'high') => {
     const light = db.schemes.color[`light-${level}-contrast`] ?? {};
     const dark = db.schemes.color[`dark-${level}-contrast`] ?? {};
     const names = [...new Set([...Object.keys(light), ...Object.keys(dark)])].sort();
-    const lines = names.map((name) => {
+    return names.map((name) => {
       const a = hex(light[name] ?? db.schemes.color.light?.[name], name);
       const b = hex(dark[name] ?? db.schemes.color.dark?.[name], name);
       return `  ${customProperty(name)}: ${a === b ? a : `light-dark(${a}, ${b})`};`;
     });
-    return `[data-wisp-contrast='${level}'] {\n${lines.join('\n')}\n}`;
-  });
+  };
+  const blocks = (['medium', 'high'] as const).map(
+    (level) => `[data-wisp-contrast='${level}'] {\n${declarations(level).join('\n')}\n}`,
+  );
+  const system = declarations('high')
+    .map((line) => `  ${line}`)
+    .join('\n');
+  return [
+    ...blocks,
+    `@media (prefers-contrast: more) {\n  :root:not([data-wisp-contrast]) {\n${system}\n  }\n}`,
+  ];
 }
 
 // ── Typography ──────────────────────────────────────────────────────────────

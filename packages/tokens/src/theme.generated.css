@@ -286,4 +286,44 @@
     --md-sys-color-tertiary-fixed: light-dark(#633b48, #ffd8e4);
     --md-sys-color-tertiary-fixed-dim: light-dark(#492532, #efb8c8);
   }
+
+  @media (prefers-contrast: more) {
+    :root:not([data-wisp-contrast]) {
+      --md-sys-color-error: light-dark(#601410, #fceeee);
+      --md-sys-color-error-container: light-dark(#8c1d18, #f2b8b5);
+      --md-sys-color-inverse-on-surface: light-dark(#ffffff, #000000);
+      --md-sys-color-inverse-primary: light-dark(#d0bcff, #381e72);
+      --md-sys-color-on-background: light-dark(#000000, #ffffff);
+      --md-sys-color-on-error: light-dark(#ffffff, #000000);
+      --md-sys-color-on-error-container: light-dark(#ffffff, #000000);
+      --md-sys-color-on-primary: light-dark(#ffffff, #000000);
+      --md-sys-color-on-primary-container: light-dark(#ffffff, #000000);
+      --md-sys-color-on-primary-fixed: light-dark(#ffffff, #000000);
+      --md-sys-color-on-primary-fixed-variant: light-dark(#ffffff, #000000);
+      --md-sys-color-on-secondary: light-dark(#ffffff, #000000);
+      --md-sys-color-on-secondary-container: light-dark(#ffffff, #000000);
+      --md-sys-color-on-secondary-fixed: light-dark(#ffffff, #000000);
+      --md-sys-color-on-secondary-fixed-variant: light-dark(#ffffff, #000000);
+      --md-sys-color-on-surface: light-dark(#000000, #ffffff);
+      --md-sys-color-on-surface-variant: light-dark(#000000, #ffffff);
+      --md-sys-color-on-tertiary: light-dark(#ffffff, #000000);
+      --md-sys-color-on-tertiary-container: light-dark(#ffffff, #000000);
+      --md-sys-color-on-tertiary-fixed: light-dark(#ffffff, #000000);
+      --md-sys-color-on-tertiary-fixed-variant: light-dark(#ffffff, #000000);
+      --md-sys-color-outline: light-dark(#322f37, #f5eefa);
+      --md-sys-color-outline-variant: light-dark(#49454f, #cac4d0);
+      --md-sys-color-primary: light-dark(#381e72, #f6edff);
+      --md-sys-color-primary-container: light-dark(#4f378b, #d0bcff);
+      --md-sys-color-primary-fixed: light-dark(#4f378b, #eaddff);
+      --md-sys-color-primary-fixed-dim: light-dark(#381e72, #d0bcff);
+      --md-sys-color-secondary: light-dark(#332d41, #f6edff);
+      --md-sys-color-secondary-container: light-dark(#4a4458, #ccc2dc);
+      --md-sys-color-secondary-fixed: light-dark(#4a4458, #e8def8);
+      --md-sys-color-secondary-fixed-dim: light-dark(#332d41, #ccc2dc);
+      --md-sys-color-tertiary: light-dark(#492532, #ffecf1);
+      --md-sys-color-tertiary-container: light-dark(#633b48, #efb8c8);
+      --md-sys-color-tertiary-fixed: light-dark(#633b48, #ffd8e4);
+      --md-sys-color-tertiary-fixed-dim: light-dark(#492532, #efb8c8);
+    }
+  }
 }
