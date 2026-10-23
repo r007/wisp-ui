@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 import { Button } from '../button/button.js';
+import { IconButton } from '../icon-button/icon-button.js';
 import {
   FavoriteFilledIcon,
   FavoriteIcon,
@@ -105,9 +106,9 @@ export const Toggling: Story = {
         {...args}
         expanded={expanded}
         header={
-          <Button variant="text" aria-label="Toggle menu" onClick={() => setExpanded(!expanded)}>
+          <IconButton aria-label="Toggle menu" onClick={() => setExpanded(!expanded)}>
             <MenuIcon />
-          </Button>
+          </IconButton>
         }
       >
         <Destinations />
