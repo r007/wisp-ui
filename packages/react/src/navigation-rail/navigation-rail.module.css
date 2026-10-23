@@ -189,7 +189,8 @@
     fill: currentcolor;
   }
 
-  .item[data-selected] .iconInactive,
+  /* The selected icon replaces the other one only when there is one; otherwise `icon` stays. */
+  .item[data-selected] .iconSlot:has(.iconActive) .iconInactive,
   .item:not([data-selected]) .iconActive {
     opacity: 0;
   }

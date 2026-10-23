@@ -57,6 +57,22 @@ test('selects on click, uncontrolled, and reports the value', async () => {
   expect(onValueChange).toHaveBeenCalledTimes(1);
 });
 
+test('keeps its icon visible when selected and there is no active icon', async () => {
+  await render(<Rail defaultValue="home" />);
+  const opacity = (id: string) =>
+    getComputedStyle(page.getByTestId(id).element().parentElement as HTMLElement).opacity;
+  // Search has no `activeIcon`: selecting it must not fade its only icon out. Let the fade
+  // finish first, or the icon would still be at full opacity when it is read.
+  await userEvent.click(item('Search'));
+  await expect.element(item('Search')).toHaveAttribute('aria-current', 'page');
+  await Promise.all(document.getAnimations().map((animation) => animation.finished));
+  expect(opacity('search')).toBe('1');
+  // Home has one, so the two swap places.
+  await userEvent.click(item('Home'));
+  await expect.poll(() => opacity('home')).toBe('0');
+  await expect.poll(() => opacity('home-on')).toBe('1');
+});
+
 test('stays on the controlled value until the parent changes it', async () => {
   const onValueChange = vi.fn();
   const { rerender } = await render(<Rail value="home" onValueChange={onValueChange} />);
