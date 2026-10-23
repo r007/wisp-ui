@@ -31,6 +31,7 @@ import {
   startOfMonth,
   weekdayNames,
 } from './date-utils.js';
+import { DayCell } from './day-cell.js';
 
 /** The texts the calendar shows or announces, for translating them. */
 export interface CalendarLabels {
@@ -367,60 +368,6 @@ export function Calendar({
     </div>
   );
 }
-
-interface DayCellProps {
-  date: Date;
-  locale: string | undefined;
-  hidden: boolean;
-  outside: boolean;
-  selected: boolean;
-  today: boolean;
-  disabled: boolean;
-  tabStop: boolean;
-  onChoose: (date: Date) => void;
-  onFocused: (date: Date) => void;
-}
-
-/** One day: a button in a grid cell. Memoised, because a month has up to 42 and they rarely change. */
-const DayCell = memo(function DayCell({
-  date,
-  locale,
-  hidden,
-  outside,
-  selected,
-  today,
-  disabled,
-  tabStop,
-  onChoose,
-  onFocused,
-}: DayCellProps) {
-  const { controlRef, surfaceRef } = useStateLayer<HTMLButtonElement>({ disabled });
-  if (hidden) return <td className={styles.cell} aria-hidden="true" />;
-  return (
-    // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: a day is a cell of the grid, as in the APG date picker; `aria-selected` belongs on it.
-    // biome-ignore lint/a11y/useFocusableInteractive: the focusable control is the button inside the cell, which is the one tab stop.
-    <td className={styles.cell} role="gridcell" aria-selected={selected}>
-      <button
-        ref={controlRef}
-        type="button"
-        className={styles.day}
-        tabIndex={tabStop ? 0 : -1}
-        aria-label={formatter(locale, { dateStyle: 'full' }).format(date)}
-        aria-current={today ? 'date' : undefined}
-        aria-disabled={disabled || undefined}
-        data-selected={selected ? '' : undefined}
-        data-today={today ? '' : undefined}
-        data-outside={outside ? '' : undefined}
-        data-disabled={disabled ? '' : undefined}
-        onClick={() => onChoose(date)}
-        onFocus={() => onFocused(date)}
-      >
-        <StateLayer ref={surfaceRef} />
-        <span aria-hidden="true">{date.getDate()}</span>
-      </button>
-    </td>
-  );
-});
 
 interface YearGridProps {
   ref: React.Ref<HTMLDivElement>;

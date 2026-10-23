@@ -6,3 +6,10 @@ export {
   type DatePickerLabels,
   type DatePickerMode,
 } from './date-picker-dialog.js';
+export { DateRangePicker, type DateRangePickerProps } from './date-range-picker.js';
+export {
+  DateRangePickerDialog,
+  type DateRangePickerDialogProps,
+  type DateRangePickerLabels,
+} from './date-range-picker-dialog.js';
+export type { DateRange } from './range-calendar.js';

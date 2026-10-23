@@ -1,0 +1,152 @@
+/*
+ * One day of a month: a button of the state layer's size (40px) in a cell of the date's size (48px
+ * docked, 40px modal), with its touch target stretched to the cell. In a range the cells of the
+ * days between the ends carry a band (`data-range`), drawn behind the day as the active indicator.
+ * Colours and sizes come from date-picker.tokens.generated.module.css.
+ */
+@layer wisp {
+  .cell {
+    position: relative;
+    block-size: var(--_date-size);
+    padding: 0;
+    text-align: center;
+  }
+
+  .day {
+    --_state-layer-color: var(--_date-state-layer-color);
+
+    position: relative;
+    /* Above the band of a range, which is drawn on the cell behind the day. */
+    z-index: 1;
+    isolation: isolate;
+    display: inline-grid;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: var(--_date-layer-size);
+    block-size: var(--_date-layer-size);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--_date-label-color);
+    font: var(--_date-font);
+    letter-spacing: var(--_date-font-tracking);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects);
+  }
+
+  /* The touch target is the whole cell, not just the circle. */
+  .day::after {
+    content: '';
+    position: absolute;
+    inset: calc((var(--_date-layer-size) - var(--_date-size)) / 2);
+  }
+
+  /* Today is outlined, and in the primary colour. */
+  .day[data-today] {
+    --_state-layer-color: var(--_today-state-layer-color);
+
+    box-shadow: inset 0 0 0 var(--_today-outline-width) var(--_today-outline-color);
+    color: var(--_today-label-color);
+  }
+
+  .day[data-selected] {
+    --_state-layer-color: var(--_selected-state-layer-color);
+
+    background-color: var(--_selected-container-color);
+    box-shadow: none;
+    color: var(--_selected-label-color);
+  }
+
+  /* A day of a neighbouring month: there to fill the row, so dimmed. */
+  .day[data-outside]:not([data-selected]) {
+    color: var(--_outside-month-color);
+    opacity: var(--_outside-month-opacity);
+  }
+
+  .day[data-disabled] {
+    cursor: default;
+    opacity: var(--_disabled-opacity);
+  }
+
+  /* The state layer shows on a day that can be chosen only. */
+  .day[data-disabled] > [data-wisp-state-layer] {
+    display: none;
+  }
+
+  /*
+   * The band of a range: as tall as the active indicator, across the cell, from the middle of the
+   * cell at the start of the range to the middle at its end. Where a week ends inside the range the
+   * band is capped with a round end, so each row reads as a pill.
+   */
+  .cell[data-range]::before {
+    content: '';
+    position: absolute;
+    inset-block: calc((var(--_date-size) - var(--_range-height)) / 2);
+    inset-inline: 0;
+    background-color: var(--_range-color);
+  }
+
+  .cell[data-range='start']::before {
+    inset-inline-start: 50%;
+  }
+
+  .cell[data-range='end']::before {
+    inset-inline-end: 50%;
+  }
+
+  /* A range of one day has no band: only the day, filled. */
+  .cell[data-range='single']::before {
+    display: none;
+  }
+
+  .cell[data-edge='start'][data-range='middle']::before,
+  .cell[data-edge='start'][data-range='end']::before {
+    border-start-start-radius: var(--md-sys-shape-corner-full);
+    border-end-start-radius: var(--md-sys-shape-corner-full);
+  }
+
+  .cell[data-edge='end'][data-range='middle']::before,
+  .cell[data-edge='end'][data-range='start']::before {
+    border-start-end-radius: var(--md-sys-shape-corner-full);
+    border-end-end-radius: var(--md-sys-shape-corner-full);
+  }
+
+  /* A day inside a range takes the band's label colour and its own state layer. */
+  .day[data-in-range] {
+    --_state-layer-color: var(--_in-range-state-layer-color);
+
+    color: var(--_in-range-label-color);
+  }
+
+  .day:focus-visible {
+    outline: var(--md-sys-state-focus-indicator-thickness) solid var(--md-sys-color-secondary);
+    outline-offset: var(--md-sys-state-focus-indicator-outer-offset);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .day {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .cell[data-range]::before {
+      background-color: Highlight;
+      opacity: 0.4;
+    }
+
+    .day[data-selected] {
+      background-color: Highlight;
+      color: HighlightText;
+    }
+
+    .day[data-today] {
+      box-shadow: inset 0 0 0 1px CanvasText;
+    }
+  }
+}

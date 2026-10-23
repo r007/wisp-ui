@@ -1,0 +1,69 @@
+/*
+ * The months of a range picker one under another in a scroll, under a row of weekday names that
+ * stays put. Each month is drawn when it scrolls into view (`content-visibility: auto`), with a
+ * height reserved from its number of weeks, so the scroll bar is right and a few years of months
+ * cost no more than the few on show. The days are DayCells (day-cell.module.css). Colours, sizes
+ * and type come from date-picker.tokens.generated.module.css.
+ */
+@layer wisp {
+  .range {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-block-size: 0;
+    block-size: 100%;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .weekdays {
+    display: grid;
+    flex: none;
+    grid-template-columns: repeat(7, 1fr);
+    box-sizing: border-box;
+    padding-inline: 12px;
+    border-block-end: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  .weekday {
+    display: grid;
+    place-items: center;
+    block-size: var(--_date-size);
+    color: var(--_weekday-color);
+    font: var(--_weekday-font);
+    letter-spacing: var(--_weekday-font-tracking);
+  }
+
+  /* Positioned, so each month's `offsetTop` is from this list and one can be scrolled to. */
+  .scroller {
+    position: relative;
+    flex: 1;
+    min-block-size: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .month {
+    box-sizing: border-box;
+    padding-inline: 12px;
+    content-visibility: auto;
+    /* A subhead, and a row for each week of the month. */
+    contain-intrinsic-block-size: auto calc(var(--_date-size) * (var(--_rows) + 1));
+  }
+
+  .subhead {
+    box-sizing: border-box;
+    block-size: var(--_date-size);
+    margin: 0;
+    padding-inline: 12px;
+    padding-block-start: 16px;
+    color: var(--_subhead-color);
+    font: var(--_subhead-font);
+    letter-spacing: var(--_subhead-font-tracking);
+  }
+
+  .grid {
+    inline-size: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+}

@@ -1,0 +1,117 @@
+/*
+ * The range picker's modal fills the window: a transparent, padding-free <dialog> of the window's
+ * size whose one child is the surface. Because the surface fills it, a click that targets the
+ * <dialog> itself can only have landed on the scrim (see useModalDialog), which a full-window
+ * dialog has none of. It slides up on opening and, with the closing driven from script
+ * (`data-closing`), down on closing in every browser. The header is a bar (close, then the mode
+ * switch and Save) over the headline that says the range; under it are the months, or the fields.
+ */
+@layer wisp {
+  .dialog {
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    max-inline-size: none;
+    max-block-size: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    opacity: 0;
+    translate: 0 48px;
+    transition:
+      opacity var(--md-sys-motion-spring-default-effects),
+      translate var(--md-sys-motion-spring-default-spatial);
+  }
+
+  .dialog[open]:not([data-closing]) {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .dialog[open] {
+      opacity: 0;
+      translate: 0 48px;
+    }
+  }
+
+  /* The page behind a modal must not scroll. */
+  :global(html):has(.dialog[open]) {
+    overflow: hidden;
+  }
+
+  .surface {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .header {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    min-block-size: var(--_range-header-height);
+    padding: 8px 12px 16px 4px;
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .barEnd {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .headline {
+    padding-inline: 20px 8px;
+    color: var(--_headline-color);
+    font: var(--_range-headline-font);
+    letter-spacing: var(--_range-headline-font-tracking);
+  }
+
+  /* The months, centred in a column no wider than a phone's, which is what they are drawn for. */
+  .calendar {
+    flex: 1;
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: var(--_container-width);
+    min-block-size: 0;
+    margin-inline: auto;
+  }
+
+  .entry {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 24px;
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: var(--_container-width);
+    margin-inline: auto;
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dialog {
+      transition: none;
+    }
+  }
+}

@@ -6,15 +6,14 @@
  * colour, type style, state layer and the year grid, so those are one block (`.root`) that
  * asserts each pair is equal, and only the sizes, the shape and the docked picker's dimmed
  * neighbouring-month days differ (`.docked`, `.modal`). `md.comp.date-input` is the dialog's
- * text-entry mode, which is narrower (`.input`).
+ * text-entry mode, which is narrower (`.input`). The range picker's tokens (`.range`) are the
+ * band behind a chosen range of days, and its window-filling container.
  *
- * Not used: the docked container's height (456), which is taller than a header and seven rows of
- * days by room this picker has no content for; it is as tall as they are.
- *
- * The docked picker's header is two menu buttons, month and year, each opening a list
- * (`docked.menu.*`); this port gives both pickers one header, a single button that opens the
- * year grid, so the list tokens are not used. Not used either: `modal.range-selection.*`, for
- * choosing a range of dates (not ported), and the `circular` shapes, which are all circles.
+ * Not used: the docked container's height (456), which is taller than a header and seven rows
+ * of days by room this picker has no content for; it is as tall as they are. The docked picker's
+ * header is two menu buttons, month and year, each opening a list (`docked.menu.*`); this port
+ * gives both pickers one header, a single button that opens the year grid, so the list tokens
+ * are not used either. The `circular` shapes are all circles.
  */
 import type { ComponentTokenSpec } from '@wisp-ui/codegen/spec';
 
@@ -102,16 +101,19 @@ export default {
           ...both('date.hover.state-layer.opacity'),
           'docked.menu-button.hover.state-layer.opacity',
           'modal.year-selection.year.hover.state-layer.opacity',
+          'modal.range-selection.date.in-range.hover.state-layer.opacity',
         ],
         'focus-state-layer-opacity': [
           ...both('date.focus.state-layer.opacity'),
           'docked.menu-button.focus.state-layer.opacity',
           'modal.year-selection.year.focus.state-layer.opacity',
+          'modal.range-selection.date.in-range.focus.state-layer.opacity',
         ],
         'pressed-state-layer-opacity': [
           ...both('date.pressed.state-layer.opacity'),
           'docked.menu-button.pressed.state-layer.opacity',
           'modal.year-selection.year.pressed.state-layer.opacity',
+          'modal.range-selection.date.in-range.pressed.state-layer.opacity',
         ],
         'disabled-opacity': 'docked.menu-button.disabled.label-text.opacity',
 
@@ -141,6 +143,29 @@ export default {
         'container-shape': 'container.shape',
         'container-height': 'container.height',
         'date-size': ['date.container.width', 'date.container.height'],
+      },
+    },
+    {
+      selector: '.range',
+      prefix: 'md.comp.date-picker.modal.range-selection',
+      vars: {
+        // The band behind the days of a range, and what is inside it.
+        'range-color': 'active-indicator.container.color',
+        'range-height': 'active-indicator.container.height',
+        'in-range-label-color': 'date.in-range.label-text.color',
+        'in-range-state-layer-color': [
+          'date.in-range.hover.state-layer.color',
+          'date.in-range.focus.state-layer.color',
+          'date.in-range.pressed.state-layer.color',
+        ],
+        // The range picker fills the window, so it has neither corners nor a shadow. (This block
+        // follows `.modal`, whose shape and shadow it replaces when both are on one element.)
+        'container-shape': 'container.shape',
+        'container-elevation': 'container.elevation',
+        'range-header-height': 'header.container.height',
+        'range-headline-font': 'header.headline.type',
+        'subhead-color': 'month.subhead.color',
+        'subhead-font': 'month.subhead.type',
       },
     },
     {

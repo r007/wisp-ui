@@ -89,7 +89,6 @@
   }
 
   .monthButton:focus-visible,
-  .day:focus-visible,
   .year:focus-visible {
     outline: var(--md-sys-state-focus-indicator-thickness) solid var(--md-sys-color-secondary);
     outline-offset: var(--md-sys-state-focus-indicator-outer-offset);
@@ -133,76 +132,6 @@
     font: var(--_weekday-font);
     letter-spacing: var(--_weekday-font-tracking);
     text-align: center;
-  }
-
-  .cell {
-    block-size: var(--_date-size);
-    padding: 0;
-    text-align: center;
-  }
-
-  .day {
-    --_state-layer-color: var(--_date-state-layer-color);
-
-    position: relative;
-    isolation: isolate;
-    display: inline-grid;
-    place-items: center;
-    box-sizing: border-box;
-    inline-size: var(--_date-layer-size);
-    block-size: var(--_date-layer-size);
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: none;
-    color: var(--_date-label-color);
-    font: var(--_date-font);
-    letter-spacing: var(--_date-font-tracking);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    transition:
-      background-color var(--md-sys-motion-spring-fast-effects),
-      color var(--md-sys-motion-spring-fast-effects);
-  }
-
-  /* The touch target is the whole cell, not just the circle. */
-  .day::after {
-    content: '';
-    position: absolute;
-    inset: calc((var(--_date-layer-size) - var(--_date-size)) / 2);
-  }
-
-  /* Today is outlined, and in the primary colour. */
-  .day[data-today] {
-    --_state-layer-color: var(--_today-state-layer-color);
-
-    box-shadow: inset 0 0 0 var(--_today-outline-width) var(--_today-outline-color);
-    color: var(--_today-label-color);
-  }
-
-  .day[data-selected] {
-    --_state-layer-color: var(--_selected-state-layer-color);
-
-    background-color: var(--_selected-container-color);
-    box-shadow: none;
-    color: var(--_selected-label-color);
-  }
-
-  /* A day of a neighbouring month: there to fill the row, so dimmed. */
-  .day[data-outside]:not([data-selected]) {
-    color: var(--_outside-month-color);
-    opacity: var(--_outside-month-opacity);
-  }
-
-  .day[data-disabled] {
-    cursor: default;
-    opacity: var(--_disabled-opacity);
-  }
-
-  /* The state layer shows on a day that can be chosen only. */
-  .day[data-disabled] > [data-wisp-state-layer] {
-    display: none;
   }
 
   /* The years. */
@@ -261,7 +190,6 @@
   @media (prefers-reduced-motion: reduce) {
     .month,
     .monthIcon,
-    .day,
     .year {
       transition: none;
     }
@@ -274,13 +202,11 @@
   }
 
   @media (forced-colors: active) {
-    .day[data-selected],
     .year[data-selected] {
       background-color: Highlight;
       color: HighlightText;
     }
 
-    .day[data-today],
     .year[data-current] {
       box-shadow: inset 0 0 0 1px CanvasText;
     }

@@ -1,0 +1,24 @@
+/*
+ * The surface of a standalone range picker: a filled box the width of the picker and, by
+ * default, 480px tall, around a calendar that scrolls inside it. The range picker's tokens are of
+ * a picker that fills the window, so it is square and flat; a dialog draws its own surface.
+ */
+@layer wisp {
+  .root {
+    box-sizing: border-box;
+    inline-size: var(--_container-width);
+    max-inline-size: 100%;
+    block-size: 480px;
+    overflow: hidden;
+    border-radius: var(--_container-shape);
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+    }
+  }
+}
