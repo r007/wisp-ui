@@ -1,6 +1,6 @@
 {
   "name": "@wisp-ui/react",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Expressive React components with plain CSS: native elements, per-component styles, dark mode and dynamic colour. Zero-runtime, tree-shakeable, no shadow DOM.",
   "keywords": [
     "react",
@@ -50,6 +50,7 @@
   },
   "files": [
     "dist",
+    "CHANGELOG.md",
     "LICENSE",
     "NOTICE",
     "THIRD_PARTY_LICENSES.md"

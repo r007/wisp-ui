@@ -266,6 +266,35 @@ async function collect(highlighter: Highlighter, base: string): Promise<Collecte
         text: '',
       });
   }
+  // The changelog is the package's own file, so the page can never say otherwise.
+  const changelogFile = join(repo, 'packages/react/CHANGELOG.md');
+  if (existsSync(changelogFile)) {
+    const body = readFileSync(changelogFile, 'utf8').replace(/^# .*\n+/, '');
+    const intro =
+      'The two packages, `@wisp-ui/react` and `@wisp-ui/tokens`, are versioned together. Before 1.0 a minor version may change an API; the notes for each release say so when it does. The [tokens changelog](https://github.com/r007/wisp-ui/blob/main/packages/tokens/CHANGELOG.md) is on GitHub.\n\n';
+    const { html, headings } = renderMarkdown(`${intro}${body}`, highlighter, base);
+    const description = 'What changed in each release.';
+    result.guides.push({
+      slug: 'changelog',
+      title: 'Changelog',
+      description,
+      section: 'Project',
+      order: 25,
+    });
+    result.guidePages.set('changelog', {
+      title: 'Changelog',
+      description,
+      section: 'Project',
+      html,
+      headings,
+    });
+    result.search.push({
+      title: 'Changelog',
+      path: 'docs/changelog/',
+      kind: 'Guide',
+      text: description,
+    });
+  }
   result.guides.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
   result.components.sort(
     (a, b) =>

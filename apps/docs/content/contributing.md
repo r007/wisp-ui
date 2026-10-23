@@ -45,7 +45,7 @@ Install a browser for the tests with `pnpm --filter @wisp-ui/react exec playwrig
 
 The repository's [porting guide](https://github.com/r007/wisp-ui/blob/main/docs/porting-guide.md) is the step-by-step procedure: study the design source, write the token spec, write the CSS, write the component, then the stories and tests. Pick the closest existing component of the same kind, and follow it.
 
-Every change that affects a published package needs a **changeset**, which says what changed and how big a change it is:
+Every change that affects a published package needs a **changeset**, which says what changed and how big a change it is. The notes become the [changelog](/docs/changelog/):
 
 ```bash
 pnpm changeset

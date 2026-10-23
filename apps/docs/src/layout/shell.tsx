@@ -124,6 +124,7 @@ function Footer() {
         >
           npm
         </a>
+        <a href={href('/docs/changelog/')}>Changelog</a>
         <a href={href('/docs/licences/')}>Licences and credits</a>
       </nav>
     </footer>

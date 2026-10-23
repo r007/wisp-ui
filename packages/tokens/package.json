@@ -1,6 +1,6 @@
 {
   "name": "@wisp-ui/tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Design tokens as CSS custom properties, plus a dynamic-colour theme generator and light and dark helpers.",
   "keywords": [
     "design-tokens",
@@ -33,6 +33,7 @@
   },
   "files": [
     "dist",
+    "CHANGELOG.md",
     "LICENSE",
     "NOTICE",
     "THIRD_PARTY_LICENSES.md"
