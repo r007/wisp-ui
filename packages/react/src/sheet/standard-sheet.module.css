@@ -1,0 +1,226 @@
+/*
+ * A standard sheet is an ordinary element in the page's layout, not an overlay: it has a size of
+ * its own and grows into the room it is given. A side sheet animates its inline size between 0
+ * and its width, with a surface of the full width inside that is revealed from the edge (so the
+ * content does not reflow while it opens). A bottom sheet's height is not known, so it animates a
+ * grid row between 0fr and 1fr instead, which needs no fixed height. A closed sheet is `inert`.
+ * The drag handle of a bottom sheet moves it with `--_drag`, as in the modal sheet. Colours,
+ * shapes and type come from sheet.tokens.generated.module.css.
+ */
+@layer wisp {
+  /*
+   * Material publishes headline tokens for the side sheet only. A bottom sheet's headline takes
+   * the same title style, set here at zero specificity so the side sheet's own tokens still win.
+   */
+  :where(.root) {
+    --_headline-color: var(--md-sys-color-on-surface);
+    --_headline-font: var(--md-sys-typescale-title-large);
+    --_headline-font-tracking: var(--md-sys-typescale-title-large-tracking);
+  }
+
+  .root {
+    --_drag: 0px;
+    --_direction: 1;
+    --_width: 400px;
+
+    position: relative;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    min-block-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--_container-color);
+    box-shadow: var(--_container-elevation);
+    color: var(--md-sys-color-on-surface);
+    transition: box-shadow var(--md-sys-motion-spring-default-effects);
+  }
+
+  .root:dir(rtl) {
+    --_direction: -1;
+  }
+
+  /* Nothing to cast a shadow while there is no sheet. */
+  .root:not([data-open]) {
+    box-shadow: none;
+  }
+
+  /* A held handle moves the sheet with the pointer: no spring while it is being dragged. */
+  .root[data-dragging] {
+    transition: none;
+  }
+
+  /* Bottom: a grid whose one row grows from 0 to the height of the content. */
+  .root[data-side='bottom'] {
+    display: grid;
+    grid-template-rows: 0fr;
+    inline-size: 100%;
+    max-inline-size: 640px;
+    margin-inline: auto;
+    border-radius: var(--_container-shape);
+    translate: 0 var(--_drag);
+    transition:
+      grid-template-rows var(--md-sys-motion-spring-default-spatial),
+      box-shadow var(--md-sys-motion-spring-default-effects);
+  }
+
+  .root[data-side='bottom'][data-open] {
+    grid-template-rows: 1fr;
+  }
+
+  .root[data-side='bottom'][data-dragging] {
+    transition: none;
+  }
+
+  /* Side: as wide as its width when open, nothing when closed, as tall as the room it has. */
+  .root[data-side='start'],
+  .root[data-side='end'] {
+    display: flex;
+    flex: none;
+    inline-size: 0;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    block-size: 100%;
+    border-radius: var(--_container-shape);
+    transition:
+      inline-size var(--md-sys-motion-spring-default-spatial),
+      box-shadow var(--md-sys-motion-spring-default-effects);
+  }
+
+  .root[data-side='start'][data-open],
+  .root[data-side='end'][data-open] {
+    inline-size: var(--_width);
+    min-inline-size: var(--_min-width);
+  }
+
+  /* The surface keeps the sheet's full width, anchored to the edge the sheet grows from. */
+  .root[data-side='end'] {
+    justify-content: flex-end;
+  }
+
+  .surface {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .root[data-side='bottom'] .surface {
+    inline-size: 100%;
+  }
+
+  .root[data-side='start'] .surface,
+  .root[data-side='end'] .surface {
+    flex: none;
+    inline-size: var(--_width);
+    max-inline-size: 100vw;
+    block-size: 100%;
+  }
+
+  /* The divider that sets a side sheet apart from the page, which it shares a colour with. */
+  .root[data-side='end'] .surface {
+    border-inline-start: 1px solid var(--_divider-color);
+  }
+
+  .root[data-side='start'] .surface {
+    border-inline-end: 1px solid var(--_divider-color);
+  }
+
+  /* The drag handle: a 32x4 pill in a 48px-tall touch target. */
+  .handle {
+    position: relative;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    block-size: 48px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: grab;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .handle::before {
+    content: '';
+    inline-size: var(--_handle-width);
+    block-size: var(--_handle-height);
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--_handle-color);
+  }
+
+  .handle:active {
+    cursor: grabbing;
+  }
+
+  .handle:focus-visible {
+    outline: var(--_focus-indicator-thickness) solid var(--_focus-indicator-color);
+    outline-offset: calc(-1 * var(--_focus-indicator-thickness));
+  }
+
+  .header {
+    display: flex;
+    flex: none;
+    gap: 8px;
+    align-items: center;
+    padding: 16px 24px;
+  }
+
+  /* The close button sits in the header's end padding, so its icon lines up with the page's. */
+  .root[data-side='start'] .header,
+  .root[data-side='end'] .header {
+    padding-inline-end: 12px;
+  }
+
+  .root[data-side='bottom'] .header {
+    padding-block-start: 0;
+  }
+
+  .headline {
+    flex: 1;
+    min-inline-size: 0;
+    margin: 0;
+    color: var(--_headline-color);
+    font: var(--_headline-font);
+    letter-spacing: var(--_headline-font-tracking);
+  }
+
+  .body {
+    flex: 1;
+    min-block-size: 0;
+    padding-inline: 24px;
+    padding-block: 0 24px;
+    overflow-y: auto;
+  }
+
+  .actions {
+    display: flex;
+    flex: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 16px 24px 24px;
+    border-block-start: 1px solid var(--_divider-color);
+  }
+
+  .root[data-side='bottom'] .actions {
+    border-block-start: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root[data-open] {
+      border: 1px solid CanvasText;
+    }
+  }
+}

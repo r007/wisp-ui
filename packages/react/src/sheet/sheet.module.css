@@ -6,6 +6,16 @@
  * come from sheet.tokens.generated.module.css.
  */
 @layer wisp {
+  /*
+   * Material publishes headline tokens for the side sheet only. A bottom sheet's headline takes
+   * the same title style, set here at zero specificity so the side sheet's own tokens still win.
+   */
+  :where(.root) {
+    --_headline-color: var(--md-sys-color-on-surface);
+    --_headline-font: var(--md-sys-typescale-title-large);
+    --_headline-font-tracking: var(--md-sys-typescale-title-large-tracking);
+  }
+
   .root {
     --_scrim-opacity: var(--md-comp-sheet-scrim-opacity, 0.32);
     --_direction: 1;
