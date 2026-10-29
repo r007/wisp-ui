@@ -10,7 +10,7 @@ allowBuilds:
 
 # Single source of truth for dependency versions shared across workspace packages.
 catalog:
-  "@biomejs/biome": ^2.6.2
+  "@biomejs/biome": ^2.6.3
   "@changesets/cli": ^3.0.3
   "@material/material-color-utilities": ^0.4.0
   "@types/node": ^24.0.0
