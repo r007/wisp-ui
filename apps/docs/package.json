@@ -20,7 +20,7 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@babel/parser": "^7.29.9",
+    "@babel/parser": "^8.0.8",
     "@material-symbols/svg-400": "^0.48.1",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
